@@ -1,3 +1,9 @@
+nova (2011.1~bzr403-0ubuntu1) UNRELEASED; urgency=low
+
+  * New upstream snapshot.
+
+ -- Soren Hansen <soren@ubuntu.com>  Thu, 18 Nov 2010 16:25:46 +0100
+
 nova (0.9.1~bzr331-0ubuntu2) maverick; urgency=low
 
   * Add a minimal patch to ensure a string gets returned as an
