@@ -215,7 +215,7 @@ Description: OpenStack Compute - Nova - object store
 
 Package: nova-instancemonitor
 Architecture: all
-Depends: nova-common (= ${binary:Version}), ${python:Depends}, ${misc:Depends}
+Depends: python-rrdtool, nova-common (= ${binary:Version}), ${python:Depends}, ${misc:Depends}
 Description: Nova instance monitor
  OpenStack is free, open source software for building reliable cloud
  infrastructure.
