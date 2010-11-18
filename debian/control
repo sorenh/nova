@@ -3,7 +3,6 @@ Section: net
 Priority: extra
 Maintainer: Soren Hansen <soren@ubuntu.com>
 Build-Depends: debhelper (>= 7.0.50),
- redis-server (>=2:2.0.0~rc1),
  python-m2crypto,
  python-all
 Build-Depends-Indep: python-support, python-setuptools, python-sphinx,

@@ -26,7 +26,7 @@ override_dh_fixperms:
 	dh_fixperms -Xnova_sudoers
 
 override_dh_auto_test:
-	echo $(DEB_BUILD_OPTIONS) | grep nocheck || (python run_tests.py --redis_port=`debian/start-redis` ; kill `cat redis.pid`)
+	python run_tests.py
 
 override_dh_installinit:
 	dh_installinit --error-handler=true
