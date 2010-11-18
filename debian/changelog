@@ -1,0 +1,65 @@
+nova (0.9.1~bzr331-0ubuntu2) maverick; urgency=low
+
+  * Add a minimal patch to ensure a string gets returned as an
+    instance's internal ID. (LP: #657053)
+
+ -- Soren Hansen <soren@ubuntu.com>  Fri, 08 Oct 2010 23:16:58 +0200
+
+nova (0.9.1~bzr331-0ubuntu1) maverick; urgency=low
+
+  [ Soren Hansen ]
+  * New upstream snapshot (FFe ref: LP #645936)
+  * Add SQLAlchemy dependency.
+  * Specify that we want sqlite and we want it in
+    /var/lib/nova/nova.sqlite.
+  * Move "adduser nova libvirtd" to nova-compute.postinst.
+  * Add python-eventlet and python-routes dependencies.
+  * Make /bin/true our error handler for init scripts.
+  * Install nova-api-new as nova-api.
+  * Add nova-scheduler package.
+  * Add /bin/kill to sudoers.
+  * Make sure nova_sudoers has the correct mode, otherwise sudo gets
+    very upset.
+  * Add ebtables and gawk dependencies for nwfilter stuff to work.
+
+  [ Chuck Short ]
+  * Add dependency on lvm2 for nova-volume.
+  * Add lvm commands to sudoers list.
+
+ -- Soren Hansen <soren@ubuntu.com>  Tue, 21 Sep 2010 16:36:37 +0200
+
+nova (0.9.1~bzr265-0ubuntu1) maverick; urgency=low
+
+  * New upstream snapshot (FFe: LP: #628027)
+  * Install uml libvirt xml file.
+  * Add adduser as a dependency of nova-common so that we can create a
+    nova user.
+  * Create a nova user on install.
+  * Create a separate tmpdir for nova, so that we can limit calls to
+    chmod/chown to dirs and files in that directory.
+  * Add nova-network package.
+  * Add a sudoers file for nova, so that we don't have to run as root
+    anymore.
+  * Fix all init scripts to run their respective daemons as nova.
+  * Update nova-compute flag file to account for moved libvirt
+    templates.
+  * Make all init scripts create /var/run/nova.
+  * Move all pidfiles into /var/run/nova.
+  * Make all daemons create a log file in /var/log/nova.
+  * Respect DEB_BUILD_OPTIONS=nocheck.
+  * Add a logrotate config file.
+
+ -- Soren Hansen <soren@ubuntu.com>  Tue, 07 Sep 2010 13:12:10 +0200
+
+nova (0.9.1~bzr204-0ubuntu2) maverick; urgency=low
+
+  * Make sure debian/start-redis is executable.
+
+ -- Soren Hansen <soren@ubuntu.com>  Sat, 07 Aug 2010 11:38:30 +0200
+
+nova (0.9.1~bzr204-0ubuntu1) maverick; urgency=low
+
+  * First OpenStack release.
+
+ -- Soren Hansen <soren@ubuntu.com>  Wed, 04 Aug 2010 13:27:50 +0200
+

@@ -1,0 +1,4 @@
+usr/bin/nova-network
+usr/bin/nova-dhcpbridge
+debian/nova-dhcpbridge.conf etc/nova
+debian/nova-network.conf etc/nova

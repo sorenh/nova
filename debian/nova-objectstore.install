@@ -1,0 +1,2 @@
+usr/bin/nova-objectstore
+debian/nova-objectstore.conf etc/nova

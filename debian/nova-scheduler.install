@@ -1,0 +1,2 @@
+usr/bin/nova-scheduler
+debian/nova-scheduler.conf etc/nova

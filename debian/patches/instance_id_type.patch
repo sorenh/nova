@@ -1,0 +1,20 @@
+revno: 332
+fixes bug(s): https://launchpad.net/bugs/656012
+committer: David Pravec <alekibango@danix.org>
+branch nick: lp656012
+timestamp: Thu 2010-10-07 04:10:45 +0200
+message:
+  instance.name is expected to be a string, not an integer!
+diff:
+=== modified file 'nova/db/sqlalchemy/models.py'
+--- old/nova/db/sqlalchemy/models.py	2010-10-05 14:55:31 +0000
++++ new/nova/db/sqlalchemy/models.py	2010-10-07 02:10:45 +0000
+@@ -169,7 +169,7 @@
+ 
+     @property
+     def name(self):
+-        return self.internal_id
++        return str(self.internal_id)
+ 
+     image_id = Column(String(255))
+     kernel_id = Column(String(255))
