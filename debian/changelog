@@ -10,6 +10,7 @@ nova (2011.1~bzr403-0ubuntu1) UNRELEASED; urgency=low
   [Chuck Short]
   * debian/control: 
    - Add option to use user-mode-linux
+   - Add python-greenlet as a build dependency.
 
  -- Soren Hansen <soren@ubuntu.com>  Thu, 18 Nov 2010 16:25:46 +0100
 
