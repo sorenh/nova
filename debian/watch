@@ -1,3 +1,5 @@
 version=3
-http://launchpad.net/nova http://launchpad.net/nova/trunk/.*/nova-(.*)\.tar\.gz
+http://nova.openstack.org/tarballs/ nova-(.*).tar.gz
+http://nova.openstack.org/tarballs/ nova-(.*).tar.gz
+
 
