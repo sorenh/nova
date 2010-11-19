@@ -9,8 +9,6 @@ nova (2011.1~bzr403-0ubuntu1) UNRELEASED; urgency=low
  
   [Chuck Short]
   * debian/control: 
-   - Add option to use user-mode-linux
-   - Update maintainer according to spec.
    - Add dependency to python-rrdtool so that nova-instancemonitor doesnt complain about missing python modules
      when starting.
   * debian/nova-common.install: Add missing templates.
