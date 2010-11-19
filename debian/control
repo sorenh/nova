@@ -8,7 +8,7 @@ Build-Depends: debhelper (>= 7.0.50),
 Build-Depends-Indep: python-support, python-setuptools, python-sphinx,
  python-twisted-web, python-redis, python-gflags, python-mox, python-tornado,
  python-carrot, python-boto, python-amqplib, python-ipy, openssh-client,
- python-sqlalchemy, python-eventlet, python-routes
+ python-sqlalchemy, python-eventlet, python-routes, python-webob
 Standards-Version: 3.9.0
 XS-Python-Version: 2.6
 Homepage: http://launchpad.net/nova
@@ -23,7 +23,7 @@ Depends: ${python:Depends}, aoetools, vlan, python-ipy, python-boto,
  python-m2crypto, python-pycurl, python-twisted-core, python-twisted-web, python-daemon,
  python-redis, python-carrot, python-lockfile, python-gflags, python-tornado,
  python-libxml2, python-ldap, python-sqlalchemy, python-eventlet,
- python-routes, ${misc:Depends}
+ python-routes, python-webob, ${misc:Depends}
 Provides: ${python:Provides}
 Description: OpenStack Compute - Nova - Python libraries
  OpenStack is free, open source software for building reliable cloud
