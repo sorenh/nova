@@ -12,7 +12,7 @@ nova (2011.1~bzr403-0ubuntu1) UNRELEASED; urgency=low
    - Add dependency to python-rrdtool so that nova-instancemonitor doesnt complain about missing python modules
      when starting.
   * debian/nova-common.install: Add missing templates.
-  * debian/nova-*.conf: Update configs due to changes to nova-api.
+  * debian/nova-*.conf: Update flagfiles to handle upstream changes.
   * Dropped start-redis since we dont do redis anymore.
 
  -- Soren Hansen <soren@ubuntu.com>  Thu, 18 Nov 2010 16:25:46 +0100
