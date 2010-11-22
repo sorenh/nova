@@ -6,6 +6,7 @@ nova (2011.1~bzr403-0ubuntu1) UNRELEASED; urgency=low
   * Clean out patch-branches (everything is upstream now).
   * Remove redis-server as a build-depends and don't start it for tests
     anymore.
+  * Add missing dependency on python-webob.
  
   [Chuck Short]
   * debian/control: 
