@@ -1,11 +1,20 @@
 nova (2011.1~bzr403-0ubuntu1) UNRELEASED; urgency=low
 
+  [Soren Hansen]
   * New upstream snapshot.
   * Added the new tarballs page to debian/watch.
   * Clean out patch-branches (everything is upstream now).
   * Remove redis-server as a build-depends and don't start it for tests
     anymore.
   * Add missing dependency on python-webob.
+
+  [Chuck Short]
+  * debian/control:
+   - Add dependency to python-rrdtool so that nova-instancemonitor
+     doesnt complain about missing python modules when starting.
+  * debian/nova-common.install: Add missing templates.
+  * debian/nova-*.conf: Update flagfiles to handle upstream changes.
+  * Dropped start-redis since we dont do redis anymore.
 
  -- Soren Hansen <soren@ubuntu.com>  Thu, 18 Nov 2010 16:25:46 +0100
 
