@@ -5,7 +5,7 @@ nova/cloudpipe/client.ovpn.template   		usr/share/nova
 nova/virt/libvirt.qemu.xml.template   		usr/share/nova
 nova/virt/libvirt.rescue.qemu.xml.template   	usr/share/nova
 nova/virt/libvirt.uml.xml.template    		usr/share/nova
-nova/virt/libvirt.rescue.ml.xml.template    	usr/share/nova
+nova/virt/libvirt.rescue.uml.xml.template    	usr/share/nova
 nova/virt/libvirt.xen.xml.template		usr/share/nova
 nova/virt/libvirt.rescue.xen.xml.template	usr/share/nova
 nova/virt/interfaces.template         		usr/share/nova
