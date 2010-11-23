@@ -9,6 +9,8 @@ nova (2011.1~bzr411-0ubuntu1) UNRELEASED; urgency=low
   * Add missing dependency on python-webob.
   * Force a python-support run (so avoid deferring it until dpkg
     triggers run). (LP: #660428)
+  * Remove build and runtime dependencies on python-tornado. It's not
+    needed anymore.
 
   [ Chuck Short ]
   * debian/control:
