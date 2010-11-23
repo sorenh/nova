@@ -1,0 +1,102 @@
+=== modified file 'bin/nova-compute'
+Index: natty/bin/nova-compute
+===================================================================
+--- natty.orig/bin/nova-compute	2010-11-23 14:04:15.112589002 +0100
++++ natty/bin/nova-compute	2010-11-23 14:04:28.762589002 +0100
+@@ -34,10 +34,12 @@
+ 
+ from nova import service
+ from nova import twistd
++from nova import utils
+ 
+ 
+ if __name__ == '__main__':
+     twistd.serve(__file__)
+ 
+ if __name__ == '__builtin__':
++    utils.default_flagfile()
+     application = service.Service.create()  # pylint: disable=C0103
+Index: natty/bin/nova-instancemonitor
+===================================================================
+--- natty.orig/bin/nova-instancemonitor	2010-11-23 14:04:15.152589002 +0100
++++ natty/bin/nova-instancemonitor	2010-11-23 14:04:28.762589002 +0100
+@@ -34,6 +34,7 @@
+ if os.path.exists(os.path.join(possible_topdir, 'nova', '__init__.py')):
+     sys.path.insert(0, possible_topdir)
+ 
++from nova import utils
+ from nova import twistd
+ from nova.compute import monitor
+ 
+@@ -44,6 +45,7 @@
+     twistd.serve(__file__)
+ 
+ if __name__ == '__builtin__':
++    utils.default_flagfile()
+     logging.warn('Starting instance monitor')
+     # pylint: disable-msg=C0103
+     monitor = monitor.InstanceMonitor()
+Index: natty/bin/nova-manage
+===================================================================
+--- natty.orig/bin/nova-manage	2010-11-23 14:04:15.172589002 +0100
++++ natty/bin/nova-manage	2010-11-23 14:04:28.762589002 +0100
+@@ -467,7 +467,7 @@
+ 
+ def main():
+     """Parse options and call the appropriate class/method."""
+-    utils.default_flagfile('/etc/nova/nova-manage.conf')
++    utils.default_flagfile()
+     argv = FLAGS(sys.argv)
+ 
+     if FLAGS.verbose:
+Index: natty/bin/nova-network
+===================================================================
+--- natty.orig/bin/nova-network	2010-11-23 14:04:15.162589002 +0100
++++ natty/bin/nova-network	2010-11-23 14:04:28.762589002 +0100
+@@ -34,10 +34,12 @@
+ 
+ from nova import service
+ from nova import twistd
++from nova import utils
+ 
+ 
+ if __name__ == '__main__':
+     twistd.serve(__file__)
+ 
+ if __name__ == '__builtin__':
++    utils.default_flagfile()
+     application = service.Service.create()  # pylint: disable-msg=C0103
+Index: natty/bin/nova-scheduler
+===================================================================
+--- natty.orig/bin/nova-scheduler	2010-11-23 14:04:15.132589002 +0100
++++ natty/bin/nova-scheduler	2010-11-23 14:04:28.772589002 +0100
+@@ -34,10 +34,12 @@
+ 
+ from nova import service
+ from nova import twistd
++from nova import utils
+ 
+ 
+ if __name__ == '__main__':
+     twistd.serve(__file__)
+ 
+ if __name__ == '__builtin__':
++    utils.default_flagfile()
+     application = service.Service.create()
+Index: natty/bin/nova-volume
+===================================================================
+--- natty.orig/bin/nova-volume	2010-11-23 14:04:15.142589002 +0100
++++ natty/bin/nova-volume	2010-11-23 14:04:28.772589002 +0100
+@@ -34,10 +34,12 @@
+ 
+ from nova import service
+ from nova import twistd
++from nova import utils
+ 
+ 
+ if __name__ == '__main__':
+     twistd.serve(__file__)
+ 
+ if __name__ == '__builtin__':
++    utils.default_flagfile()
+     application = service.Service.create()  # pylint: disable-msg=C0103

@@ -14,6 +14,9 @@ nova (2011.1~bzr412-0ubuntu1) UNRELEASED; urgency=low
   * logdir.patch: Add a --logdir option to workers so that they can all
     use the same flagfile. (lp:~soren/nova/logdir-flag)
   * Consolidate all the flagfiles into one.
+  * flagfile_location.patch: Patch from upstream to ensure all workers
+    have a consistent way of finding their flagfile.
+    (lp:~soren/nova/unify-default-flagfile-location)
 
   [ Chuck Short ]
   * debian/control:
