@@ -1,6 +1,6 @@
 nova (2011.1~bzr411-0ubuntu1) UNRELEASED; urgency=low
 
-  [Soren Hansen]
+  [ Soren Hansen ]
   * New upstream snapshot.
   * Added the new tarballs page to debian/watch.
   * Clean out patch-branches (everything is upstream now).
@@ -10,7 +10,7 @@ nova (2011.1~bzr411-0ubuntu1) UNRELEASED; urgency=low
   * Force a python-support run (so avoid deferring it until dpkg
     triggers run). (LP: #660428)
 
-  [Chuck Short]
+  [ Chuck Short ]
   * debian/control:
    - Add dependency to python-rrdtool so that nova-instancemonitor
      doesnt complain about missing python modules when starting.
