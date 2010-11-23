@@ -19,6 +19,8 @@ nova (2011.1~bzr412-0ubuntu1) UNRELEASED; urgency=low
     (lp:~soren/nova/unify-default-flagfile-location)
   * nova-manage_flagfile_location.patch: Make sure nova-manage uses
     /etc/nova/nova.conf by default.
+  * Add build and runtime dependency on openssl. It used to be pulled in
+    by python-tornado, but is actually used directly by nova.
 
   [ Chuck Short ]
   * debian/control:
