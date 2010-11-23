@@ -13,6 +13,7 @@ nova (2011.1~bzr412-0ubuntu1) UNRELEASED; urgency=low
     needed anymore.
   * logdir.patch: Add a --logdir option to workers so that they can all
     use the same flagfile. (lp:~soren/nova/logdir-flag)
+  * Consolidate all the flagfiles into one.
 
   [ Chuck Short ]
   * debian/control:

@@ -13,7 +13,7 @@
 set -e
 
 DAEMON=/usr/bin/nova-scheduler
-DAEMON_ARGS="--flagfile=/etc/nova/nova-scheduler.conf"
+DAEMON_ARGS="--flagfile=/etc/nova/nova.conf"
 PIDFILE=/var/run/nova/nova-scheduler.pid
 
 ENABLED=true

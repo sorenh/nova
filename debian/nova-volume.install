@@ -1,2 +1,1 @@
 usr/bin/nova-volume
-debian/nova-volume.conf etc/nova

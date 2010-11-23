@@ -13,7 +13,7 @@
 set -e
 
 DAEMON=/usr/bin/nova-instancemonitor
-DAEMON_ARGS="--flagfile=/etc/nova.conf"
+DAEMON_ARGS="--flagfile=/etc/nova/nova.conf"
 PIDFILE=/var/run/nova/nova-instancemonitor.pid
 
 ENABLED=false
