@@ -1,4 +1,4 @@
-nova (2011.1~bzr411-0ubuntu1) UNRELEASED; urgency=low
+nova (2011.1~bzr412-0ubuntu1) UNRELEASED; urgency=low
 
   [ Soren Hansen ]
   * New upstream snapshot.
@@ -11,6 +11,8 @@ nova (2011.1~bzr411-0ubuntu1) UNRELEASED; urgency=low
     triggers run). (LP: #660428)
   * Remove build and runtime dependencies on python-tornado. It's not
     needed anymore.
+  * logdir.patch: Add a --logdir option to workers so that they can all
+    use the same flagfile. (lp:~soren/nova/logdir-flag)
 
   [ Chuck Short ]
   * debian/control:
@@ -20,7 +22,7 @@ nova (2011.1~bzr411-0ubuntu1) UNRELEASED; urgency=low
   * debian/nova-*.conf: Update flagfiles to handle upstream changes.
   * Dropped start-redis since we dont do redis anymore.
 
- -- Soren Hansen <soren@ubuntu.com>  Thu, 18 Nov 2010 16:25:46 +0100
+ -- Soren Hansen <soren@ubuntu.com>  Tue, 23 Nov 2010 11:17:09 +0100
 
 nova (0.9.1~bzr331-0ubuntu2) maverick; urgency=low
 

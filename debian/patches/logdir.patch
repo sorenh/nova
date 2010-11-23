@@ -1,0 +1,44 @@
+=== modified file 'nova/server.py'
+Index: natty/nova/server.py
+===================================================================
+--- natty.orig/nova/server.py	2010-11-23 14:04:15.202589002 +0100
++++ natty/nova/server.py	2010-11-23 14:04:18.032589002 +0100
+@@ -42,6 +42,7 @@
+ #              clutter.
+ flags.DEFINE_bool('use_syslog', True, 'output to syslog when daemonizing')
+ flags.DEFINE_string('logfile', None, 'log file to output to')
++flags.DEFINE_string('logdir',  None, 'directory to keep log files in (will be prepended to $logfile)')
+ flags.DEFINE_string('pidfile', None, 'pid file to output to')
+ flags.DEFINE_string('working_directory', './', 'working directory...')
+ flags.DEFINE_integer('uid', os.getuid(), 'uid under which to run')
+@@ -119,6 +120,8 @@
+         else:
+             if not FLAGS.logfile:
+                 FLAGS.logfile = '%s.log' % name
++            if FLAGS.logdir:
++                FLAGS.logfile = os.path.join(FLAGS.logdir, FLAGS.logfile)
+             logfile = logging.FileHandler(FLAGS.logfile)
+             logfile.setFormatter(formatter)
+             logger.addHandler(logfile)
+Index: natty/nova/twistd.py
+===================================================================
+--- natty.orig/nova/twistd.py	2010-11-23 14:04:15.212589002 +0100
++++ natty/nova/twistd.py	2010-11-23 14:04:18.032589002 +0100
+@@ -43,7 +43,7 @@
+ 
+ 
+ FLAGS = flags.FLAGS
+-
++flags.DEFINE_string('logdir',  None, 'directory to keep log files in (will be prepended to $logfile)')
+ 
+ class TwistdServerOptions(ServerOptions):
+     def parseArgs(self, *args):
+@@ -246,6 +246,8 @@
+         FLAGS.logfile = '%s.log' % name
+     elif FLAGS.logfile.endswith('twistd.log'):
+         FLAGS.logfile = FLAGS.logfile.replace('twistd.log', '%s.log' % name)
++    if FLAGS.logdir:
++        FLAGS.logfile = os.path.join(FLAGS.logdir, FLAGS.logfile)
+     if not FLAGS.prefix:
+         FLAGS.prefix = name
+     elif FLAGS.prefix.endswith('twisted'):
