@@ -17,6 +17,8 @@ nova (2011.1~bzr412-0ubuntu1) UNRELEASED; urgency=low
   * flagfile_location.patch: Patch from upstream to ensure all workers
     have a consistent way of finding their flagfile.
     (lp:~soren/nova/unify-default-flagfile-location)
+  * nova-manage_flagfile_location.patch: Make sure nova-manage uses
+    /etc/nova/nova.conf by default.
 
   [ Chuck Short ]
   * debian/control:
