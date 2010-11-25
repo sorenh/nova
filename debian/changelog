@@ -5,6 +5,7 @@ nova (2011.1~bzr412-0ubuntu2) UNRELEASED; urgency=low
 
   [ Soren Hansen ]
   * Removed logdir.patch. Merged upstream.
+  * Drop flagfile_location.patch: Merged upstream.
 
  -- Chuck Short <zulcss@ubuntu.com>  Tue, 23 Nov 2010 11:56:50 -0500
 
