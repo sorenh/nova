@@ -4,7 +4,8 @@ Priority: extra
 Maintainer: Soren Hansen <soren@ubuntu.com>
 Build-Depends: debhelper (>= 7.0.50),
  python-m2crypto,
- python-all
+ python-all,
+ dh-apport
 Build-Depends-Indep: python-support, python-setuptools, python-sphinx,
  python-twisted-web, python-redis, python-gflags, python-mox, openssl,
  python-carrot, python-boto, python-amqplib, python-ipy, openssh-client,
