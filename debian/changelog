@@ -8,6 +8,8 @@ nova (2011.1~bzr425-0ubuntu1) UNRELEASED; urgency=low
   * Drop flagfile_location.patch: Merged upstream.
   * Use new --state_path flag and weed out the many direct references to
     /var/lib/nova.
+  * Leave it to upstream's 'setup.py install' to install templates.
+    Remove explicit paths from nova.conf.
 
  -- Chuck Short <zulcss@ubuntu.com>  Tue, 23 Nov 2010 11:56:50 -0500
 
