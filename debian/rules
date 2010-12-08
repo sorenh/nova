@@ -9,7 +9,7 @@ DEB_PYTHON_SYSTEM=pysupport
 #export DH_VERBOSE=1
 
 %:
-	dh --with apport $@
+	dh $@
 
 override_dh_auto_build:
 	dh_auto_build
