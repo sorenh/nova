@@ -2,7 +2,7 @@ nova (2011.1~bzr425-0ubuntu1) UNRELEASED; urgency=low
 
   [ Chuck Short ]
   * New upstream snapshot.
-  * debian/rules, debian/control, debian/nova-api.apport: 
+  * debian/rules, debian/control, debian/source.apport:
     Add apport hook.
 
   [ Soren Hansen ]
