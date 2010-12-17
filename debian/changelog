@@ -1,11 +1,11 @@
 nova (2011.1~bzr456-0ubuntu1) UNRELEASED; urgency=low
 
   [ Chuck Short ]
-  [Chuck Short]
-  * New upstream snapshot. 
+  * New upstream snapshot.
 
   [ Soren Hansen ]
   * Add dependency on sudo.
+  * Add upstart jobs for everything.
 
  -- Chuck Short <zulcss@ubuntu.com>  Mon, 13 Dec 2010 10:22:13 -0500
 
