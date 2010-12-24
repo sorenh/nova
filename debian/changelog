@@ -6,6 +6,7 @@ nova (2011.1~bzr456-0ubuntu1) UNRELEASED; urgency=low
   [ Soren Hansen ]
   * Add dependency on sudo.
   * Add upstart jobs for everything.
+  * Adjust test run for nosetests newness.
 
   [ Rick Clark ]
   * Add dependency on python-cheetah
