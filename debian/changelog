@@ -7,6 +7,7 @@ nova (2011.1~bzr456-0ubuntu1) UNRELEASED; urgency=low
   * Add dependency on sudo.
   * Add upstart jobs for everything.
   * Adjust test run for nosetests newness.
+  * Quiet nova-compute's postinst script.
 
   [ Rick Clark ]
   * Add dependency on python-cheetah
