@@ -17,6 +17,9 @@ nova (2011.1~bzr456-0ubuntu1) UNRELEASED; urgency=low
 
   [ Rick Clark ]
   * Add dependency on python-cheetah
+  * Added iscsi target admin tool to sudoers file.
+  * Specified log for nova-objectstore.
+  * Set verbose logging in nova.conf.
 
  -- Chuck Short <zulcss@ubuntu.com>  Mon, 13 Dec 2010 10:22:13 -0500
 
