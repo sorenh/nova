@@ -5,11 +5,25 @@ Maintainer: Soren Hansen <soren@ubuntu.com>
 Build-Depends: debhelper (>= 7.0.50),
  python-m2crypto,
  python-all
-Build-Depends-Indep: python-support, python-setuptools, python-sphinx,
- python-twisted-web, python-redis, python-gflags, python-mox, openssl,
- python-carrot, python-boto, python-amqplib, python-ipy, openssh-client,
- python-sqlalchemy, python-eventlet, python-routes, python-webob,
- python-cheetah, python-nose
+Build-Depends-Indep: python-support,
+ python-setuptools,
+ python-sphinx,
+ python-twisted-web,
+ python-redis,
+ python-gflags,
+ python-mox,
+ openssl,
+ python-carrot,
+ python-boto,
+ python-amqplib,
+ python-ipy,
+ openssh-client,
+ python-sqlalchemy,
+ python-eventlet,
+ python-routes,
+ python-webob,
+ python-cheetah,
+ python-nose
 Standards-Version: 3.9.0
 XS-Python-Version: 2.6
 Homepage: http://launchpad.net/nova
@@ -20,11 +34,30 @@ Vcs-Bzr: http://bazaar.launchpad.net/~nova-core/nova/debian-packaging/
 Package: python-nova
 Architecture: all
 Section: python
-Depends: ${python:Depends}, aoetools, vlan, python-ipy, python-boto,
- python-m2crypto, python-pycurl, python-twisted-core, python-twisted-web, python-daemon,
- python-redis, python-carrot, python-lockfile, python-gflags, openssl,
- python-libxml2, python-ldap, python-sqlalchemy, python-eventlet,
- python-routes, python-webob, python-cheetah, sudo, ${misc:Depends}
+Depends: ${python:Depends},
+ aoetools,
+ vlan,
+ python-ipy,
+ python-boto,
+ python-m2crypto,
+ python-pycurl,
+ python-twisted-core,
+ python-twisted-web,
+ python-daemon,
+ python-redis,
+ python-carrot,
+ python-lockfile,
+ python-gflags,
+ openssl,
+ python-libxml2,
+ python-ldap,
+ python-sqlalchemy,
+ python-eventlet,
+ python-routes,
+ python-webob,
+ python-cheetah,
+ sudo,
+ ${misc:Depends}
 Provides: ${python:Provides}
 Description: OpenStack Compute - Nova - Python libraries
  OpenStack is free, open source software for building reliable cloud
