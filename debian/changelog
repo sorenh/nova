@@ -8,6 +8,8 @@ nova (2011.1~bzr456-0ubuntu1) UNRELEASED; urgency=low
   * Add upstart jobs for everything.
   * Adjust test run for nosetests newness.
   * Quiet nova-compute's postinst script.
+  * Change the dependency on sqlalchemy to ensure the C extension gets
+    installed for versions of the package where that was split out.
 
   [ Rick Clark ]
   * Add dependency on python-cheetah
