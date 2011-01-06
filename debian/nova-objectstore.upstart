@@ -15,5 +15,5 @@ script
     PIDFILE=/var/run/nova/nova-objectstore.pid
     uid="$(getent passwd nova | cut -f3 -d:)"
     gid="$(getent passwd nova | cut -f4 -d:)"
-    nova-objectstore --uid $uid --gid $gid --pidfile $PIDFILE --flagfile=/etc/nova/nova.conf --nodaemon
+    nova-objectstore --uid $uid --gid $gid --pidfile $PIDFILE --flagfile=/etc/nova/nova.conf --nodaemon --logfile=/var/log/nova/nova-objectstore.log
 end script
