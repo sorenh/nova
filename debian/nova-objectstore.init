@@ -23,7 +23,7 @@ if test -f /etc/default/nova-objectstore; then
 fi
 
 mkdir -p /var/run/nova
-chown nova:nogroup /var/run/nova
+chown nova:root /var/run/nova
 
 uid="$(getent passwd nova | cut -f3 -d:)"
 gid="$(getent passwd nova | cut -f4 -d:)"

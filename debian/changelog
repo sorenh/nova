@@ -10,6 +10,10 @@ nova (2011.1~bzr456-0ubuntu1) UNRELEASED; urgency=low
   * Quiet nova-compute's postinst script.
   * Change the dependency on sqlalchemy to ensure the C extension gets
     installed for versions of the package where that was split out.
+  * Don't chgrp anything to the 'nogroup' group. The whole idea of the
+    nogroup group is that it doesn't own anything, so only being a
+    member of that shouldn't grant you access to anything. Making dirs
+    and files owned by nogroup messes this up.
 
   [ Rick Clark ]
   * Add dependency on python-cheetah

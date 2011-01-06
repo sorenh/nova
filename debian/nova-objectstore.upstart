@@ -8,7 +8,7 @@ chdir /var/run
 
 pre-start script
     mkdir -p /var/run/nova
-    chown nova:nogroup /var/run/nova
+    chown nova:root /var/run/nova
 end script
 
 script
