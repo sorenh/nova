@@ -1,7 +1,9 @@
 === modified file 'bin/nova-manage'
---- old/bin/nova-manage	2010-11-23 10:45:56 +0000
-+++ new/bin/nova-manage	2010-11-23 10:47:26 +0000
-@@ -467,7 +467,7 @@
+Index: nova-2011.1~bzr529/bin/nova-manage
+===================================================================
+--- nova-2011.1~bzr529.orig/bin/nova-manage	2011-01-07 23:23:25.574106001 +0100
++++ nova-2011.1~bzr529/bin/nova-manage	2011-01-07 23:24:38.404106001 +0100
+@@ -553,7 +553,7 @@
  
  def main():
      """Parse options and call the appropriate class/method."""
@@ -9,5 +11,4 @@
 +    utils.default_flagfile('/etc/nova/nova.conf')
      argv = FLAGS(sys.argv)
  
-     if FLAGS.verbose:
-
+     script_name = argv.pop(0)

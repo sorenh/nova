@@ -14,6 +14,7 @@ nova (2011.1~bzr456-0ubuntu1) UNRELEASED; urgency=low
     nogroup group is that it doesn't own anything, so only being a
     member of that shouldn't grant you access to anything. Making dirs
     and files owned by nogroup messes this up.
+  * Update nova-manage patch.
 
   [ Rick Clark ]
   * Add dependency on python-cheetah
