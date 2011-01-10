@@ -5,6 +5,8 @@ Cmnd_Alias NOVACMDS = /bin/chmod /var/lib/nova/tmp/*/root/.ssh, \
                       /sbin/ifconfig,                           \
                       /sbin/ip,                                 \
                       /sbin/iptables,                           \
+                      /sbin/iptables-save,                      \
+                      /sbin/iptables-restore,                   \
                       /sbin/kpartx,                             \
                       /sbin/losetup,                            \
                       /sbin/lvcreate,                           \
