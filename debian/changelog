@@ -19,6 +19,7 @@ nova (2011.1~bzr456-0ubuntu1) UNRELEASED; urgency=low
   * Create a logrotate config for each daemon. Make them restart the
     service after rotation.
   * Drop python-redis dependency.
+  * Change python compatibility from "2.6" to "2.6-"
 
   [ Rick Clark ]
   * Add dependency on python-cheetah
