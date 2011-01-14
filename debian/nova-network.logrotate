@@ -1,0 +1,7 @@
+/var/log/nova/nova-network.log {
+    daily
+    missingok
+    postrotate
+        restart nova-network
+    endscript
+}

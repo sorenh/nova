@@ -1,0 +1,7 @@
+/var/log/nova/nova-volume.log {
+    daily
+    missingok
+    postrotate
+        restart nova-volume
+    endscript
+}

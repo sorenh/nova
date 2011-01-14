@@ -16,6 +16,8 @@ nova (2011.1~bzr456-0ubuntu1) UNRELEASED; urgency=low
     and files owned by nogroup messes this up.
   * Update nova-manage patch.
   * Add iptables-{restore,save} to sudoers file.
+  * Create a logrotate config for each daemon. Make them restart the
+    service after rotation.
 
   [ Rick Clark ]
   * Add dependency on python-cheetah

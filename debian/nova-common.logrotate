@@ -1,5 +1,0 @@
-/var/log/nova/*.log {
-    daily
-    missingok
-    postrotate
-}
