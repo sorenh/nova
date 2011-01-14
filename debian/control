@@ -57,6 +57,7 @@ Depends: ${python:Depends},
  python-routes,
  python-webob,
  python-cheetah,
+ python-netaddr,
  sudo,
  ${misc:Depends}
 Provides: ${python:Provides}
