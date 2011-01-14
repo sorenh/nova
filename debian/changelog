@@ -18,6 +18,7 @@ nova (2011.1~bzr456-0ubuntu1) UNRELEASED; urgency=low
   * Add iptables-{restore,save} to sudoers file.
   * Create a logrotate config for each daemon. Make them restart the
     service after rotation.
+  * Drop python-redis dependency.
 
   [ Rick Clark ]
   * Add dependency on python-cheetah
