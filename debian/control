@@ -23,7 +23,8 @@ Build-Depends-Indep: python-support,
  python-routes,
  python-webob,
  python-cheetah,
- python-nose
+ python-nose,
+ python-netaddr
 Standards-Version: 3.9.0
 XS-Python-Version: 2.6
 Homepage: http://launchpad.net/nova
