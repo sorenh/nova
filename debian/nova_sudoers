@@ -19,6 +19,7 @@ Cmnd_Alias NOVACMDS = /bin/chmod /var/lib/nova/tmp/*/root/.ssh, \
                       /bin/umount,                              \
                       /sbin/vgcreate,                           \
                       /usr/bin/virsh,                           \
+                      /usr/bin/qemu-nbd,                        \
                       /usr/sbin/brctl,                          \
                       /usr/sbin/vblade-persist,                 \
                       /sbin/pvcreate,                           \

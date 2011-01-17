@@ -32,7 +32,10 @@ nova (2011.1~bzr456-0ubuntu1) UNRELEASED; urgency=low
   [ Monty Taylor ]
   * Add dependency on python-netaddr
 
- -- Monty Taylor <mordred@inaugust.com>  Fri, 14 Jan 2011 00:22:10 -0800
+  [ Thierry Carrez (ttx) ]
+  * Added qemu-nbd to nova_sudoers
+
+ -- Thierry Carrez (ttx) <thierry@openstack.org>  Mon, 17 Jan 2011 16:36:21 +0100
 
 nova (2011.1~bzr456-0ubuntu1) natty; urgency=low
 
