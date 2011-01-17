@@ -154,7 +154,7 @@ Description: OpenStack Compute - Nova - Scheduler
 
 Package: nova-volume
 Architecture: all
-Depends: nova-common (= ${binary:Version}), vblade, vblade-persist, lvm2, ${python:Depends}, ${misc:Depends}
+Depends: nova-common (= ${binary:Version}), vblade, vblade-persist, lvm2, aoetools, open-iscsi, ${python:Depends}, ${misc:Depends}
 Description: OpenStack Compute - Nova - storage
  OpenStack is free, open source software for building reliable cloud
  infrastructure.
