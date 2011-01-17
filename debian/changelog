@@ -2,6 +2,7 @@ nova (2011.1~bzr570-0ubuntu1) UNRELEASED; urgency=low
 
   [ Chuck Short ]
   * New upstream snapshot.
+  * Add socat, iscsiadm, and vgs to nova_sudoers.
 
   [ Soren Hansen ]
   * Add dependency on sudo.
