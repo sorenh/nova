@@ -3,7 +3,8 @@ nova (2011.1~bzr570-0ubuntu1) UNRELEASED; urgency=low
   [ Chuck Short ]
   * New upstream snapshot.
   * Add socat, iscsiadm, and vgs to nova_sudoers.
-  * Add aoetools, open-iscsiadmin to dependencies for python-volume.
+  * Add aoetools, open-iscsi to dependencies for nova-volume.
+  * Add socat to dependencies for nova-network.
 
   [ Soren Hansen ]
   * Add dependency on sudo.

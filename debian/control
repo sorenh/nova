@@ -200,7 +200,7 @@ Description: OpenStack Compute - Nova - API frontend
 
 Package: nova-network
 Architecture: all
-Depends: nova-common (= ${binary:Version}), ${python:Depends}, ${misc:Depends}
+Depends: socat, nova-common (= ${binary:Version}), ${python:Depends}, ${misc:Depends}
 Description: OpenStack Compute - Nova - Network thingamajig
  OpenStack is free, open source software for building reliable cloud
  infrastructure.
