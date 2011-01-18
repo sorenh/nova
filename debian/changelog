@@ -27,6 +27,7 @@ nova (2011.1~bzr570-0ubuntu1) UNRELEASED; urgency=low
   * Change python compatibility from "2.6" to "2.6-"
   * Add launchpad page to watch file.
   * Set Python-Version control fields for python-nova.
+  * Add ip6tables-{save,restore} to sudoers file. (LP: #704458)
 
   [ Rick Clark ]
   * Add dependency on python-cheetah
