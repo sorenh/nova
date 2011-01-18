@@ -25,6 +25,8 @@ Build-Depends-Indep: python-support,
  python-nose,
  python-paste,
  python-patedeploy,
+ python-tempita,
+ python-migrate,
  python-netaddr
 Standards-Version: 3.9.0
 Homepage: http://launchpad.net/nova
