@@ -1,1 +1,2 @@
 usr/bin/nova-api
+etc/nova-api.conf etc/nova/
