@@ -5,7 +5,7 @@ Maintainer: Soren Hansen <soren@ubuntu.com>
 Build-Depends: debhelper (>= 7.0.50),
  python-m2crypto,
  python-all
-Build-Depends-Indep: python-support,
+Build-Depends-Indep:python-support,
  python-setuptools,
  python-sphinx,
  python-twisted-web,
@@ -27,7 +27,8 @@ Build-Depends-Indep: python-support,
  python-pastedeploy,
  python-tempita,
  python-migrate,
- python-netaddr
+ python-netaddr,
+ python-glance
 Standards-Version: 3.9.0
 Homepage: http://launchpad.net/nova
 Vcs-Browser: http://bazaar.launchpad.net/~nova-core/nova/debian-packaging/files
@@ -64,6 +65,7 @@ Depends: ${python:Depends},
  python-tempita,
  python-migrate,
  python-netaddr,
+ python-glance,
  sudo,
  ${misc:Depends}
 XB-Python-Version: ${python:Versions}

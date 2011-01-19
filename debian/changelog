@@ -28,6 +28,7 @@ nova (2011.1~bzr570-0ubuntu1) UNRELEASED; urgency=low
   * Add launchpad page to watch file.
   * Set Python-Version control fields for python-nova.
   * Add ip6tables-{save,restore} to sudoers file. (LP: #704458)
+  * Add python-glance dependency.
 
   [ Rick Clark ]
   * Add dependency on python-cheetah
