@@ -28,7 +28,8 @@ Build-Depends-Indep:python-support,
  python-tempita,
  python-migrate,
  python-netaddr,
- python-glance
+ python-glance,
+ pep8
 Standards-Version: 3.9.0
 Homepage: http://launchpad.net/nova
 Vcs-Browser: http://bazaar.launchpad.net/~nova-core/nova/debian-packaging/files
