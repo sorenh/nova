@@ -1,4 +1,4 @@
-nova (2011.1~bzr570-0ubuntu1) UNRELEASED; urgency=low
+nova (2011.1~bzr570-0ubuntu2) UNRELEASED; urgency=low
 
   [ Chuck Short ]
   * New upstream snapshot.
@@ -30,6 +30,7 @@ nova (2011.1~bzr570-0ubuntu1) UNRELEASED; urgency=low
   * Add ip6tables-{save,restore} to sudoers file. (LP: #704458)
   * Add python-glance dependency.
   * Include paste config for nova-api.
+  * Initialise database on initial install.
 
   [ Rick Clark ]
   * Add dependency on python-cheetah
@@ -43,7 +44,7 @@ nova (2011.1~bzr570-0ubuntu1) UNRELEASED; urgency=low
   [ Thierry Carrez (ttx) ]
   * Added qemu-nbd to nova_sudoers
 
- -- Thierry Carrez (ttx) <thierry@openstack.org>  Mon, 17 Jan 2011 16:36:21 +0100
+ -- Soren Hansen <soren@ubuntu.com>  Thu, 20 Jan 2011 20:33:51 +0100
 
 nova (2011.1~bzr456-0ubuntu1) natty; urgency=low
 

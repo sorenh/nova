@@ -6,6 +6,10 @@ if [ "$1" = "configure" ]; then
     fi
     chown -R nova:root /var/lib/nova /var/log/nova
 	chmod 0440 /etc/sudoers.d/nova_sudoers
+	if [ -z "$2" ]
+	then
+		su -c 'nova-manage db sync' nova
+	fi
 fi
 
 #DEBHELPER#
