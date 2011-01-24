@@ -11,6 +11,7 @@ chdir /var/run
 pre-start script
 	mkdir -p /var/run/nova
 	chown nova:root /var/run/nova
+	modprobe nbd
 end script
 
 exec su -c "nova-compute --flagfile=/etc/nova/nova.conf" nova >> /var/log/nova/nova-compute.log 2>&1
