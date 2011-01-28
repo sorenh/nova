@@ -1,9 +1,8 @@
-nova (2011.1~bzr638-0ubuntu1) UNRELEASED; urgency=low
+nova (2011.1~bzr638-0ubuntu1) natty; urgency=low
 
-  [Chuck Short]
   * New upstream snapshot. 
 
- -- Chuck Short <zulcss@ubuntu.com>  Fri, 28 Jan 2011 12:46:03 -0500
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 28 Jan 2011 13:41:00 -0500
 
 nova (2011.1~bzr597-0ubuntu1) natty; urgency=low
 
