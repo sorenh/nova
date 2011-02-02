@@ -70,6 +70,7 @@ Depends: ${python:Depends},
  sudo,
  ${misc:Depends}
 XB-Python-Version: ${python:Versions}
+Recommends: python-mysqldb
 Provides: ${python:Provides}
 Description: OpenStack Compute - Nova - Python libraries
  OpenStack is free, open source software for building reliable cloud
