@@ -2,6 +2,8 @@ nova (2011.1-0ubuntu1) UNRELEASED; urgency=low
 
   * New upstream release.
   * Add recommends to python-mysqldb (LP: #708511)
+  * Add dependency of iscsitarget to nova-volume and a sugestion to use 
+    sheepdog (LP: #708141)
 
  -- Chuck Short <zulcss@ubuntu.com>  Wed, 02 Feb 2011 08:22:04 -0500
 
