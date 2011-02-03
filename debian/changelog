@@ -1,4 +1,4 @@
-nova (2011.1-0ubuntu1) UNRELEASED; urgency=low
+nova (2011.1-0ubuntu1) natty; urgency=low
 
   * New upstream release.
   * Add recommends to python-mysqldb (LP: #708511)
@@ -6,7 +6,7 @@ nova (2011.1-0ubuntu1) UNRELEASED; urgency=low
     sheepdog (LP: #708141)
   * Suggest radvd for those who want to try ipv6.
 
- -- Chuck Short <zulcss@ubuntu.com>  Wed, 02 Feb 2011 08:22:04 -0500
+ -- Chuck Short <zulcss@ubuntu.com>  Thu, 03 Feb 2011 07:00:52 -0500
 
 nova (2011.1~bzr638-0ubuntu1) natty; urgency=low
 
