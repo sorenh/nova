@@ -29,6 +29,7 @@ Build-Depends-Indep:python-support,
  python-migrate,
  python-netaddr,
  python-glance,
+ python-paramiko,
  pep8
 Standards-Version: 3.9.0
 Homepage: http://launchpad.net/nova

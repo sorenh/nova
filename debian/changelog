@@ -2,6 +2,7 @@ nova (2011.1~bzrXXX-0ubuntu1) UNRELEASED; urgency=low
 
   [Chuck Short]
   * New upstream verison.
+  * Add python-paramiko to debian/control.
 
   [Soren Hansen]
   * Honour nocheck and nodocs in DEB_BUILD_OPTIONS.
