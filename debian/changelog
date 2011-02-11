@@ -1,7 +1,6 @@
 nova (2011.2~bzr663-0ubuntu1) natty; urgency=low
 
-  [ Soren Hansen ]
-  [Chuck Short]
+  [ Chuck Short ]
   * New upstream verison.
   * Add python-paramiko to debian/control.
 
@@ -9,7 +8,7 @@ nova (2011.2~bzr663-0ubuntu1) natty; urgency=low
   * Honour nocheck and nodocs in DEB_BUILD_OPTIONS.
   * Add /sbin/route to sudoers file.
 
- -- Chuck Short <zulcss@ubuntu.com>  Fri, 11 Feb 2011 10:26:33 -0500
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 11 Feb 2011 10:27:54 -0500
 
 nova (2011.1-0ubuntu2) natty; urgency=low
 
