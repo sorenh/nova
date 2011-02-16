@@ -1,7 +1,4 @@
 /var/log/nova/nova-compute.log {
     daily
     missingok
-    postrotate
-        restart nova-compute
-    endscript
 }

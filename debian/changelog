@@ -2,6 +2,8 @@ nova (2011.2~bzr663-0ubuntu2) UNRELEASED; urgency=low
 
   [ Soren Hansen ]
   * Rely on --logdir to find and use the correct logfile.
+  * Remove the postrotate magic for all but nova-objectstore. It is not
+    needed anymore due to using RotatingFileHandler for logging.
 
   [ Thierry Carrez ]
   * Ship adminclient in a separate package.
