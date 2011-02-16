@@ -93,6 +93,34 @@ Description: OpenStack Compute - Nova - Python libraries
  .
  This package contains the Python libraries.
 
+Package: python-nova.adminclient
+Architecture: all
+Section: python
+Depends: ${python:Depends},
+ python-boto,
+ ${misc:Depends}
+XB-Python-Version: ${python:Versions}
+Provides: ${python:Provides}
+Description: OpenStack Compute - Nova - Python adminclient library
+ OpenStack is free, open source software for building reliable cloud
+ infrastructure.
+ .
+ Nova is a cloud computing fabric controller (the main part of an IaaS
+ system) built to match the popular AWS EC2 and S3 APIs. It is written in
+ Python, using the Tornado and Twisted frameworks, and relies on the
+ standard AMQP messaging protocol, and the Redis KVS.
+ .
+ Nova is intended to be easy to extend, and adapt. For example, it
+ currently uses an LDAP server for users and groups, but also includes a
+ fake LDAP server, that stores data in Redis. It has extensive test
+ coverage, and uses the Sphinx toolkit (the same as Python itself) for code
+ and user documentation.
+ .
+ While Nova is currently in Beta use within several organizations, the
+ codebase is very much under active development.
+ .
+ This package contains the Python nova.adminclient library, for use by client
+ administration tools.
 
 Package: nova-common
 Architecture: all
