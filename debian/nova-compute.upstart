@@ -14,4 +14,4 @@ pre-start script
 	modprobe nbd
 end script
 
-exec su -c "nova-compute --flagfile=/etc/nova/nova.conf" nova >> /var/log/nova/nova-compute.log 2>&1
+exec su -c "nova-compute --flagfile=/etc/nova/nova.conf" nova
