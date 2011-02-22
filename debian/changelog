@@ -1,3 +1,9 @@
+nova (2011.2~bzr710-0ubuntu1) UNRELEASED; urgency=low
+
+  * Add python-distutils-extra as build-dep (for i18n)
+
+ -- Thierry Carrez (ttx) <thierry@openstack.org>  Tue, 22 Feb 2011 11:24:53 +0100
+
 nova (2011.2~bzr700-0ubuntu1) natty; urgency=low
 
   [ Chuck Short ]
