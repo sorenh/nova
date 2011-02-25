@@ -2,8 +2,9 @@ nova (2011.2~bzr710-0ubuntu1) UNRELEASED; urgency=low
 
   * Add python-distutils-extra as build-dep (for i18n)
   * Ship .mo files in /usr/share/locale
+  * Add lvdisplay to nova_sudoers, clean up dupe entries
 
- -- Thierry Carrez (ttx) <thierry@openstack.org>  Tue, 22 Feb 2011 14:13:33 +0100
+ -- Thierry Carrez (ttx) <thierry@openstack.org>  Fri, 25 Feb 2011 11:36:33 +0100
 
 nova (2011.2~bzr700-0ubuntu1) natty; urgency=low
 

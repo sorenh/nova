@@ -13,6 +13,7 @@ Cmnd_Alias NOVACMDS = /bin/chmod /var/lib/nova/tmp/*/root/.ssh, \
                       /sbin/kpartx,                             \
                       /sbin/losetup,                            \
                       /sbin/lvcreate,                           \
+                      /sbin/lvdisplay,                          \
                       /sbin/lvremove,                           \
                       /bin/mkdir,                               \
                       /bin/mount,                               \
@@ -28,8 +29,6 @@ Cmnd_Alias NOVACMDS = /bin/chmod /var/lib/nova/tmp/*/root/.ssh, \
                       /sbin/pvcreate,                           \
                       /sbin/aoe-discover,                       \
                       /sbin/vgcreate,                           \
-                      /sbin/lvremove,                           \
-                      /sbin/lvrcreate,                          \
                       /bin/aoe-stat,                            \
                       /bin/kill,                                \
                       /sbin/vconfig,                            \
