@@ -6,7 +6,7 @@ if [ "$1" = "configure" ]; then
     fi
     chown -R nova:root /var/lib/nova /var/log/nova
 	chmod 0440 /etc/sudoers.d/nova_sudoers
-	if [ -z "$2" ]
+	if ! grep -q sql_connection /etc/nova/nova.conf
 	then
 		su -c 'nova-manage db sync' nova
 	fi

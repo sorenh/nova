@@ -1,8 +1,13 @@
 nova (2011.2~bzr710-0ubuntu1) UNRELEASED; urgency=low
 
+  [ Thierry Carrez (ttx) ]
   * Add python-distutils-extra as build-dep (for i18n)
   * Ship .mo files in /usr/share/locale
   * Add lvdisplay to nova_sudoers, clean up dupe entries
+
+  [ Soren Hansen ]
+  * Always run "nova-manage db sync" from postinst, unless an explicit
+    sql_connection has been set in nova.conf. (LP: #705758)
 
  -- Thierry Carrez (ttx) <thierry@openstack.org>  Fri, 25 Feb 2011 11:36:33 +0100
 
