@@ -1,4 +1,8 @@
-nova (2011.2~bzr710-0ubuntu1) UNRELEASED; urgency=low
+nova (2011.2~bzr760-0ubuntu1) natty; urgency=low
+
+  [Chuck Short]
+  * New upstream version.
+  * Fix up typos in debian/control. (LP: #721414)
 
   [ Thierry Carrez (ttx) ]
   * Add python-distutils-extra as build-dep (for i18n)
@@ -9,7 +13,7 @@ nova (2011.2~bzr710-0ubuntu1) UNRELEASED; urgency=low
   * Always run "nova-manage db sync" from postinst, unless an explicit
     sql_connection has been set in nova.conf. (LP: #705758)
 
- -- Thierry Carrez (ttx) <thierry@openstack.org>  Fri, 25 Feb 2011 11:36:33 +0100
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 04 Mar 2011 10:19:52 -0500
 
 nova (2011.2~bzr700-0ubuntu1) natty; urgency=low
 

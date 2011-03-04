@@ -89,7 +89,7 @@ Description: OpenStack Compute - Nova - Python libraries
  coverage, and uses the Sphinx toolkit (the same as Python itself) for code
  and user documentation.
  .
- While Nova is currently in Beta use within several organizations, the
+ While Nova is currently in Beta and use within several organizations, the
  codebase is very much under active development.
  .
  This package contains the Python libraries.
@@ -111,13 +111,13 @@ Description: OpenStack Compute - Nova - Python adminclient library
  Python, using the Tornado and Twisted frameworks, and relies on the
  standard AMQP messaging protocol, and the Redis KVS.
  .
- Nova is intended to be easy to extend, and adapt. For example, it
+ Nova is intended to be easy to extend and adapt. For example, it
  currently uses an LDAP server for users and groups, but also includes a
  fake LDAP server, that stores data in Redis. It has extensive test
  coverage, and uses the Sphinx toolkit (the same as Python itself) for code
  and user documentation.
  .
- While Nova is currently in Beta use within several organizations, the
+ While Nova is currently in Beta and use within several organizations, the
  codebase is very much under active development.
  .
  This package contains the Python nova.adminclient library, for use by client
@@ -136,13 +136,13 @@ Description: OpenStack Compute - Nova - common files
  Python, using the Tornado and Twisted frameworks, and relies on the
  standard AMQP messaging protocol, and the Redis KVS.
  .
- Nova is intended to be easy to extend, and adapt. For example, it
+ Nova is intended to be easy to extend and adapt. For example, it
  currently uses an LDAP server for users and groups, but also includes a
  fake LDAP server, that stores data in Redis. It has extensive test
  coverage, and uses the Sphinx toolkit (the same as Python itself) for code
  and user documentation.
  .
- While Nova is currently in Beta use within several organizations, the
+ While Nova is currently in Beta and use within several organizations, the
  codebase is very much under active development.
  .
  This package contains things that are needed by all parts of Nova.
@@ -160,13 +160,13 @@ Description: OpenStack Compute - Nova - compute node
  Python, using the Tornado and Twisted frameworks, and relies on the
  standard AMQP messaging protocol, and the Redis KVS.
  .
- Nova is intended to be easy to extend, and adapt. For example, it
+ Nova is intended to be easy to extend and adapt. For example, it
  currently uses an LDAP server for users and groups, but also includes a
  fake LDAP server, that stores data in Redis. It has extensive test
  coverage, and uses the Sphinx toolkit (the same as Python itself) for code
  and user documentation.
  .
- While Nova is currently in Beta use within several organizations, the
+ While Nova is currently in Beta and use within several organizations, the
  codebase is very much under active development.
  .
  This is the package you will install on the nodes that will run your
@@ -184,13 +184,13 @@ Description: OpenStack Compute - Nova - Scheduler
  Python, using the Tornado and Twisted frameworks, and relies on the
  standard AMQP messaging protocol, and the Redis KVS.
  .
- Nova is intended to be easy to extend, and adapt. For example, it
+ Nova is intended to be easy to extend and adapt. For example, it
  currently uses an LDAP server for users and groups, but also includes a
  fake LDAP server, that stores data in Redis. It has extensive test
  coverage, and uses the Sphinx toolkit (the same as Python itself) for code
  and user documentation.
  .
- While Nova is currently in Beta use within several organizations, the
+ While Nova is currently in Beta and use within several organizations, the
  codebase is very much under active development.
  .
  This is the Nova scheduler
@@ -209,13 +209,13 @@ Description: OpenStack Compute - Nova - storage
  Python, using the Tornado and Twisted frameworks, and relies on the
  standard AMQP messaging protocol, and the Redis KVS.
  .
- Nova is intended to be easy to extend, and adapt. For example, it
+ Nova is intended to be easy to extend and adapt. For example, it
  currently uses an LDAP server for users and groups, but also includes a
  fake LDAP server, that stores data in Redis. It has extensive test
  coverage, and uses the Sphinx toolkit (the same as Python itself) for code
  and user documentation.
  .
- While Nova is currently in Beta use within several organizations, the
+ While Nova is currently in Beta and use within several organizations, the
  codebase is very much under active development.
  .
  This is the package you will install on your storage nodes.
@@ -232,13 +232,13 @@ Description: OpenStack Compute - Nova - API frontend
  Python, using the Tornado and Twisted frameworks, and relies on the
  standard AMQP messaging protocol, and the Redis KVS.
  .
- Nova is intended to be easy to extend, and adapt. For example, it
+ Nova is intended to be easy to extend and adapt. For example, it
  currently uses an LDAP server for users and groups, but also includes a
  fake LDAP server, that stores data in Redis. It has extensive test
  coverage, and uses the Sphinx toolkit (the same as Python itself) for code
  and user documentation.
  .
- While Nova is currently in Beta use within several organizations, the
+ While Nova is currently in Beta and use within several organizations, the
  codebase is very much under active development.
  .
  This package provides the API frontend.
@@ -256,13 +256,13 @@ Description: OpenStack Compute - Nova - Network thingamajig
  Python, using the Tornado and Twisted frameworks, and relies on the
  standard AMQP messaging protocol, and the Redis KVS.
  .
- Nova is intended to be easy to extend, and adapt. For example, it
+ Nova is intended to be easy to extend and adapt. For example, it
  currently uses an LDAP server for users and groups, but also includes a
  fake LDAP server, that stores data in Redis. It has extensive test
  coverage, and uses the Sphinx toolkit (the same as Python itself) for code
  and user documentation.
  .
- While Nova is currently in Beta use within several organizations, the
+ While Nova is currently in Beta and use within several organizations, the
  codebase is very much under active development.
  .
  This is the package you will install on the nodes that will contain your
@@ -280,13 +280,13 @@ Description: OpenStack Compute - Nova - object store
  Python, using the Tornado and Twisted frameworks, and relies on the
  standard AMQP messaging protocol, and the Redis KVS.
  .
- Nova is intended to be easy to extend, and adapt. For example, it
+ Nova is intended to be easy to extend and adapt. For example, it
  currently uses an LDAP server for users and groups, but also includes a
  fake LDAP server, that stores data in Redis. It has extensive test
  coverage, and uses the Sphinx toolkit (the same as Python itself) for code
  and user documentation.
  .
- While Nova is currently in Beta use within several organizations, the
+ While Nova is currently in Beta and use within several organizations, the
  codebase is very much under active development.
  .
  This is the package you will install on the nodes that will contain your
@@ -304,13 +304,13 @@ Description: Nova instance monitor
  Python, using the Tornado and Twisted frameworks, and relies on the
  standard AMQP messaging protocol, and the Redis KVS.
  .
- Nova is intended to be easy to extend, and adapt. For example, it
+ Nova is intended to be easy to extend and adapt. For example, it
  currently uses an LDAP server for users and groups, but also includes a
  fake LDAP server, that stores data in Redis. It has extensive test
  coverage, and uses the Sphinx toolkit (the same as Python itself) for code
  and user documentation.
  .
- While Nova is currently in Beta use within several organizations, the
+ While Nova is currently in Beta and use within several organizations, the
  codebase is very much under active development.
  .
  This package contains the Instance Monitor for Nova.
@@ -328,13 +328,13 @@ Description: OpenStack Compute - Nova - documetation
  Python, using the Tornado and Twisted frameworks, and relies on the
  standard AMQP messaging protocol, and the Redis KVS.
  .
- Nova is intended to be easy to extend, and adapt. For example, it
+ Nova is intended to be easy to extend and adapt. For example, it
  currently uses an LDAP server for users and groups, but also includes a
  fake LDAP server, that stores data in Redis. It has extensive test
  coverage, and uses the Sphinx toolkit (the same as Python itself) for code
  and user documentation.
  .
- While Nova is currently in Beta use within several organizations, the
+ While Nova is currently in Beta and use within several organizations, the
  codebase is very much under active development.
  .
  This package contains the documentation for Nova.
