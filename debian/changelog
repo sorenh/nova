@@ -1,3 +1,9 @@
+nova (2011.2~bzr764-0ubuntu1) UNRELEASED; urgency=low
+
+  * nova-api.conf was renamed api-paste.ini (LP: #705453)
+
+ -- Thierry Carrez (ttx) <thierry@openstack.org>  Tue, 08 Mar 2011 12:11:43 +0100
+
 nova (2011.2~bzr760-0ubuntu1) natty; urgency=low
 
   [Chuck Short]
