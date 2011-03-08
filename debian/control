@@ -32,18 +32,16 @@ Build-Depends-Indep:python-support,
  python-glance,
  python-paramiko,
  pep8
-Standards-Version: 3.9.0
+Standards-Version: 3.9.1
 Homepage: http://launchpad.net/nova
-Vcs-Browser: http://bazaar.launchpad.net/~nova-core/nova/debian-packaging/files
-Vcs-Bzr: http://bazaar.launchpad.net/~nova-core/nova/debian-packaging/
+Vcs-Browser: http://bazaar.launchpad.net/~openstack-ubuntu-packagers/ubuntu/natty/nova/ubuntu/files
+Vcs-Bzr: http://bazaar.launchpad.net/~openstack-ubuntu-packagers/ubuntu/natty/nova/ubuntu/
 
 
 Package: python-nova
 Architecture: all
 Section: python
 Depends: ${python:Depends},
- aoetools,
- vlan,
  python-ipy,
  python-boto,
  python-m2crypto,
@@ -78,21 +76,21 @@ Description: OpenStack Compute - Nova - Python libraries
  OpenStack is free, open source software for building reliable cloud
  infrastructure.
  .
- Nova is a cloud computing fabric controller (the main part of an IaaS
- system) built to match the popular AWS EC2 and S3 APIs. It is written in
- Python, using the Tornado and Twisted frameworks, and relies on the
- standard AMQP messaging protocol, and the Redis KVS.
+ The OpenStack mission is to produce the ubiquitous Open Source cloud
+ computing platform that will meet the needs of public and private cloud
+ providers regardless of size, by being simple to implement and
+ massively scalable.
  .
- Nova is intended to be easy to extend, and adapt. For example, it
- currently uses an LDAP server for users and groups, but also includes a
- fake LDAP server, that stores data in Redis. It has extensive test
- coverage, and uses the Sphinx toolkit (the same as Python itself) for code
- and user documentation.
+ OpenStack Compute, codenamed Nova, is a cloud computing fabric
+ controller. In addition to its "native", open API (the OpenStack API),
+ it also supports the Amazon EC2 API.
  .
- While Nova is currently in Beta and use within several organizations, the
- codebase is very much under active development.
+ Nova is intended to be modular and easy to extend and adapt. It
+ supports many different hypervisors (KVM and Xen to name a few),
+ different database backends (SQLite, MySQL, and PostgreSQL, for
+ instance), different types of user databases (LDAP or SQL), etc.
  .
- This package contains the Python libraries.
+ This package contains the core Python parts of Nova.
 
 Package: python-nova.adminclient
 Architecture: all
@@ -106,22 +104,22 @@ Description: OpenStack Compute - Nova - Python adminclient library
  OpenStack is free, open source software for building reliable cloud
  infrastructure.
  .
- Nova is a cloud computing fabric controller (the main part of an IaaS
- system) built to match the popular AWS EC2 and S3 APIs. It is written in
- Python, using the Tornado and Twisted frameworks, and relies on the
- standard AMQP messaging protocol, and the Redis KVS.
+ The OpenStack mission is to produce the ubiquitous Open Source cloud
+ computing platform that will meet the needs of public and private cloud
+ providers regardless of size, by being simple to implement and
+ massively scalable.
  .
- Nova is intended to be easy to extend and adapt. For example, it
- currently uses an LDAP server for users and groups, but also includes a
- fake LDAP server, that stores data in Redis. It has extensive test
- coverage, and uses the Sphinx toolkit (the same as Python itself) for code
- and user documentation.
+ OpenStack Compute, codenamed Nova, is a cloud computing fabric
+ controller. In addition to its "native", open API (the OpenStack API),
+ it also supports the Amazon EC2 API.
  .
- While Nova is currently in Beta and use within several organizations, the
- codebase is very much under active development.
+ Nova is intended to be modular and easy to extend and adapt. It
+ supports many different hypervisors (KVM and Xen to name a few),
+ different database backends (SQLite, MySQL, and PostgreSQL, for
+ instance), different types of user databases (LDAP or SQL), etc.
  .
- This package contains the Python nova.adminclient library, for use by client
- administration tools.
+ This package contains the Python nova.adminclient library, for use by
+ client administration tools.
 
 Package: nova-common
 Architecture: all
@@ -131,43 +129,43 @@ Description: OpenStack Compute - Nova - common files
  OpenStack is free, open source software for building reliable cloud
  infrastructure.
  .
- Nova is a cloud computing fabric controller (the main part of an IaaS
- system) built to match the popular AWS EC2 and S3 APIs. It is written in
- Python, using the Tornado and Twisted frameworks, and relies on the
- standard AMQP messaging protocol, and the Redis KVS.
+ The OpenStack mission is to produce the ubiquitous Open Source cloud
+ computing platform that will meet the needs of public and private cloud
+ providers regardless of size, by being simple to implement and
+ massively scalable.
  .
- Nova is intended to be easy to extend and adapt. For example, it
- currently uses an LDAP server for users and groups, but also includes a
- fake LDAP server, that stores data in Redis. It has extensive test
- coverage, and uses the Sphinx toolkit (the same as Python itself) for code
- and user documentation.
+ OpenStack Compute, codenamed Nova, is a cloud computing fabric
+ controller. In addition to its "native", open API (the OpenStack API),
+ it also supports the Amazon EC2 API.
  .
- While Nova is currently in Beta and use within several organizations, the
- codebase is very much under active development.
+ Nova is intended to be modular and easy to extend and adapt. It
+ supports many different hypervisors (KVM and Xen to name a few),
+ different database backends (SQLite, MySQL, and PostgreSQL, for
+ instance), different types of user databases (LDAP or SQL), etc.
  .
  This package contains things that are needed by all parts of Nova.
 
 Package: nova-compute
 Architecture: all
-Depends: nova-common (= ${binary:Version}), kpartx, kvm, python-libvirt, libvirt-bin (>= 0.8.1), curl, parted, 
+Depends: nova-common (= ${binary:Version}), kpartx, kvm, python-libvirt, libvirt-bin (>= 0.8.1), curl, parted, aoetools,
  ebtables, gawk, iptables, ${python:Depends}, ${misc:Depends}
 Description: OpenStack Compute - Nova - compute node
  OpenStack is free, open source software for building reliable cloud
  infrastructure.
  .
- Nova is a cloud computing fabric controller (the main part of an IaaS
- system) built to match the popular AWS EC2 and S3 APIs. It is written in
- Python, using the Tornado and Twisted frameworks, and relies on the
- standard AMQP messaging protocol, and the Redis KVS.
+ The OpenStack mission is to produce the ubiquitous Open Source cloud
+ computing platform that will meet the needs of public and private cloud
+ providers regardless of size, by being simple to implement and
+ massively scalable.
  .
- Nova is intended to be easy to extend and adapt. For example, it
- currently uses an LDAP server for users and groups, but also includes a
- fake LDAP server, that stores data in Redis. It has extensive test
- coverage, and uses the Sphinx toolkit (the same as Python itself) for code
- and user documentation.
+ OpenStack Compute, codenamed Nova, is a cloud computing fabric
+ controller. In addition to its "native", open API (the OpenStack API),
+ it also supports the Amazon EC2 API.
  .
- While Nova is currently in Beta and use within several organizations, the
- codebase is very much under active development.
+ Nova is intended to be modular and easy to extend and adapt. It
+ supports many different hypervisors (KVM and Xen to name a few),
+ different database backends (SQLite, MySQL, and PostgreSQL, for
+ instance), different types of user databases (LDAP or SQL), etc.
  .
  This is the package you will install on the nodes that will run your
  virtual machines.
@@ -179,21 +177,21 @@ Description: OpenStack Compute - Nova - Scheduler
  OpenStack is free, open source software for building reliable cloud
  infrastructure.
  .
- Nova is a cloud computing fabric controller (the main part of an IaaS
- system) built to match the popular AWS EC2 and S3 APIs. It is written in
- Python, using the Tornado and Twisted frameworks, and relies on the
- standard AMQP messaging protocol, and the Redis KVS.
+ The OpenStack mission is to produce the ubiquitous Open Source cloud
+ computing platform that will meet the needs of public and private cloud
+ providers regardless of size, by being simple to implement and
+ massively scalable.
  .
- Nova is intended to be easy to extend and adapt. For example, it
- currently uses an LDAP server for users and groups, but also includes a
- fake LDAP server, that stores data in Redis. It has extensive test
- coverage, and uses the Sphinx toolkit (the same as Python itself) for code
- and user documentation.
+ OpenStack Compute, codenamed Nova, is a cloud computing fabric
+ controller. In addition to its "native", open API (the OpenStack API),
+ it also supports the Amazon EC2 API.
  .
- While Nova is currently in Beta and use within several organizations, the
- codebase is very much under active development.
+ Nova is intended to be modular and easy to extend and adapt. It
+ supports many different hypervisors (KVM and Xen to name a few),
+ different database backends (SQLite, MySQL, and PostgreSQL, for
+ instance), different types of user databases (LDAP or SQL), etc.
  .
- This is the Nova scheduler
+ This is the Nova scheduler.
 
 
 Package: nova-volume
@@ -204,19 +202,19 @@ Description: OpenStack Compute - Nova - storage
  OpenStack is free, open source software for building reliable cloud
  infrastructure.
  .
- Nova is a cloud computing fabric controller (the main part of an IaaS
- system) built to match the popular AWS EC2 and S3 APIs. It is written in
- Python, using the Tornado and Twisted frameworks, and relies on the
- standard AMQP messaging protocol, and the Redis KVS.
+ The OpenStack mission is to produce the ubiquitous Open Source cloud
+ computing platform that will meet the needs of public and private cloud
+ providers regardless of size, by being simple to implement and
+ massively scalable.
  .
- Nova is intended to be easy to extend and adapt. For example, it
- currently uses an LDAP server for users and groups, but also includes a
- fake LDAP server, that stores data in Redis. It has extensive test
- coverage, and uses the Sphinx toolkit (the same as Python itself) for code
- and user documentation.
+ OpenStack Compute, codenamed Nova, is a cloud computing fabric
+ controller. In addition to its "native", open API (the OpenStack API),
+ it also supports the Amazon EC2 API.
  .
- While Nova is currently in Beta and use within several organizations, the
- codebase is very much under active development.
+ Nova is intended to be modular and easy to extend and adapt. It
+ supports many different hypervisors (KVM and Xen to name a few),
+ different database backends (SQLite, MySQL, and PostgreSQL, for
+ instance), different types of user databases (LDAP or SQL), etc.
  .
  This is the package you will install on your storage nodes.
 
@@ -227,46 +225,46 @@ Description: OpenStack Compute - Nova - API frontend
  OpenStack is free, open source software for building reliable cloud
  infrastructure.
  .
- Nova is a cloud computing fabric controller (the main part of an IaaS
- system) built to match the popular AWS EC2 and S3 APIs. It is written in
- Python, using the Tornado and Twisted frameworks, and relies on the
- standard AMQP messaging protocol, and the Redis KVS.
+ The OpenStack mission is to produce the ubiquitous Open Source cloud
+ computing platform that will meet the needs of public and private cloud
+ providers regardless of size, by being simple to implement and
+ massively scalable.
  .
- Nova is intended to be easy to extend and adapt. For example, it
- currently uses an LDAP server for users and groups, but also includes a
- fake LDAP server, that stores data in Redis. It has extensive test
- coverage, and uses the Sphinx toolkit (the same as Python itself) for code
- and user documentation.
+ OpenStack Compute, codenamed Nova, is a cloud computing fabric
+ controller. In addition to its "native", open API (the OpenStack API),
+ it also supports the Amazon EC2 API.
  .
- While Nova is currently in Beta and use within several organizations, the
- codebase is very much under active development.
+ Nova is intended to be modular and easy to extend and adapt. It
+ supports many different hypervisors (KVM and Xen to name a few),
+ different database backends (SQLite, MySQL, and PostgreSQL, for
+ instance), different types of user databases (LDAP or SQL), etc.
  .
  This package provides the API frontend.
 
 Package: nova-network
 Architecture: all
-Depends: socat, nova-common (= ${binary:Version}), ${python:Depends}, ${misc:Depends}
+Depends: socat, vlan, nova-common (= ${binary:Version}), ${python:Depends}, ${misc:Depends}
 Suggests: radvd
 Description: OpenStack Compute - Nova - Network thingamajig
  OpenStack is free, open source software for building reliable cloud
  infrastructure.
  .
- Nova is a cloud computing fabric controller (the main part of an IaaS
- system) built to match the popular AWS EC2 and S3 APIs. It is written in
- Python, using the Tornado and Twisted frameworks, and relies on the
- standard AMQP messaging protocol, and the Redis KVS.
+ The OpenStack mission is to produce the ubiquitous Open Source cloud
+ computing platform that will meet the needs of public and private cloud
+ providers regardless of size, by being simple to implement and
+ massively scalable.
  .
- Nova is intended to be easy to extend and adapt. For example, it
- currently uses an LDAP server for users and groups, but also includes a
- fake LDAP server, that stores data in Redis. It has extensive test
- coverage, and uses the Sphinx toolkit (the same as Python itself) for code
- and user documentation.
+ OpenStack Compute, codenamed Nova, is a cloud computing fabric
+ controller. In addition to its "native", open API (the OpenStack API),
+ it also supports the Amazon EC2 API.
  .
- While Nova is currently in Beta and use within several organizations, the
- codebase is very much under active development.
+ Nova is intended to be modular and easy to extend and adapt. It
+ supports many different hypervisors (KVM and Xen to name a few),
+ different database backends (SQLite, MySQL, and PostgreSQL, for
+ instance), different types of user databases (LDAP or SQL), etc.
  .
- This is the package you will install on the nodes that will contain your
- object store.
+ This is the package you will install on the network nodes.
+ It hands out IP's and in some cases acts as a gateway.
 
 Package: nova-objectstore
 Architecture: all
@@ -275,22 +273,22 @@ Description: OpenStack Compute - Nova - object store
  OpenStack is free, open source software for building reliable cloud
  infrastructure.
  .
- Nova is a cloud computing fabric controller (the main part of an IaaS
- system) built to match the popular AWS EC2 and S3 APIs. It is written in
- Python, using the Tornado and Twisted frameworks, and relies on the
- standard AMQP messaging protocol, and the Redis KVS.
+ The OpenStack mission is to produce the ubiquitous Open Source cloud
+ computing platform that will meet the needs of public and private cloud
+ providers regardless of size, by being simple to implement and
+ massively scalable.
  .
- Nova is intended to be easy to extend and adapt. For example, it
- currently uses an LDAP server for users and groups, but also includes a
- fake LDAP server, that stores data in Redis. It has extensive test
- coverage, and uses the Sphinx toolkit (the same as Python itself) for code
- and user documentation.
+ OpenStack Compute, codenamed Nova, is a cloud computing fabric
+ controller. In addition to its "native", open API (the OpenStack API),
+ it also supports the Amazon EC2 API.
  .
- While Nova is currently in Beta and use within several organizations, the
- codebase is very much under active development.
+ Nova is intended to be modular and easy to extend and adapt. It
+ supports many different hypervisors (KVM and Xen to name a few),
+ different database backends (SQLite, MySQL, and PostgreSQL, for
+ instance), different types of user databases (LDAP or SQL), etc.
  .
- This is the package you will install on the nodes that will contain your
- object store.
+ This is the package contains a very simple S3-like object store.
+ For production use, you should use OpenStack Storage, aka. Swift.
 
 Package: nova-instancemonitor
 Architecture: all
@@ -299,19 +297,19 @@ Description: Nova instance monitor
  OpenStack is free, open source software for building reliable cloud
  infrastructure.
  .
- Nova is a cloud computing fabric controller (the main part of an IaaS
- system) built to match the popular AWS EC2 and S3 APIs. It is written in
- Python, using the Tornado and Twisted frameworks, and relies on the
- standard AMQP messaging protocol, and the Redis KVS.
+ The OpenStack mission is to produce the ubiquitous Open Source cloud
+ computing platform that will meet the needs of public and private cloud
+ providers regardless of size, by being simple to implement and
+ massively scalable.
  .
- Nova is intended to be easy to extend and adapt. For example, it
- currently uses an LDAP server for users and groups, but also includes a
- fake LDAP server, that stores data in Redis. It has extensive test
- coverage, and uses the Sphinx toolkit (the same as Python itself) for code
- and user documentation.
+ OpenStack Compute, codenamed Nova, is a cloud computing fabric
+ controller. In addition to its "native", open API (the OpenStack API),
+ it also supports the Amazon EC2 API.
  .
- While Nova is currently in Beta and use within several organizations, the
- codebase is very much under active development.
+ Nova is intended to be modular and easy to extend and adapt. It
+ supports many different hypervisors (KVM and Xen to name a few),
+ different database backends (SQLite, MySQL, and PostgreSQL, for
+ instance), different types of user databases (LDAP or SQL), etc.
  .
  This package contains the Instance Monitor for Nova.
 
@@ -323,19 +321,19 @@ Description: OpenStack Compute - Nova - documetation
  OpenStack is free, open source software for building reliable cloud
  infrastructure.
  .
- Nova is a cloud computing fabric controller (the main part of an IaaS
- system) built to match the popular AWS EC2 and S3 APIs. It is written in
- Python, using the Tornado and Twisted frameworks, and relies on the
- standard AMQP messaging protocol, and the Redis KVS.
+ The OpenStack mission is to produce the ubiquitous Open Source cloud
+ computing platform that will meet the needs of public and private cloud
+ providers regardless of size, by being simple to implement and
+ massively scalable.
  .
- Nova is intended to be easy to extend and adapt. For example, it
- currently uses an LDAP server for users and groups, but also includes a
- fake LDAP server, that stores data in Redis. It has extensive test
- coverage, and uses the Sphinx toolkit (the same as Python itself) for code
- and user documentation.
+ OpenStack Compute, codenamed Nova, is a cloud computing fabric
+ controller. In addition to its "native", open API (the OpenStack API),
+ it also supports the Amazon EC2 API.
  .
- While Nova is currently in Beta and use within several organizations, the
- codebase is very much under active development.
+ Nova is intended to be modular and easy to extend and adapt. It
+ supports many different hypervisors (KVM and Xen to name a few),
+ different database backends (SQLite, MySQL, and PostgreSQL, for
+ instance), different types of user databases (LDAP or SQL), etc.
  .
  This package contains the documentation for Nova.
 
