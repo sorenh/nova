@@ -31,6 +31,7 @@ Build-Depends-Indep:python-support,
  python-netaddr,
  python-glance,
  python-paramiko,
+ python-novaclient,
  pep8
 Standards-Version: 3.9.1
 Homepage: http://launchpad.net/nova
@@ -67,6 +68,7 @@ Depends: ${python:Depends},
  python-migrate,
  python-netaddr,
  python-glance,
+ python-novaclient,
  sudo,
  ${misc:Depends}
 XB-Python-Version: ${python:Versions}
