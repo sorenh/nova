@@ -6,6 +6,8 @@ nova (2011.2~bzr764-0ubuntu1) UNRELEASED; urgency=low
   [ Soren Hansen ]
   * Start on filesystem event rather than local-filesystems.
   * Weed out a *lot* of out-dated information from debian/control.
+  * Create /var/lock/nova in upstart jobs and set lock_path in the
+    flagfile.
 
  -- Thierry Carrez (ttx) <thierry@openstack.org>  Tue, 08 Mar 2011 12:11:43 +0100
 
