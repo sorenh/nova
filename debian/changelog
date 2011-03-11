@@ -1,4 +1,4 @@
-nova (2011.2~bzr786-0ubuntu1) UNRELEASED; urgency=low
+nova (2011.2~bzr786-0ubuntu1) natty; urgency=low
 
   [Chuck Short]
   * New upstream version.
@@ -13,7 +13,7 @@ nova (2011.2~bzr786-0ubuntu1) UNRELEASED; urgency=low
     flagfile.
   * Add dependency on python-novaclient.
 
- -- Thierry Carrez (ttx) <thierry@openstack.org>  Tue, 08 Mar 2011 12:11:43 +0100
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 11 Mar 2011 09:41:45 -0500
 
 nova (2011.2~bzr760-0ubuntu1) natty; urgency=low
 
