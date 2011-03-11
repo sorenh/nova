@@ -1,4 +1,7 @@
-nova (2011.2~bzr764-0ubuntu1) UNRELEASED; urgency=low
+nova (2011.2~bzr786-0ubuntu1) UNRELEASED; urgency=low
+
+  [Chuck Short]
+  * New upstream version.
 
   [ Thierry Carrez (ttx) ]
   * nova-api.conf was renamed api-paste.ini (LP: #705453)
