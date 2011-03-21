@@ -32,6 +32,7 @@ Build-Depends-Indep:python-support,
  python-glance,
  python-paramiko,
  python-novaclient,
+ python-lockfile,
  pep8
 Standards-Version: 3.9.1
 Homepage: http://launchpad.net/nova
