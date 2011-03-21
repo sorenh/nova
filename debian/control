@@ -7,7 +7,7 @@ Build-Depends: debhelper (>= 7.0.50),
  python-all
 Build-Depends-Indep:python-support,
  python-setuptools,
- python-sphinx,
+ python-sphinx (>> 1.0),
  python-distutils-extra,
  python-twisted-web,
  python-gflags,

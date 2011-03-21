@@ -2,6 +2,7 @@ nova (2011.2~bzr828-0ubuntu2) UNRELEASED; urgency=low
 
   * Make the build fail if the test suite does. The test that used to
     fail on the buildd's has been complete rewritten. (LP: #712481)
+  * Specify that we need Sphinx > 1.0 to build.
 
  -- Soren Hansen <soren@ubuntu.com>  Mon, 21 Mar 2011 12:16:02 +0100
 
