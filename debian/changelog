@@ -5,6 +5,7 @@ nova (2011.2~bzr828-0ubuntu2) UNRELEASED; urgency=low
   * Specify that we need Sphinx > 1.0 to build.
   * Remove refresh_bzr_branches target from debian/rules. It is not used
     anymore.
+  * Clean up after doc builds on debian/rules clean.
 
  -- Soren Hansen <soren@ubuntu.com>  Mon, 21 Mar 2011 12:16:02 +0100
 

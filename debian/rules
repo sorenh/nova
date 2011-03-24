@@ -11,6 +11,10 @@ DEB_PYTHON_SYSTEM=pysupport
 %:
 	dh $@
 
+override_dh_auto_clean:
+	dh_auto_clean
+	rm -rf doc/doc/build
+
 override_dh_auto_build:
 	dh_auto_build
 ifeq (,$(findstring nodocs, $(DEB_BUILD_OPTIONS)))
