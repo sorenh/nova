@@ -11,6 +11,8 @@ nova (2011.2~bzr828-0ubuntu2) UNRELEASED; urgency=low
     proxy will have something to connect to.
   * Stop depending on aoetools. iscsi is the default nowadays (and has
     been for a while).
+  * Move dependency on open-iscsi from nova-volume to nova-compute.
+    They're client tools, so that's where they belong.
 
  -- Soren Hansen <soren@ubuntu.com>  Mon, 21 Mar 2011 12:16:02 +0100
 

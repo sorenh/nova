@@ -151,7 +151,7 @@ Description: OpenStack Compute - Nova - common files
 Package: nova-compute
 Architecture: all
 Depends: nova-common (= ${binary:Version}), kpartx, kvm, python-libvirt, libvirt-bin (>= 0.8.1), curl, parted,
- ebtables, gawk, iptables, ${python:Depends}, ${misc:Depends}
+ ebtables, gawk, iptables, open-iscsi, ${python:Depends}, ${misc:Depends}
 Recommends: ajaxterm
 Description: OpenStack Compute - Nova - compute node
  OpenStack is free, open source software for building reliable cloud
@@ -200,7 +200,7 @@ Description: OpenStack Compute - Nova - Scheduler
 
 Package: nova-volume
 Architecture: all
-Depends: nova-common (= ${binary:Version}), vblade, vblade-persist, lvm2, open-iscsi, iscsitarget, ${python:Depends}, ${misc:Depends}
+Depends: nova-common (= ${binary:Version}), vblade, vblade-persist, lvm2, iscsitarget, ${python:Depends}, ${misc:Depends}
 Suggests: sheepdog
 Description: OpenStack Compute - Nova - storage
  OpenStack is free, open source software for building reliable cloud
