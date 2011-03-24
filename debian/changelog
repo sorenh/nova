@@ -9,6 +9,8 @@ nova (2011.2~bzr828-0ubuntu2) UNRELEASED; urgency=low
   * Add a nova-ajax-console-proxy package.
   * Add Recommends: ajaxterm to nova-compute, so that nova-ajax-console-
     proxy will have something to connect to.
+  * Stop depending on aoetools. iscsi is the default nowadays (and has
+    been for a while).
 
  -- Soren Hansen <soren@ubuntu.com>  Mon, 21 Mar 2011 12:16:02 +0100
 
