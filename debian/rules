@@ -37,28 +37,3 @@ endif
 
 override_dh_installinit:
 	dh_installinit --error-handler=true
-
-refresh_bzr_patches:
-	quilt pop -af ; \
-	mv debian/patches debian/patches.old ; \
-	mkdir debian/patches ; \
-	bzr branch lp:nova testcheckout; \
-	cd testcheckout; \
-	while read url; \
-	do \
-		echo "Grabbing $$url" ; \
-		bzr merge --force --preview "lp:~$$url" > ../debian/patches/$$(echo "$$url" | sed -e 's%/%_%g').patch ; \
-		echo "$$url.patch -p0" | sed -e 's%/%_%g' >> ../debian/patches/series ; \
-	done < ../debian/patch-branches ; \
-	cd .. ; \
-	quilt push -a ; \
-	sed -i -e 's% -p0$%%%g' debian/patches/series ; \
-	while true; \
-	do \
-	    quilt refresh; \
-		if quilt pop 2>&1 | grep -q No.patch.removed; \
-		then \
-			break ;\
-		fi ; \
-	done ; \
-	rm -rf testcheckout debian/patches.old
