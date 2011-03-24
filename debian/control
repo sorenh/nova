@@ -152,6 +152,7 @@ Package: nova-compute
 Architecture: all
 Depends: nova-common (= ${binary:Version}), kpartx, kvm, python-libvirt, libvirt-bin (>= 0.8.1), curl, parted, aoetools,
  ebtables, gawk, iptables, ${python:Depends}, ${misc:Depends}
+Recommends: ajaxterm
 Description: OpenStack Compute - Nova - compute node
  OpenStack is free, open source software for building reliable cloud
  infrastructure.
@@ -220,6 +221,31 @@ Description: OpenStack Compute - Nova - storage
  instance), different types of user databases (LDAP or SQL), etc.
  .
  This is the package you will install on your storage nodes.
+
+Package: nova-ajax-console-proxy
+Architecture: all
+Depends: nova-common (= ${binary:Version}), ${python:Depends}, ${misc:Depends}
+Description: OpenStack Compute - Nova - AJAX console proxy
+ OpenStack is free, open source software for building reliable cloud
+ infrastructure.
+ .
+ The OpenStack mission is to produce the ubiquitous Open Source cloud
+ computing platform that will meet the needs of public and private cloud
+ providers regardless of size, by being simple to implement and
+ massively scalable.
+ .
+ OpenStack Compute, codenamed Nova, is a cloud computing fabric
+ controller. In addition to its "native", open API (the OpenStack API),
+ it also supports the Amazon EC2 API.
+ .
+ Nova is intended to be modular and easy to extend and adapt. It
+ supports many different hypervisors (KVM and Xen to name a few),
+ different database backends (SQLite, MySQL, and PostgreSQL, for
+ instance), different types of user databases (LDAP or SQL), etc.
+ .
+ This package provides the AJAX proxy. It is a publically reachable
+ component which proxies access to ajaxterm's running on compute
+ nodes.
 
 Package: nova-api
 Architecture: all
