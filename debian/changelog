@@ -14,6 +14,8 @@ nova (2011.2~bzr828-0ubuntu2) UNRELEASED; urgency=low
   * Move dependency on open-iscsi from nova-volume to nova-compute.
     They're client tools, so that's where they belong.
   * Add a build-depends on python-suds.
+  * Add logrote config for nova-ajax-console-proxy.
+  * Add upstart job for nova-ajax-console-proxy.
 
  -- Soren Hansen <soren@ubuntu.com>  Mon, 21 Mar 2011 12:16:02 +0100
 
