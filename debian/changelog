@@ -1,4 +1,4 @@
-nova (2011.2~bzr925-0ubuntu1)  UNRELEASED; urgency=low
+nova (2011.2~bzr925-0ubuntu1) natty; urgency=low
 
   [Chuck Short]
   * New upstream release.
@@ -21,7 +21,7 @@ nova (2011.2~bzr925-0ubuntu1)  UNRELEASED; urgency=low
   * Add logrote config for nova-ajax-console-proxy.
   * Add upstart job for nova-ajax-console-proxy.
 
- -- Soren Hansen <soren@ubuntu.com>  Mon, 21 Mar 2011 12:16:02 +0100
+ -- Chuck Short <zulcss@ubuntu.com>  Thu, 31 Mar 2011 11:25:10 -0400
 
 nova (2011.2~bzr828-0ubuntu1) natty; urgency=low
 
