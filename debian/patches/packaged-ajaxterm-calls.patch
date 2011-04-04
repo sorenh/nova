@@ -1,0 +1,15 @@
+Index: nova-2011.2~bzr925/nova/virt/libvirt_conn.py
+===================================================================
+--- nova-2011.2~bzr925.orig/nova/virt/libvirt_conn.py
++++ nova-2011.2~bzr925/nova/virt/libvirt_conn.py
+@@ -670,8 +670,8 @@
+         ajaxterm_cmd = 'sudo socat - %s' \
+                        % get_pty_for_instance(instance['name'])
+ 
+-        cmd = '%s/tools/ajaxterm/ajaxterm.py --command "%s" -t %s -p %s' \
+-              % (utils.novadir(), ajaxterm_cmd, token, port)
++        cmd = 'ajaxterm --command "%s" -t %s -p %s -T 300' \
++              % (ajaxterm_cmd, token, port)
+ 
+         subprocess.Popen(cmd, shell=True)
+         return {'token': token, 'host': host, 'port': port}
