@@ -1,9 +1,9 @@
 === modified file 'bin/nova-manage'
-Index: nova-2011.1~bzr529/bin/nova-manage
+Index: nova-2011.2~bzr925/bin/nova-manage
 ===================================================================
---- nova-2011.1~bzr529.orig/bin/nova-manage	2011-01-07 23:23:25.574106001 +0100
-+++ nova-2011.1~bzr529/bin/nova-manage	2011-01-07 23:24:38.404106001 +0100
-@@ -706,7 +706,7 @@
+--- nova-2011.2~bzr925.orig/bin/nova-manage
++++ nova-2011.2~bzr925/bin/nova-manage
+@@ -1091,7 +1091,7 @@
  
  def main():
      """Parse options and call the appropriate class/method."""
@@ -12,4 +12,3 @@ Index: nova-2011.1~bzr529/bin/nova-manage
      argv = FLAGS(sys.argv)
      logging.setup()
  
-
