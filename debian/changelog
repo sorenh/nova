@@ -6,6 +6,7 @@ nova (2011.2~bzr925-0ubuntu2) UNRELEASED; urgency=low
   * Remove all traces of the adminclient package. It moved to its own
     tarball. There are no known consumers, so this should not be a
     problem.
+  * Remove build-dependency on python-suds again.
 
  -- Soren Hansen <soren@ubuntu.com>  Mon, 04 Apr 2011 10:58:52 +0200
 

@@ -33,7 +33,6 @@ Build-Depends-Indep:python-support,
  python-paramiko,
  python-novaclient,
  python-lockfile,
- python-suds (>= 0.4.0),
  pep8
 Standards-Version: 3.9.1
 Homepage: http://launchpad.net/nova
@@ -73,6 +72,7 @@ Depends: ${python:Depends},
  python-novaclient,
  sudo,
  ${misc:Depends}
+Suggests: python-suds (>= 0.4.0),
 XB-Python-Version: ${python:Versions}
 Recommends: python-mysqldb
 Provides: ${python:Provides}
