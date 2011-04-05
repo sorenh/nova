@@ -7,6 +7,8 @@ nova (2011.2~bzr925-0ubuntu2) UNRELEASED; urgency=low
     tarball. There are no known consumers, so this should not be a
     problem.
   * Remove build-dependency on python-suds again.
+  * setup.py now takes care of installing the CA code, so yank those
+    bits from debian/nova-common.install.
 
  -- Soren Hansen <soren@ubuntu.com>  Mon, 04 Apr 2011 10:58:52 +0200
 

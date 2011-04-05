@@ -1,6 +1,3 @@
 usr/bin/nova-manage
-CA/openssl.cnf.tmpl                   		var/lib/nova/CA
-CA/geninter.sh                        		var/lib/nova/CA
-CA/genrootca.sh                       		var/lib/nova/CA
-debian/nova_sudoers                   		etc/sudoers.d
-debian/nova.conf                            etc/nova
+debian/nova_sudoers etc/sudoers.d
+debian/nova.conf    etc/nova
