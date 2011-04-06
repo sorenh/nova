@@ -1,2 +1,2 @@
 usr/bin/nova-api
-etc/api-paste.ini etc/nova/
+etc/nova/api-paste.ini
