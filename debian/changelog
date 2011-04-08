@@ -3,9 +3,6 @@ nova (2011.2~gamma1-0ubuntu1) natty; urgency=low
   [Chuck Short]
   * New upstream release.
   * debian/nova-doc.docs: Adjust directory to the right docs path.
-  * debian/{nova-api, nova-common, nova-compute, nova-instancemonitor,
-    nova-network, nova-objectstore, nova-scheduler, nova-volue}.manpages:
-    Add manpages.
 
   [Soren Hansen]
   * Refresh nova-manage-flags patch.
