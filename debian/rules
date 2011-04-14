@@ -14,6 +14,7 @@ DEB_PYTHON_SYSTEM=pysupport
 override_dh_auto_clean:
 	dh_auto_clean
 	rm -rf doc/doc/build
+	rm -rf debian/*.upstart
 
 override_dh_auto_build:
 	dh_auto_build
@@ -39,4 +40,10 @@ override_dh_auto_test:
 endif
 
 override_dh_installinit:
+	if dpkg-vendor --derives-from ubuntu ; then \
+		for i in *.upstart.in ; do \
+			MYPKG=`echo $i | cut -d. -f1` ; \
+			cp $MYPKG.upstart.in $MYPKG.upstart ; \
+		done ; \
+	fi
 	dh_installinit --error-handler=true
