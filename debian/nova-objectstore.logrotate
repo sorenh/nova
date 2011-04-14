@@ -2,6 +2,10 @@
     daily
     missingok
     postrotate
-        restart nova-objectstore
+        if dpkg-vendor --derives-from ubuntu ; then
+            restart nova-objectstore
+        else
+            invoke-rc.d restart nova-objectstore
+        fi
     endscript
 }
