@@ -1,9 +1,14 @@
 #!/bin/sh -e
 
 if [ "$1" = "configure" ]; then
-    if ! getent group libvirtd | grep -qE '\<nova\>'
+    if dpkg-vendor --derives-from ubuntu ; then
+        LIBVIRTGRP=libvirtd
+    else
+        LIBVIRTGRP=libvirt
+    fi
+    if ! getent group ${LIBVIRTGRP} | grep -qE '\<nova\>'
     then
-        adduser nova libvirtd
+        adduser nova ${LIBVIRTGRP}
     fi
 fi
 
