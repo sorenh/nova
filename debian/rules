@@ -15,11 +15,13 @@ override_dh_auto_clean:
 	dh_auto_clean
 	rm -rf doc/doc/build tests.sqlite clean.sqlite
 	rm -rf debian/*.upstart
+	rm -f debian/nova-common.manpages.in
 
 override_dh_auto_build:
 	dh_auto_build
 ifeq (,$(findstring nodocs, $(DEB_BUILD_OPTIONS)))
 	python setup.py build_sphinx
+	cp debian/nova-common.manpages.in debian/nova-common.manpages
 else
 	mkdir -p doc/doc/build/html
 endif
