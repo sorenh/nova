@@ -96,7 +96,7 @@ Description: OpenStack Compute Python libraries
 
 Package: nova-common
 Architecture: all
-Depends: python-nova (= ${binary:Version}), ${python:Depends}, ${misc:Depends}, adduser
+Depends: python-amqplib, python-nova (= ${binary:Version}), ${python:Depends}, ${misc:Depends}, adduser
 Provides: ${python:Provides}
 Description: OpenStack Compute - common files
  OpenStack is a reliable cloud infrastructure. Its mission is to produce
@@ -117,7 +117,7 @@ Description: OpenStack Compute - common files
 
 Package: nova-compute
 Architecture: all
-Depends: adduser, lsb-base, nova-common (= ${binary:Version}), kpartx, kvm | xen-linux-system, python-libvirt, libvirt-bin (>= 0.8.1), curl, parted,
+Depends: qemu-utils, adduser, lsb-base, nova-common (= ${binary:Version}), kpartx, kvm | xen-linux-system, python-libvirt, libvirt-bin (>= 0.8.1), curl, parted,
  ebtables, gawk, iptables, open-iscsi, ${python:Depends}, ${misc:Depends}
 Recommends: ajaxterm
 Description: OpenStack Compute - compute node
