@@ -1,3 +1,7 @@
+Description: Fixes command line for ajaxterm
+Forwarded: not-needed
+Author: Chuck Short <zulcss@ubuntu.com>
+Last-Update: 2011-04-15
 Index: nova-2011.2~bzr925/nova/virt/libvirt_conn.py
 ===================================================================
 --- nova-2011.2~bzr925.orig/nova/virt/libvirt_conn.py
