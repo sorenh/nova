@@ -12,6 +12,11 @@ nova (2011.2~gamma1-0ubuntu2) natty; urgency=low
   * Reviewed the package descriptions.
   * Reviewed some dependencies in debian/control (added some adduser and
   lsb-base depends).
+  * Added missing binary Depends: (nova-manage must depends on
+  python-amqplib unless failing puiparts tests, nova-compute is pretty
+  usless without qemu-utils)
+  * Removes .gitignore files from binaries.
+  * Don't package nova-manage.1 man page if we aren't building docs.
 
  -- Thomas Goirand <zigo@debian.org>  Thu, 14 Apr 2011 10:02:07 +0000
 
