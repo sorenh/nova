@@ -15,17 +15,17 @@ override_dh_auto_clean:
 	dh_auto_clean
 	rm -rf doc/doc/build tests.sqlite clean.sqlite
 	rm -rf debian/*.upstart
-	rm -f debian/nova-common.manpages.in
+	rm -f debian/nova-common.manpages
 	rm -f doc/doc/build/man/nova-manage.1
 
 override_dh_auto_build:
 	dh_auto_build
 ifeq (,$(findstring nodocs, $(DEB_BUILD_OPTIONS)))
 	python setup.py build_sphinx
-	cp debian/nova-common.manpages.in debian/nova-common.manpages
-	cp doc/doc/build/man/novamanage.1 doc/doc/build/man/nova-manage.1
+	cp $(CURDIR)/debian/nova-common.manpages.in $(CURDIR)/debian/nova-common.manpages
+	cp $(CURDIR)/doc/doc/build/man/novamanage.1 $(CURDIR)/doc/doc/build/man/nova-manage.1
 else
-	mkdir -p doc/doc/build/html
+	mkdir -p $(CURDIR)/doc/doc/build/html
 endif
 
 get-orig-source:
@@ -35,12 +35,12 @@ override_dh_install:
 	dh_install
 	chmod 440 $(CURDIR)/debian/nova-common/etc/sudoers.d/nova_sudoers
 	install -D -m 0664 $(CURDIR)/debian/nova-volume.default	$(CURDIR)/debian/nova-volume/etc/default/nova-volume
-	rm -f debian/python-nova/usr/share/pyshared/nova/CA/.gitignore
-	rm -f debian/python-nova/usr/share/pyshared/nova/CA/projects/.gitignore
-	rm -f debian/python-nova/usr/share/pyshared/nova/CA/reqs/.gitignore
 
 override_dh_fixperms:
 	dh_fixperms -Xnova_sudoers
+	rm -f $(CURDIR)/debian/python-nova/usr/share/pyshared/nova/CA/.gitignore
+	rm -f $(CURDIR)/debian/python-nova/usr/share/pyshared/nova/CA/projects/.gitignore
+	rm -f $(CURDIR)/debian/python-nova/usr/share/pyshared/nova/CA/reqs/.gitignore
 
 ifeq (,$(findstring nocheck, $(DEB_BUILD_OPTIONS)))
 override_dh_auto_test:
