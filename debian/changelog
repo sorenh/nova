@@ -17,6 +17,7 @@ nova (2011.2~gamma1-0ubuntu2) natty; urgency=low
   usless without qemu-utils)
   * Removes .gitignore files from binaries.
   * Don't package nova-manage.1 man page if we aren't building docs.
+  * Packages correctly: nova-manage.1 and not novamanage.1 !!!
 
  -- Thomas Goirand <zigo@debian.org>  Thu, 14 Apr 2011 10:02:07 +0000
 
