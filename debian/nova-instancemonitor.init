@@ -9,14 +9,13 @@
 # Description:       Monitor your virtual machine resource usages
 ### END INIT INFO
 
-
 set -e
 
 DAEMON=/usr/bin/nova-instancemonitor
 DAEMON_ARGS="--flagfile=/etc/nova/nova.conf"
 PIDFILE=/var/run/nova/nova-instancemonitor.pid
 
-ENABLED=false
+ENABLED=true
 
 if test -f /etc/default/nova-instancemonitor; then
   . /etc/default/nova-instancemonitor
@@ -38,32 +37,32 @@ if ! [ -x ${DAEMON} ] ; then
 fi
 
 case "$1" in
-  start)
-    test "$ENABLED" = "true" || exit 0
-    log_daemon_msg "Starting nova compute" "nova-instancemonitor"
-    start-stop-daemon --start --chdir /var/run --exec ${DAEMON} -- ${DAEMON_ARGS}
-    log_end_msg $?
-    ;;
-  stop)
-    test "$ENABLED" = "true" || exit 0
-    log_daemon_msg "Stopping nova compute" "nova-instancemonitor"
-    start-stop-daemon --stop --oknodo --pidfile ${PIDFILE}
-    log_end_msg $?
-    ;;
-  restart|force-reload)
-    test "$ENABLED" = "true" || exit 1
-    $0 stop
-    sleep 1
-    $0 start
-    ;;
-  status)
-    test "$ENABLED" = "true" || exit 0
-    status_of_proc -p $PIDFILE $DAEMON nova-instancemonitor && exit 0 || exit $?
-    ;;
-  *)
-    log_action_msg "Usage: /etc/init.d/nova-instancemonitor {start|stop|restart|force-reload|status}"
-    exit 1
-    ;;
+start)
+	test "$ENABLED" = "true" || exit 0
+	log_daemon_msg "Starting nova compute" "nova-instancemonitor"
+	start-stop-daemon --start --chdir /var/run --exec ${DAEMON} -- ${DAEMON_ARGS}
+	log_end_msg $?
+;;
+stop)
+	test "$ENABLED" = "true" || exit 0
+	log_daemon_msg "Stopping nova compute" "nova-instancemonitor"
+	start-stop-daemon --stop --oknodo --pidfile ${PIDFILE}
+	log_end_msg $?
+;;
+restart|force-reload)
+	test "$ENABLED" = "true" || exit 1
+	$0 stop
+	sleep 1
+	$0 start
+;;
+status)
+	test "$ENABLED" = "true" || exit 0
+	status_of_proc -p $PIDFILE $DAEMON nova-instancemonitor && exit 0 || exit $?
+;;
+*)
+	log_action_msg "Usage: $0 {start|stop|restart|force-reload|status}"
+	exit 1
+;;
 esac
 
 exit 0
