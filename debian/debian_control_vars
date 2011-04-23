@@ -1,0 +1,2 @@
+nova-compute-deps= lsb-base, qemu-utils, adduser
+ostack-lsb-base= lsb-base
