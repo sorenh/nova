@@ -6,8 +6,7 @@
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
 # Short-Description: nova-api server
-# Description:       API Server acts as the web services front end for the
-#                    nova compute
+# Description:       frontend API server for Nova
 ### END INIT INFO
 
 

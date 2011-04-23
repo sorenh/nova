@@ -6,7 +6,7 @@
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
 # Short-Description: nova-scheduler
-# Description:       schedules virtual machines instances of nova compute
+# Description:       Schedules instances, volumes, etc. for Nova
 ### END INIT INFO
 
 
