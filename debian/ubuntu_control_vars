@@ -1,1 +1,1 @@
-nova-compute-deps= adduser
+nova-compute-deps= adduser, libvirt-bin (>= 0.8.1)
