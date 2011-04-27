@@ -9,7 +9,6 @@
 # Description:       provides EBS like storage for your virtual machine instances
 ### END INIT INFO
 
-
 set -e
 
 DAEMON=/usr/bin/nova-volume
@@ -30,6 +29,9 @@ fi
 
 mkdir -p /var/run/nova
 chown nova:root /var/run/nova
+
+mkdir -p /var/lock/nova
+chown nova:root /var/lock/nova
 
 uid="$(getent passwd nova | cut -f3 -d:)"
 gid="$(getent passwd nova | cut -f4 -d:)"
