@@ -5,7 +5,7 @@
         if dpkg-vendor --derives-from ubuntu ; then
             restart nova-objectstore
         else
-            invoke-rc.d restart nova-objectstore
+            invoke-rc.d nova-objectstore restart
         fi
     endscript
 }
