@@ -1,10 +1,4 @@
-nova (2011.2-0ubuntu1) natty; urgency=low
-
-  * New upstream release. 
-
- -- Chuck Short <zulcss@ubuntu.com>  Fri, 15 Apr 2011 07:14:43 -0400
-
-nova (2011.2~gamma1-0ubuntu2) natty; urgency=low
+nova (2011.3~bzr1054-0ubuntu1) UNRELEASED; urgency=low
 
   * Removes embedded jquery.js from nova-doc package.
   * Added some manpages stubs to make package lintian clean.
@@ -26,6 +20,12 @@ nova (2011.2~gamma1-0ubuntu2) natty; urgency=low
   * Packages correctly: nova-manage.1 and not novamanage.1 !!!
 
  -- Thomas Goirand <zigo@debian.org>  Thu, 14 Apr 2011 10:02:07 +0000
+
+nova (2011.2-0ubuntu1) natty; urgency=low
+
+  * New upstream release. 
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 15 Apr 2011 07:14:43 -0400
 
 nova (2011.2~gamma1-0ubuntu1) natty; urgency=low
 
