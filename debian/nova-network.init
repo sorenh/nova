@@ -6,7 +6,7 @@
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
 # Short-Description: nova-network
-# Description:       nova-network
+# Description:       Provides network ressources (connectivity and IP addresses)
 ### END INIT INFO
 
 
@@ -25,43 +25,38 @@ fi
 mkdir -p /var/run/nova
 chown nova:root /var/run/nova
 
+mkdir -p /var/lock/nova
+chown nova:root /var/lock/nova
+
 uid="$(getent passwd nova | cut -f3 -d:)"
 gid="$(getent passwd nova | cut -f4 -d:)"
-DAEMON_ARGS="${DAEMON_ARGS} --uid $uid --gid $gid --pidfile $PIDFILE"
 
 . /lib/lsb/init-functions
 
 export PATH="${PATH:+$PATH:}/usr/sbin:/sbin"
 
+if ! [ -x ${DAEMON} ] ; then
+	exit 0
+fi
+
 case "$1" in
   start)
     test "$ENABLED" = "true" || exit 0
     log_daemon_msg "Starting nova network" "nova-network"
-    cd /var/run
-    if $DAEMON $DAEMON_ARGS start; then
-      log_end_msg 0
-    else
-      log_end_msg 1
-    fi
+    start-stop-daemon --start --chdir /var/run --chuid ${uid}:${gid} --pidfile ${PIDFILE} -b -m --exec ${DAEMON} -- ${DAEMON_ARGS}
+    log_end_msg $?
     ;;
   stop)
     test "$ENABLED" = "true" || exit 0
     log_daemon_msg "Stopping nova network" "nova-network"
-    cd /var/run
-    if $DAEMON $DAEMON_ARGS stop; then
-      log_end_msg 0
-    else
-      log_end_msg 1
-    fi
+    start-stop-daemon --stop --oknodo --pidfile ${PIDFILE}
+    log_end_msg $?
     ;;
   restart|force-reload)
     test "$ENABLED" = "true" || exit 1
-    cd /var/run
-    if $DAEMON $DAEMON_ARGS restart; then
-      log_end_msg 0
-    else
-      log_end_msg 1
-    fi
+    $0 stop
+    sleep 1
+    $0 start
     ;;
   status)
     test "$ENABLED" = "true" || exit 0

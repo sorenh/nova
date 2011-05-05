@@ -4,6 +4,29 @@ nova (2011.2-0ubuntu1) natty; urgency=low
 
  -- Chuck Short <zulcss@ubuntu.com>  Fri, 15 Apr 2011 07:14:43 -0400
 
+nova (2011.2~gamma1-0ubuntu2) natty; urgency=low
+
+  * Removes embedded jquery.js from nova-doc package.
+  * Added some manpages stubs to make package lintian clean.
+  * Adds a nova-volume.default where the admin can decide what VG to use.
+  * debian/nova-objectstore.logrotate working in Debian.
+  * Do not have debian/*.upstart files in Debian. Using debian/*.upstart.in
+  and copying them as .upstart only if building in Ubuntu.
+  * Nova init files reviewed so that they are working in Debian.
+  * Initscripts of nova-compute now has a Should-Start: libvirt-bin
+  * nova-compute.postinst working with libvirt group in Debian.
+  * Reviewed the package descriptions.
+  * Reviewed some dependencies in debian/control (added some adduser and
+  lsb-base depends).
+  * Added missing binary Depends: (nova-manage must depends on
+  python-amqplib unless failing puiparts tests, nova-compute is pretty
+  usless without qemu-utils)
+  * Removes .gitignore files from binaries.
+  * Don't package nova-manage.1 man page if we aren't building docs.
+  * Packages correctly: nova-manage.1 and not novamanage.1 !!!
+
+ -- Thomas Goirand <zigo@debian.org>  Thu, 14 Apr 2011 10:02:07 +0000
+
 nova (2011.2~gamma1-0ubuntu1) natty; urgency=low
 
   [Chuck Short]

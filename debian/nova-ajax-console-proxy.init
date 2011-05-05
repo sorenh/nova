@@ -1,28 +1,26 @@
 #! /bin/sh
 ### BEGIN INIT INFO
-# Provides:          nova-compute
+# Provides:          nova-ajax-console-proxy
 # Required-Start:    $remote_fs $syslog
 # Required-Stop:     $remote_fs $syslog
-# Should-Start:      libvirt-bin
-# Should-Stop:       libvirt-bin
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: nova-compute server
-# Description:       Provides compute server resources for the openstack
-#                    cloud computing system
+# Short-Description: nova ajax console proxy
+# Description:       nova ajax console proxy is a publically reachable
+#                    component which proxies access to ajaxterm's running
+#                    on compute nodes
 ### END INIT INFO
-
 
 set -e
 
-DAEMON=/usr/bin/nova-compute
+DAEMON=/usr/bin/nova-ajax-console-proxy
 DAEMON_ARGS="--flagfile=/etc/nova/nova.conf"
-PIDFILE=/var/run/nova/nova-compute.pid
+PIDFILE=/var/run/nova/nova-ajax-console-proxy.pid
 
 ENABLED=true
 
-if test -f /etc/default/nova-compute; then
-  . /etc/default/nova-compute
+if test -f /etc/default/nova-ajax-console-proxy; then
+  . /etc/default/nova-ajax-console-proxy
 fi
 
 mkdir -p /var/run/nova
@@ -37,7 +35,6 @@ gid="$(getent passwd nova | cut -f4 -d:)"
 . /lib/lsb/init-functions
 
 export PATH="${PATH:+$PATH:}/usr/sbin:/sbin"
-export TMPDIR=/var/lib/nova/tmp
 
 if ! [ -x ${DAEMON} ] ; then
 	exit 0
@@ -46,13 +43,13 @@ fi
 case "$1" in
   start)
     test "$ENABLED" = "true" || exit 0
-    log_daemon_msg "Starting nova compute" "nova-compute"
-    start-stop-daemon --start --chdir /var/run --chuid ${uid}:${gid} -b -m --pidfile $PIDFILE --exec ${DAEMON} -- ${DAEMON_ARGS}
+    log_daemon_msg "Starting nova ajax console proxy" "nova-ajax-console-proxy"
+    start-stop-daemon --start --chdir /var/run --chuid ${uid}:${gid} -b -m --pidfile ${PIDFILE} --exec ${DAEMON} -- ${DAEMON_ARGS}
     log_end_msg $?
     ;;
   stop)
     test "$ENABLED" = "true" || exit 0
-    log_daemon_msg "Stopping nova compute" "nova-compute"
+    log_daemon_msg "Stopping nova ajax console proxy" "nova-ajax-console-proxy"
     start-stop-daemon --stop --oknodo --pidfile ${PIDFILE}
     log_end_msg $?
     ;;
@@ -64,10 +61,11 @@ case "$1" in
     ;;
   status)
     test "$ENABLED" = "true" || exit 0
-    status_of_proc -p $PIDFILE $DAEMON nova-compute && exit 0 || exit $?
+    # This is to be fixed: it doesn't exist in Debian
+    status_of_proc -p $PIDFILE $DAEMON nova-ajax-console-proxy && exit 0 || exit $?
     ;;
   *)
-    log_action_msg "Usage: /etc/init.d/nova-compute {start|stop|restart|force-reload|status}"
+    log_action_msg "Usage: $0 {start|stop|restart|force-reload|status}"
     exit 1
     ;;
 esac
