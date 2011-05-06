@@ -2,11 +2,11 @@ Description: Fixes command line for ajaxterm
 Forwarded: not-needed
 Author: Soren Hansen <soren@ubuntu.com>
 Last-Update: 2011-04-15
-Index: nova-2011.2~bzr925/nova/virt/libvirt_conn.py
+Index: nova-2011.3~bzr1054/nova/virt/libvirt_conn.py
 ===================================================================
---- nova-2011.2~bzr925.orig/nova/virt/libvirt_conn.py
-+++ nova-2011.2~bzr925/nova/virt/libvirt_conn.py
-@@ -670,8 +670,8 @@
+--- nova-2011.3~bzr1054.orig/nova/virt/libvirt_conn.py
++++ nova-2011.3~bzr1054/nova/virt/libvirt_conn.py
+@@ -729,8 +729,8 @@
          ajaxterm_cmd = 'sudo socat - %s' \
                         % get_pty_for_instance(instance['name'])
  
