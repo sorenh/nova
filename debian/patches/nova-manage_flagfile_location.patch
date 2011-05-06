@@ -1,9 +1,9 @@
 === modified file 'bin/nova-manage'
-Index: nova-2011.2~bzr925/bin/nova-manage
+Index: nova-2011.3~bzr1054/bin/nova-manage
 ===================================================================
---- nova-2011.2~bzr925.orig/bin/nova-manage
-+++ nova-2011.2~bzr925/bin/nova-manage
-@@ -1091,7 +1091,7 @@
+--- nova-2011.3~bzr1054.orig/bin/nova-manage
++++ nova-2011.3~bzr1054/bin/nova-manage
+@@ -1098,7 +1098,7 @@
  
  def main():
      """Parse options and call the appropriate class/method."""
