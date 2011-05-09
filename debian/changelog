@@ -22,6 +22,8 @@ nova (2011.3~bzr1054-0ubuntu1) UNRELEASED; urgency=low
 
   [ Soren Hansen ]
   * Bump required version of libvirt-bin on Ubuntu to 0.8.8.
+  * Drop the last of the AOE dependencies. iSCSI is the default
+    nowadays.
 
   [ Vishvananda Ishaya ]
   * Add dd to the sudo cmd list.
