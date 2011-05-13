@@ -24,6 +24,8 @@ nova (2011.3~bzr1054-0ubuntu1) UNRELEASED; urgency=low
   * Bump required version of libvirt-bin on Ubuntu to 0.8.8.
   * Drop the last of the AOE dependencies. iSCSI is the default
     nowadays.
+  * Make the decision about the name of the libvirt group at build time
+    rather than runtime. (LP: #781716)
 
   [ Vishvananda Ishaya ]
   * Add dd to the sudo cmd list.

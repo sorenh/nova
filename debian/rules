@@ -18,7 +18,15 @@ override_dh_auto_clean:
 	rm -f debian/nova-common.manpages
 	rm -f doc/doc/build/man/nova-manage.1
 
-override_dh_auto_build:
+debian/nova-compute.postinst: debian/nova-compute.postinst.in
+	if dpkg-vendor --derives-from ubuntu ; then \
+		LIBVIRTGRP=libvirtd; \
+	else \
+		LIBVIRTGRP=libvirt; \
+	fi; \
+	sed -e "s/%LIBVIRTGRP%/$$LIBVIRTGRP/" < $< > $@
+
+override_dh_auto_build: debian/nova-compute.postinst
 	dh_auto_build
 ifeq (,$(findstring nodocs, $(DEB_BUILD_OPTIONS)))
 	python setup.py build_sphinx
