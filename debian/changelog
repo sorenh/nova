@@ -1,4 +1,4 @@
-nova (2011.3~bzr1054-0ubuntu1) UNRELEASED; urgency=low
+nova (2011.3~bzr1108-0ubuntu1) oneiric; urgency=low
 
   [ Thomas Goirand ]
   * Removes embedded jquery.js from nova-doc package.
@@ -31,7 +31,7 @@ nova (2011.3~bzr1054-0ubuntu1) UNRELEASED; urgency=low
   * Add dd to the sudo cmd list.
   * Add a nova-vncproxy package.
 
- -- Thomas Goirand <zigo@debian.org>  Thu, 14 Apr 2011 10:02:07 +0000
+ -- Soren Hansen <soren@ubuntu.com>  Wed, 25 May 2011 15:57:03 +0200
 
 nova (2011.2-0ubuntu1) natty; urgency=low
 
