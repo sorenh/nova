@@ -1,3 +1,9 @@
+nova (2011.3~bzr1113-0ubuntu1) UNRELEASED; urgency=low
+
+  * libvirt plugin was refactored. Adjust ajaxterm patch accordingly.
+
+ -- Soren Hansen <soren@ubuntu.com>  Thu, 26 May 2011 00:11:02 +0200
+
 nova (2011.3~bzr1108-0ubuntu1) oneiric; urgency=low
 
   [ Thomas Goirand ]
