@@ -4,6 +4,7 @@ nova (2011.3~bzr1113-0ubuntu1) UNRELEASED; urgency=low
   * Add /sbin/brctl to sudoers (it moved from /usr/sbin to /sbin in
     Oneiric).
   * Add dependencies on dnsmasq-base and bridge-utils to nova-network.
+    (LP: #790661)
 
  -- Soren Hansen <soren@ubuntu.com>  Thu, 26 May 2011 00:11:02 +0200
 
