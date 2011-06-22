@@ -34,7 +34,9 @@ Build-Depends-Indep:python-support,
  python-paramiko,
  python-novaclient,
  python-lockfile,
+ python-simplejson,
  pep8
+Build-Conflicts: python-cjson
 Standards-Version: 3.9.1
 Homepage: http://launchpad.net/nova
 Vcs-Browser: http://bazaar.launchpad.net/~openstack-ubuntu-packagers/ubuntu/natty/nova/ubuntu/files
@@ -71,9 +73,11 @@ Depends: ${python:Depends},
  python-netaddr,
  python-glance,
  python-novaclient,
+ python-simplejson,
  sudo,
  ${misc:Depends}
 Suggests: python-suds (>= 0.4.0),
+Conflicts: python-cjson
 XB-Python-Version: ${python:Versions}
 Recommends: python-mysqldb
 Provides: ${python:Provides}
