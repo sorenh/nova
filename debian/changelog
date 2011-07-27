@@ -8,6 +8,9 @@ nova (2011.3~d1-0ubuntu2) UNRELEASED; urgency=low
   * Add Depends: python-simplejson and Conflicts: python-cjson due to
     bug #800465 which caused the test suite to fail.
 
+  [ Thierry Carrez (ttx) ]
+  * Added python-xattr to build deps, apprently this is now needed
+
  -- Soren Hansen <soren@ubuntu.com>  Thu, 09 Jun 2011 10:34:20 +0200
 
 nova (2011.3~d1-0ubuntu1) oneiric; urgency=low
