@@ -10,6 +10,7 @@ nova (2011.3~d1-0ubuntu2) UNRELEASED; urgency=low
 
   [ Thierry Carrez (ttx) ]
   * Added python-xattr to build deps, apprently this is now needed
+  * Added radvd to nova_sudoers file (LP: #758072)
 
  -- Soren Hansen <soren@ubuntu.com>  Thu, 09 Jun 2011 10:34:20 +0200
 
