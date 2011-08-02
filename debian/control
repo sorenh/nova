@@ -10,7 +10,6 @@ Build-Depends-Indep:python-support,
  python-setuptools,
  python-sphinx (>> 1.0),
  python-distutils-extra,
- python-twisted-web,
  python-gflags,
  python-mox,
  openssl,
@@ -51,8 +50,6 @@ Depends: ${python:Depends},
  python-boto,
  python-m2crypto,
  python-pycurl,
- python-twisted-core,
- python-twisted-web,
  python-daemon,
  python-carrot,
  python-lockfile,
@@ -291,26 +288,6 @@ Description: OpenStack Compute - object store
  .
  This is the package contains a very simple S3-like object store.
  For production use, you should use OpenStack Storage, aka. Swift.
-
-Package: nova-instancemonitor
-Architecture: all
-Depends: ${ostack-lsb-base}, python-rrdtool, nova-common (= ${binary:Version}), ${python:Depends}, ${misc:Depends}
-Description: monitors the resources usage of your virtual machines
- OpenStack is a reliable cloud infrastructure. Its mission is to produce
- the ubiquitous cloud computing platform that will meet the needs of public
- and private cloud providers regardless of size, by being simple to implement
- and massively scalable.
- .
- OpenStack Compute, codenamed Nova, is a cloud computing fabric controller. In
- addition to its "native" API (the OpenStack API), it also supports the Amazon
- EC2 API.
- .
- Nova is intended to be modular and easy to extend and adapt. It supports many
- different hypervisors (KVM and Xen to name a few), different database backends
- (SQLite, MySQL, and PostgreSQL, for instance), different types of user
- databases (LDAP or SQL), etc.
- .
- This package contains the Instance Monitor for Nova.
 
 Package: nova-doc
 Architecture: all
