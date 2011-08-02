@@ -34,6 +34,7 @@ Build-Depends-Indep: python-support,
  python-novaclient,
  python-lockfile,
  python-simplejson,
+ python-lxml,
  pep8
 Build-Conflicts: python-cjson
 Standards-Version: 3.9.1
