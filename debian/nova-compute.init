@@ -19,6 +19,10 @@ DAEMON=/usr/bin/nova-compute
 DAEMON_ARGS="--flagfile=/etc/nova/nova.conf"
 PIDFILE=/var/run/nova/nova-compute.pid
 
+if ! [ -x ${DAEMON} ] ; then
+	exit 0
+fi
+
 ENABLED=true
 
 if test -f /etc/default/nova-compute; then
@@ -38,10 +42,6 @@ gid="$(getent passwd nova | cut -f4 -d:)"
 
 export PATH="${PATH:+$PATH:}/usr/sbin:/sbin"
 export TMPDIR=/var/lib/nova/tmp
-
-if ! [ -x ${DAEMON} ] ; then
-	exit 0
-fi
 
 case "$1" in
   start)
