@@ -72,6 +72,7 @@ Depends: ${python:Depends},
  python-glance,
  python-novaclient,
  python-simplejson,
+ python-lxml,
  sudo,
  ${misc:Depends}
 Suggests: python-suds (>= 0.4.0),
