@@ -4,7 +4,6 @@ author "Soren Hansen <soren@linux2go.dk>"
 start on (filesystem and net-device-up IFACE!=lo)
 stop on runlevel [016]
 
-respawn
 
 chdir /var/run
 
