@@ -3,6 +3,7 @@ nova (2011.3~d4~20110811.1416-0ubuntu1) UNRELEASED; urgency=low
   [Chuck Short]
   * New upstream version
   * Dont respawn the upstart jobs if nova is failing.
+  * Remove python-ipy.
 
   [ Dan Prince ]
   * Updated the ajaxterm patch to work with latest nova code (privsep)
