@@ -9,10 +9,10 @@ chdir /var/run
 
 pre-start script
 	mkdir -p /var/run/nova
-	chown nova:root /var/run/nova
+	chown nova:root /var/run/nova/
 
 	mkdir -p /var/lock/nova
-	chown nova:root /var/lock/nova
+	chown nova:root /var/lock/nova/
 end script
 
 exec su -c "nova-scheduler --flagfile=/etc/nova/nova.conf" nova

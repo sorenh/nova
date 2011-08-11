@@ -9,7 +9,7 @@ chdir /var/run
 
 pre-start script
 	mkdir -p /var/run/nova
-	chown nova:root /var/run/nova
+	chown nova:root /var/run/nova/
 end script
 
 exec su -c "nova-volume --flagfile=/etc/nova/nova.conf" nova
