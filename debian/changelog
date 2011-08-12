@@ -1,4 +1,4 @@
-nova (2011.3~d4~20110811.1417-0ubuntu1) UNRELEASED; urgency=low
+nova (2011.3~d4~20110811.1417-0ubuntu1) oneiric; urgency=low
 
   [Chuck Short]
   * New upstream version
@@ -41,7 +41,7 @@ nova (2011.3~d4~20110811.1417-0ubuntu1) UNRELEASED; urgency=low
   * use trailing '/' on all usages of chown to support the case where
     the directory is a symlink
 
- -- Monty Taylor <mordred@inaugust.com>  Tue, 02 Aug 2011 15:55:40 -0700
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 12 Aug 2011 03:12:38 -0400
 
 nova (2011.3~d1-0ubuntu1) oneiric; urgency=low
 
