@@ -1,3 +1,9 @@
+nova (2011.3~d4~20110812.1417-0ubuntu2) UNRELEASED; urgency=low
+
+  * No longer run nova-objectstore as root (LP: #820968)
+
+ -- Thierry Carrez (ttx) <thierry@openstack.org>  Mon, 22 Aug 2011 14:43:38 +0200
+
 nova (2011.3~d4~20110812.1417-0ubuntu1) oneiric; urgency=low
 
   [Chuck Short]
