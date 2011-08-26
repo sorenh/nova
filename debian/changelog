@@ -1,4 +1,4 @@
-nova (2011.3~rc~20110826.1500-0ubuntu1) natty; urgency=low
+nova (2011.3~rc~20110826.1500-0ubuntu1) oneiric; urgency=low
 
   * Add python-unittest2 as a build dep.
 
