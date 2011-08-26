@@ -1,8 +1,13 @@
-nova (2011.3~d4~20110812.1417-0ubuntu2) UNRELEASED; urgency=low
+nova (2011.3~d4-0ubuntu1) oneiric; urgency=low
 
+  [ Thierry Carrez (ttx) ]
+  [Chuck Short]
+  * New upstream release.
+
+  [Thierry Carrez]
   * No longer run nova-objectstore as root (LP: #820968)
 
- -- Thierry Carrez (ttx) <thierry@openstack.org>  Mon, 22 Aug 2011 14:43:38 +0200
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 26 Aug 2011 13:31:14 -0400
 
 nova (2011.3~d4~20110812.1417-0ubuntu1) oneiric; urgency=low
 
