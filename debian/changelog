@@ -1,3 +1,9 @@
+nova (2011.3~rc~20110826.1500-0ubuntu1) oneiric; urgency=low
+
+  * Add python-unittest2 as a build dep.
+
+ -- James E. Blair <james.blair@rackspace.com>  Fri, 26 Aug 2011 14:29:55 -0700
+
 nova (2011.3~d4-0ubuntu1) oneiric; urgency=low
 
   [ Thierry Carrez (ttx) ]
