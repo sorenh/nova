@@ -35,6 +35,7 @@ Build-Depends-Indep: python-support,
  python-lockfile,
  python-simplejson,
  python-lxml,
+ python-unittest2,
  pep8
 Build-Conflicts: python-cjson
 Standards-Version: 3.9.1
