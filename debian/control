@@ -1,7 +1,8 @@
 Source: nova
 Section: net
 Priority: extra
-Maintainer: Openstack Maintainers <openstack@lists.launchpad.net>
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+XSBC-Original-Maintainer: Openstack Maintainers <openstack@lists.launchpad.net>
 Uploaders: Soren Hansen <soren@ubuntu.com>, Thomas Goirand <zigo@debian.org>
 Build-Depends: debhelper (>= 7.0.50),
  python-m2crypto,
