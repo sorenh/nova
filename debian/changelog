@@ -1,4 +1,4 @@
-nova (2011.3~rc~20110826.1500-0ubuntu1) oneiric; urgency=low
+nova (2011.3~rc~20110826.1500-0ubuntu1) UNRELEASED; urgency=low
 
   * Add python-unittest2 as a build dep.
 
@@ -6,7 +6,6 @@ nova (2011.3~rc~20110826.1500-0ubuntu1) oneiric; urgency=low
 
 nova (2011.3~d4-0ubuntu1) oneiric; urgency=low
 
-  [ Thierry Carrez (ttx) ]
   [Chuck Short]
   * New upstream release.
 
