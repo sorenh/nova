@@ -1,5 +1,8 @@
 nova (2011.3~rc~20110826.1500-0ubuntu1) UNRELEASED; urgency=low
 
+  [Chuck Short]
+  * Really remove python-ipy.
+
   [James E. Blair]
   * Add python-unittest2 as a build dep.
 

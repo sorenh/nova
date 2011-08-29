@@ -48,7 +48,6 @@ Package: python-nova
 Architecture: all
 Section: python
 Depends: ${python:Depends},
- python-ipy,
  python-boto,
  python-m2crypto,
  python-pycurl,
