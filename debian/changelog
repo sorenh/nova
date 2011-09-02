@@ -10,7 +10,10 @@ nova (2011.3~rc~20110826.1500-0ubuntu1) UNRELEASED; urgency=low
   * debian/control: Added python-kombu as a build and run depends.
     - LP: #798876
 
- -- Dave Walker (Daviey) <DaveWalker@ubuntu.com>  Wed, 31 Aug 2011 21:50:50 +0100
+  [ Scott Moser ]
+  * add dependency on qemu-kvm to nova-compute (LP: #833530)
+
+ -- Scott Moser <smoser@ubuntu.com>  Fri, 02 Sep 2011 12:04:05 -0400
 
 nova (2011.3~d4-0ubuntu1) oneiric; urgency=low
 
