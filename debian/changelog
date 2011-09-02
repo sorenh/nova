@@ -1,7 +1,10 @@
-nova (2011.3~rc~20110826.1500-0ubuntu1) UNRELEASED; urgency=low
+nova (2011.3~rc~20110901.1523-0ubuntu1) oneiric; urgency=low
 
   [ Chuck Short ]
   * Really remove python-ipy.
+  * New upstream release.
+  * Use "--use_deprecated_auth" by default because we dont support
+    kestone yet. (LP: #838768)
 
   [ James E. Blair ]
   * Add python-unittest2 as a build dep.
@@ -10,7 +13,10 @@ nova (2011.3~rc~20110826.1500-0ubuntu1) UNRELEASED; urgency=low
   * debian/control: Added python-kombu as a build and run depends.
     - LP: #798876
 
- -- Dave Walker (Daviey) <DaveWalker@ubuntu.com>  Wed, 31 Aug 2011 21:50:50 +0100
+  [ Scott Moser ]
+  * add dependency on qemu-kvm to nova-compute (LP: #833530)
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 02 Sep 2011 13:21:22 -0400
 
 nova (2011.3~d4-0ubuntu1) oneiric; urgency=low
 
