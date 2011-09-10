@@ -1,8 +1,9 @@
 nova (2012.1~e1~20110909.1546-0ubuntu0) UNRELEASED; urgency=low
 
   * Added python-feedparser to build-deps.
+  * Added python-tempo to build-deps.
 
- -- Monty Taylor <mordred@inaugust.com>  Fri, 09 Sep 2011 14:57:56 -0700
+ -- Monty Taylor <mordred@inaugust.com>  Sat, 10 Sep 2011 07:55:54 -0700
 
 nova (2011.3~rc~20110901.1523-0ubuntu1) oneiric; urgency=low
 
