@@ -1,6 +1,7 @@
 nova (2011.3~rc~20110916.r1173-0ubuntu1) UNRELEASED; urgency=low
 
   * New uptream version. 
+  * debian/rules: Dont fail tests.
 
  -- Chuck Short <zulcss@ubuntu.com>  Fri, 16 Sep 2011 09:55:56 -0400
 
