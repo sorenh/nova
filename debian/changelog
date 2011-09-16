@@ -1,7 +1,11 @@
 nova (2012.1~e1~20110909.1546-0ubuntu0) UNRELEASED; urgency=low
 
+  [ Monty Taylor ]
   * Added python-feedparser to build-deps.
   * Added python-tempo to build-deps.
+
+  [ Tushar Patil ]
+  * Added iputils-arping to Depends and arping to sudoers
 
  -- Monty Taylor <mordred@inaugust.com>  Sat, 10 Sep 2011 07:55:54 -0700
 
