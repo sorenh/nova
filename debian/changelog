@@ -10,6 +10,23 @@ nova (2012.1~e1~20110909.1546-0ubuntu0) UNRELEASED; urgency=low
 
  -- Monty Taylor <mordred@inaugust.com>  Mon, 19 Sep 2011 16:58:58 -0400
 
+nova (2011.3~rc~20110916.r1173-0ubuntu1) oneiric; urgency=low
+
+  [ Chuck Short ]
+  * New uptream version. 
+  * debian/rules: Dont fail tests.
+
+  [ Monty Taylor ]
+  * Add branching logic for building on lucid.
+
+ -- Monty Taylor <mordred@inaugust.com>  Mon, 19 Sep 2011 17:03:29 -0400
+
+nova (2011.3~rc~20110909.r1155-0ubuntu1) oneiric; urgency=low
+
+  * New upstream version. 
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 09 Sep 2011 15:09:02 -0400
+
 nova (2011.3~rc~20110901.1523-0ubuntu1) oneiric; urgency=low
 
   [ Chuck Short ]
