@@ -1,9 +1,13 @@
 nova (2011.3~rc~20110916.r1173-0ubuntu1) oneiric; urgency=low
 
+  [ Chuck Short ]
   * New uptream version. 
   * debian/rules: Dont fail tests.
 
- -- Chuck Short <zulcss@ubuntu.com>  Fri, 16 Sep 2011 10:29:09 -0400
+  [ Monty Taylor ]
+  * Add branching logic for building on lucid.
+
+ -- Monty Taylor <mordred@inaugust.com>  Mon, 19 Sep 2011 17:03:29 -0400
 
 nova (2011.3~rc~20110909.r1155-0ubuntu1) oneiric; urgency=low
 
