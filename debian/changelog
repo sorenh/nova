@@ -5,6 +5,12 @@ nova (2011.3~rc~20110916.r1173-0ubuntu1) oneiric; urgency=low
 
  -- Chuck Short <zulcss@ubuntu.com>  Fri, 16 Sep 2011 10:29:09 -0400
 
+nova (2011.3~rc~20110909.r1155-0ubuntu1) oneiric; urgency=low
+
+  * New upstream version. 
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 09 Sep 2011 15:09:02 -0400
+
 nova (2011.3~rc~20110901.1523-0ubuntu1) oneiric; urgency=low
 
   [ Chuck Short ]
