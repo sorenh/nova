@@ -1,5 +1,8 @@
 nova (2012.1~e1~20110909.1546-0ubuntu0) UNRELEASED; urgency=low
 
+  [ Dan Prince ]
+  * Fix dnsmasq line in nova_sudoers.
+
   [ Monty Taylor ]
   * Added python-feedparser to build-deps.
   * Added python-tempo to build-deps.
