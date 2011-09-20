@@ -1,3 +1,17 @@
+nova (2011.3~rc~20110920.r1192-0ubuntu1) oneiric; urgency=low
+
+  [Chuck Short]
+  * New Upstream release.
+
+  [ Monty Taylor ]
+  * Add branching logic for building on lucid. 
+ 
+  [Vish Ishaya]
+  * Add dnsmas-utils to nova-network dependencies
+  * Add dhcp_release to sudoers.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Tue, 20 Sep 2011 10:02:04 -0400
+
 nova (2011.3~rc~20110916.r1173-0ubuntu1) oneiric; urgency=low
 
   [ Chuck Short ]
