@@ -3,6 +3,8 @@ nova (2011.3~rc~20110920.r1192-0ubuntu2) oneiric; urgency=low
   * debian/nova_sudoers:
     + Fix typo in nova_sudoers. 
     + Tabs vs Spaces.
+  * debian/nova.conf:
+    + Use force_dhcp_release.
   
  -- Chuck Short <zulcss@ubuntu.com>  Tue, 20 Sep 2011 15:44:39 -0400
 
