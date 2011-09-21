@@ -125,8 +125,18 @@ Description: OpenStack Compute - common files
 
 Package: nova-compute
 Architecture: all
-Depends: ${ostack-lsb-base}, ${nova-compute-deps}, nova-common (= ${binary:Version}), kpartx, curl, parted,
- ebtables, gawk, iptables, open-iscsi, ${nova-compute-default-hypervisor} | nova-compute-hypervisor,
+Depends: ${ostack-lsb-base},
+ ${nova-compute-deps},
+ ${nova-compute-default-hypervisor} | nova-compute-hypervisor,
+ nova-common (= ${binary:Version}),
+ curl,
+ ebtables,
+ gawk,
+ iptables,
+ kpartx,
+ open-iscsi,
+ parted,
+ vlan,
  ${python:Depends}, ${misc:Depends}
 Recommends: ajaxterm
 Description: OpenStack Compute - compute node
