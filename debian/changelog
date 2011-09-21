@@ -5,13 +5,12 @@ nova (2012.1~e1~20110909.1546-0ubuntu0) UNRELEASED; urgency=low
 
   [ Monty Taylor ]
   * Added python-feedparser to build-deps.
-  * Added python-tempo to build-deps.
   * Added branching logic to allow for building on lucid.
 
   [ Tushar Patil ]
   * Added iputils-arping to Depends and arping to sudoers
 
- -- Monty Taylor <mordred@inaugust.com>  Mon, 19 Sep 2011 16:58:58 -0400
+ -- Monty Taylor <mordred@inaugust.com>  Wed, 21 Sep 2011 13:45:01 -0400
 
 nova (2011.3~rc~20110916.r1173-0ubuntu1) oneiric; urgency=low
 
