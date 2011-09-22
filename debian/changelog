@@ -1,4 +1,4 @@
-nova (2011.3-0ubuntu1) UNRELEASED; urgency=low
+nova (2011.3-0ubuntu1) oneiric; urgency=low
 
   [Chuck Short]
   * New upstream release.
@@ -10,7 +10,7 @@ nova (2011.3-0ubuntu1) UNRELEASED; urgency=low
   * debian/control:
     + Add vlan to nova-compute
 
- -- Chuck Short <zulcss@ubuntu.com>  Thu, 22 Sep 2011 08:55:46 -0400
+ -- Chuck Short <zulcss@ubuntu.com>  Thu, 22 Sep 2011 09:33:49 -0400
 
 nova (2011.3~rc~20110920.r1192-0ubuntu2) oneiric; urgency=low
 
