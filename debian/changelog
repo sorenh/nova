@@ -4,6 +4,7 @@ nova (2011.3-0ubuntu1) UNRELEASED; urgency=low
   * New upstream release.
   * debian/control, debian/nova_sudoers:
     + Add iputils-arping and add /usr/bin/apring.
+  * debian/nova_sudoers: Clean up missing binaries.
 
   [Monty Taylor]
   * debian/control:
