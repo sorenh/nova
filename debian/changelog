@@ -1,3 +1,9 @@
+nova (2011.3-0ubuntu2) oneiric; urgency=low
+
+  * Install a new paste config to enable deprecated auth.
+
+ -- Monty Taylor <mordred@inaugust.com>  Thu, 22 Sep 2011 13:02:35 -0400
+
 nova (2011.3-0ubuntu1) oneiric; urgency=low
 
   [Chuck Short]
