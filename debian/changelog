@@ -1,8 +1,8 @@
 nova (2011.3-0ubuntu2) UNRELEASED; urgency=low
 
   [Chuck Short]
+  * debian/rules, debian/control: Use dh_python2
   
-   
   [Monty Taylor]
   * Install a new paste config to enable deprecated auth.
 
