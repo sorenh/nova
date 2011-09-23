@@ -1,9 +1,10 @@
 nova (2011.3-0ubuntu2) UNRELEASED; urgency=low
 
   [Chuck Short]
+  
    
   [Monty Taylor]
-  * 
+  * Install a new paste config to enable deprecated auth.
 
  -- Chuck Short <zulcss@ubuntu.com>  Fri, 23 Sep 2011 08:59:02 -0400
 
