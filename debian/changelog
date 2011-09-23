@@ -1,4 +1,4 @@
-nova (2011.3-0ubuntu2) UNRELEASED; urgency=low
+nova (2011.3-0ubuntu2) oneiric; urgency=low
 
   [Chuck Short]
   * debian/rules, debian/control: Use dh_python2
@@ -16,7 +16,7 @@ nova (2011.3-0ubuntu2) UNRELEASED; urgency=low
   [Monty Taylor]
   * Install a new paste config to enable deprecated auth.,
 
- -- Chuck Short <zulcss@ubuntu.com>  Fri, 23 Sep 2011 08:59:02 -0400
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 23 Sep 2011 13:34:51 -0400
 
 nova (2011.3-0ubuntu1) oneiric; urgency=low
 
