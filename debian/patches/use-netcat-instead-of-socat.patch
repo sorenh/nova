@@ -1,9 +1,9 @@
 Description: Replace socat with netcat.
 Author: Chuck SHort <zulcss@ubuntu.com>
 Forwarded: Pending
-diff -Naurp nova-2011.3.orig//nova/virt/libvirt/connection.py nova-2011.3//nova/virt/libvirt/connection.py
---- nova-2011.3.orig//nova/virt/libvirt/connection.py	2011-09-22 08:02:23.000000000 -0400
-+++ nova-2011.3//nova/virt/libvirt/connection.py	2011-09-23 10:14:23.851185430 -0400
+diff -Naupr nova-2011.3.orig//nova/virt/libvirt/connection.py nova-2011.3//nova/virt/libvirt/connection.py
+--- nova-2011.3.orig//nova/virt/libvirt/connection.py	2011-09-23 13:05:47.771063487 -0400
++++ nova-2011.3//nova/virt/libvirt/connection.py	2011-09-23 13:06:15.871063001 -0400
 @@ -700,7 +700,7 @@ class LibvirtConnection(driver.ComputeDr
          token = str(uuid.uuid4())
          host = instance['host']
@@ -12,4 +12,4 @@ diff -Naurp nova-2011.3.orig//nova/virt/libvirt/connection.py nova-2011.3//nova/
 +        ajaxterm_cmd = 'sudo netcat - %s' \
                         % get_pty_for_instance(instance['name'])
  
-         cmd = ['%s/tools/ajaxterm/ajaxterm.py' % utils.novadir(),
+         cmd = ['ajaxterm', '--command', ajaxterm_cmd, '-t', token,
