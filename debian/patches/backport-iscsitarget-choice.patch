@@ -2,6 +2,7 @@ Description: Allow the user to either choose iscsitarget or tgt.
 Author: Mark McLoughlin <markmc@redhat.com>
 Origin: Pending Upstream
 Bug: lp: 819997
+Forwarded: https://review.openstack.org/#change,555
 diff -Naurp nova-2011.3.orig//nova/tests/test_iscsi.py nova-2011.3//nova/tests/test_iscsi.py
 --- nova-2011.3.orig//nova/tests/test_iscsi.py	1969-12-31 19:00:00.000000000 -0500
 +++ nova-2011.3//nova/tests/test_iscsi.py	2011-09-23 11:18:42.971139634 -0400
