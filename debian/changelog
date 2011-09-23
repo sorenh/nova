@@ -5,7 +5,7 @@ nova (2011.3-0ubuntu2) UNRELEASED; urgency=low
   * debian/control, debian/series, debian/patches/backport-iscsitarget-choice.patch,
     debian/nova_sudoers:
     + Change the default from iscsitarget to tgt.
-  * debian/control, debian/series, debian/patches/backport-iscsitarget-choice.patch,
+  * debian/control, debian/series, debian/patches/use-netcat-instead-of-socat.patch,
     debian/nova_sudoers:
      + Change from socat to netcat.
   
