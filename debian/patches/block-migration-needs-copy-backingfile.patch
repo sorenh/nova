@@ -1,0 +1,128 @@
+Description: Block migration needs to copy backing_file
+Author: Kei Masumoto
+Status: Pending
+diff -Naurp nova-2011.3.orig//nova/tests/test_libvirt.py nova-2011.3//nova/tests/test_libvirt.py
+--- nova-2011.3.orig//nova/tests/test_libvirt.py	2011-09-22 08:02:23.000000000 -0400
++++ nova-2011.3//nova/tests/test_libvirt.py	2011-09-23 12:37:15.241083671 -0400
+@@ -756,10 +756,7 @@ class LibvirtConnTestCase(test.TestCase)
+                 return vdmock
+ 
+         self.create_fake_libvirt_mock(lookupByName=fake_lookup)
+-#        self.mox.StubOutWithMock(self.compute, "recover_live_migration")
+         self.mox.StubOutWithMock(self.compute, "rollback_live_migration")
+-#        self.compute.recover_live_migration(self.context, instance_ref,
+-#                                             dest='dest')
+         self.compute.rollback_live_migration(self.context, instance_ref,
+                                             'dest', False)
+ 
+@@ -794,7 +791,8 @@ class LibvirtConnTestCase(test.TestCase)
+ 
+         # Test data
+         instance_ref = db.instance_create(self.context, self.test_instance)
+-        dummyjson = '[{"path": "%s/disk", "local_gb": "10G", "type": "raw"}]'
++        dummyjson = ('[{"path": "%s/disk", "local_gb": "10G",'
++                     ' "type": "raw", "backing_file": ""}]')
+ 
+         # Preparing mocks
+         # qemu-img should be mockd since test environment might not have
+@@ -835,7 +833,10 @@ class LibvirtConnTestCase(test.TestCase)
+                     "</devices></domain>")
+ 
+         ret = ("image: /test/disk\nfile format: raw\n"
+-               "virtual size: 20G (21474836480 bytes)\ndisk size: 3.1G\n")
++               "virtual size: 20G (21474836480 bytes)\ndisk size: 3.1G\n"
++               "disk size: 102M\n"
++               "cluster_size: 2097152\n"
++               "backing file: /test/dummy (actual path: /backing/file)\n")
+ 
+         # Preparing mocks
+         vdmock = self.mox.CreateMock(libvirt.virDomain)
+@@ -865,7 +866,9 @@ class LibvirtConnTestCase(test.TestCase)
+                         info[0]['path'] == '/test/disk' and
+                         info[1]['path'] == '/test/disk.local' and
+                         info[0]['local_gb'] == '10G' and
+-                        info[1]['local_gb'] == '20G')
++                        info[1]['local_gb'] == '20G' and
++                        info[0]['backing_file'] == "" and
++                        info[1]['backing_file'] == "file")
+ 
+         db.instance_destroy(self.context, instance_ref['id'])
+ 
+@@ -878,6 +881,10 @@ class LibvirtConnTestCase(test.TestCase)
+         def fake_none(self, instance):
+             return
+ 
++        # _fake_network_info must be called before create_fake_libvirt_mock(),
++        # as _fake_network_info calls utils.import_class() and
++        # create_fake_libvirt_mock() mocks utils.import_class().
++        network_info = _fake_network_info(self.stubs, 1)
+         self.create_fake_libvirt_mock()
+         instance = db.instance_create(self.context, self.test_instance)
+ 
+diff -Naurp nova-2011.3.orig//nova/virt/libvirt/connection.py nova-2011.3//nova/virt/libvirt/connection.py
+--- nova-2011.3.orig//nova/virt/libvirt/connection.py	2011-09-22 08:02:23.000000000 -0400
++++ nova-2011.3//nova/virt/libvirt/connection.py	2011-09-23 12:40:12.611081572 -0400
+@@ -1722,9 +1722,34 @@ class LibvirtConnection(driver.ComputeDr
+ 
+         for info in disk_info:
+             base = os.path.basename(info['path'])
+-            # Get image type and create empty disk image.
++            # Get image type and create empty disk image, and
++            # create backing file in case of qcow2.
+             instance_disk = os.path.join(instance_dir, base)
+-            utils.execute('qemu-img', 'create', '-f', info['type'],
++            if not info['backing_file']:
++                utils.execute('qemu-img', 'create', '-f', info['type'],
++                              instance_disk, info['local_gb'])
++
++            else:
++                # Creating backing file follows same way as spawning instances.
++                backing_file = os.path.join(FLAGS.instances_path,
++                                            '_base', info['backing_file'])
++                disk_path = os.path.join(FLAGS.instances_path,
++                                         instance_ref.name, 'disk')
++
++                if not os.path.exists(backing_file):
++                    self._cache_image(fn=self._fetch_image,
++                        context=ctxt,
++                        target=disk_path,
++                        fname=info['backing_file'],
++                        cow=FLAGS.use_cow_images,
++                        image_id=instance_ref['image_ref'],
++                        user_id=instance_ref['user_id'],
++                        project_id=instance_ref['project_id'],
++                        size=instance_ref['local_gb'])
++                    os.remove(disk_path)
++
++                utils.execute('qemu-img', 'create', '-f', info['type'],
++                          '-o', 'backing_file=%s' % backing_file,
+                           instance_disk, info['local_gb'])
+ 
+         # if image has kernel and ramdisk, just download
+@@ -1815,12 +1840,17 @@ class LibvirtConnection(driver.ComputeDr
+                 driver_nodes[cnt].get_properties().get_next().getContent()
+             if disk_type == 'raw':
+                 size = int(os.path.getsize(path))
++                backing_file = ""
+             else:
+                 out, err = utils.execute('qemu-img', 'info', path)
+                 size = [i.split('(')[1].split()[0] for i in out.split('\n')
+                     if i.strip().find('virtual size') >= 0]
+                 size = int(size[0])
+ 
++                backing_file = [i.split('actual path:')[1].strip()[:-1]
++                    for i in out.split('\n') if 0 <= i.find('backing file')]
++                backing_file = os.path.basename(backing_file[0])
++
+             # block migration needs same/larger size of empty image on the
+             # destination host. since qemu-img creates bit smaller size image
+             # depending on original image size, fixed value is necessary.
+@@ -1836,7 +1866,7 @@ class LibvirtConnection(driver.ComputeDr
+                 break
+ 
+             disk_info.append({'type': disk_type, 'path': path,
+-                              'local_gb': size})
++                              'local_gb': size, 'backing_file': backing_file})
+ 
+         return utils.dumps(disk_info)
+ 

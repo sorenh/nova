@@ -2,12 +2,16 @@ nova (2011.3-0ubuntu2) UNRELEASED; urgency=low
 
   [Chuck Short]
   * debian/rules, debian/control: Use dh_python2
-  * debian/control, debian/series, debian/patches/backport-iscsitarget-choice.patch,
+  * debian/control, debian/series, 
+    debian/patches/backport-iscsitarget-choice.patch,
     debian/nova_sudoers:
     + Change the default from iscsitarget to tgt.
-  * debian/control, debian/series, debian/patches/use-netcat-instead-of-socat.patch,
+  * debian/control, debian/series, 
+    debian/patches/use-netcat-instead-of-socat.patch,
     debian/nova_sudoers:
      + Change from socat to netcat.
+  * debian/patches/block-migration-needs-copy-backingfile.patch:
+    Fix block migration by needing to copy backing_file.
   
   [Monty Taylor]
   * Install a new paste config to enable deprecated auth.,
