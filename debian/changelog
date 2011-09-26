@@ -1,3 +1,12 @@
+nova (2011.3-0ubuntu3) UNRELEASED; urgency=low
+
+  [ Scott Moser ]
+  * debian/patches/fqdn-in-local-hostname-of-ec2-metadata.patch
+    Make the 'local-hostname' in the EC2 Metadata service contain
+    the domainname also.
+
+ -- Scott Moser <smoser@ubuntu.com>  Mon, 26 Sep 2011 14:34:45 -0400
+
 nova (2011.3-0ubuntu2) oneiric; urgency=low
 
   [Chuck Short]

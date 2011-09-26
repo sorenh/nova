@@ -4,3 +4,4 @@ packaged-ajaxterm-calls.patch
 backport-iscsitarget-choice.patch
 block-migration-needs-copy-backingfile.patch
 use-netcat-instead-of-socat.patch
+fqdn-in-local-hostname-of-ec2-metadata.patch
