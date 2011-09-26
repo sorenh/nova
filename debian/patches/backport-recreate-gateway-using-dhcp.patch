@@ -1,0 +1,102 @@
+Description: Makes sure to recreate gateway for moved ip
+Author: Vishvananda Ishaya <vishvananda@gmail.com>
+Status: Accepted upstream.
+diff -Naurp nova-2011.3.orig//nova/network/linux_net.py nova-2011.3//nova/network/linux_net.py
+--- nova-2011.3.orig//nova/network/linux_net.py	2011-09-22 08:02:23.000000000 -0400
++++ nova-2011.3//nova/network/linux_net.py	2011-09-26 15:00:50.342393516 -0400
+@@ -486,12 +486,25 @@ def initialize_gateway_device(dev, netwo
+             if ip_params[0] != full_ip:
+                 new_ip_params.append(ip_params)
+     if not old_ip_params or old_ip_params[0][0] != full_ip:
++        gateway = None
++        out, err = _execute('route', '-n', run_as_root=True)
++        for line in out.split('\n'):
++            fields = line.split()
++            if fields and fields[0] == '0.0.0.0' and \
++                            fields[-1] == dev:
++                gateway = fields[1]
++                _execute('route', 'del', 'default', 'gw', gateway,
++                         'dev', dev, check_exit_code=False,
++                         run_as_root=True)
+         for ip_params in old_ip_params:
+             _execute(*_ip_bridge_cmd('del', ip_params, dev),
+                         run_as_root=True)
+         for ip_params in new_ip_params:
+             _execute(*_ip_bridge_cmd('add', ip_params, dev),
+                         run_as_root=True)
++        if gateway:
++            _execute('route', 'add', 'default', 'gw', gateway,
++                        run_as_root=True)
+         if FLAGS.send_arp_for_ha:
+             _execute('arping', '-U', network_ref['dhcp_server'],
+                       '-A', '-I', dev,
+diff -Naurp nova-2011.3.orig//nova/tests/test_linux_net.py nova-2011.3//nova/tests/test_linux_net.py
+--- nova-2011.3.orig//nova/tests/test_linux_net.py	2011-09-22 08:02:23.000000000 -0400
++++ nova-2011.3//nova/tests/test_linux_net.py	2011-09-26 15:00:50.352393517 -0400
+@@ -346,7 +346,7 @@ class LinuxNetworkTestCase(test.TestCase
+         actual = self.driver._host_dhcp(fixed_ips[0])
+         self.assertEquals(actual, expected)
+ 
+-    def _test_initialize_gateway(self, existing, expected):
++    def _test_initialize_gateway(self, existing, expected, routes=''):
+         self.flags(fake_network=False)
+         executes = []
+ 
+@@ -354,6 +354,8 @@ class LinuxNetworkTestCase(test.TestCase
+             executes.append(args)
+             if args[0] == 'ip' and args[1] == 'addr' and args[2] == 'show':
+                 return existing, ""
++            if args[0] == 'route' and args[1] == '-n':
++                return routes, ""
+         self.stubs.Set(utils, 'execute', fake_execute)
+         network = {'dhcp_server': '192.168.1.1',
+                    'cidr': '192.168.1.0/24',
+@@ -371,6 +373,7 @@ class LinuxNetworkTestCase(test.TestCase
+             "    valid_lft forever preferred_lft forever\n")
+         expected = [
+             ('ip', 'addr', 'show', 'dev', 'eth0', 'scope', 'global'),
++            ('route', '-n'),
+             ('ip', 'addr', 'del', '192.168.0.1/24',
+              'brd', '192.168.0.255', 'scope', 'global', 'dev', 'eth0'),
+             ('ip', 'addr', 'add', '192.168.1.1/24',
+@@ -383,6 +386,32 @@ class LinuxNetworkTestCase(test.TestCase
+         ]
+         self._test_initialize_gateway(existing, expected)
+ 
++    def test_initialize_gateway_resets_route(self):
++        routes = "0.0.0.0         192.68.0.1        0.0.0.0         " \
++                "UG    100    0        0 eth0"
++        existing = ("2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> "
++            "    mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000\n"
++            "    link/ether de:ad:be:ef:be:ef brd ff:ff:ff:ff:ff:ff\n"
++            "    inet 192.168.0.1/24 brd 192.168.0.255 scope global eth0\n"
++            "    inet6 dead::beef:dead:beef:dead/64 scope link\n"
++            "    valid_lft forever preferred_lft forever\n")
++        expected = [
++            ('ip', 'addr', 'show', 'dev', 'eth0', 'scope', 'global'),
++            ('route', '-n'),
++            ('route', 'del', 'default', 'gw', '192.68.0.1', 'dev', 'eth0'),
++            ('ip', 'addr', 'del', '192.168.0.1/24',
++             'brd', '192.168.0.255', 'scope', 'global', 'dev', 'eth0'),
++            ('ip', 'addr', 'add', '192.168.1.1/24',
++             'brd', '192.168.1.255', 'dev', 'eth0'),
++            ('ip', 'addr', 'add', '192.168.0.1/24',
++             'brd', '192.168.0.255', 'scope', 'global', 'dev', 'eth0'),
++            ('route', 'add', 'default', 'gw', '192.68.0.1'),
++            ('ip', '-f', 'inet6', 'addr', 'change',
++             '2001:db8::/64', 'dev', 'eth0'),
++            ('ip', 'link', 'set', 'dev', 'eth0', 'promisc', 'on'),
++        ]
++        self._test_initialize_gateway(existing, expected, routes)
++
+     def test_initialize_gateway_no_move_right_ip(self):
+         existing = ("2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> "
+             "    mtu 1500 qdisc pfifo_fast state UNKNOWN qlen 1000\n"
+@@ -407,6 +436,7 @@ class LinuxNetworkTestCase(test.TestCase
+             "    valid_lft forever preferred_lft forever\n")
+         expected = [
+             ('ip', 'addr', 'show', 'dev', 'eth0', 'scope', 'global'),
++            ('route', '-n'),
+             ('ip', 'addr', 'add', '192.168.1.1/24',
+              'brd', '192.168.1.255', 'dev', 'eth0'),
+             ('ip', '-f', 'inet6', 'addr', 'change',
