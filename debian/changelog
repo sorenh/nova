@@ -2,12 +2,12 @@ nova (2011.3-0ubuntu3) UNRELEASED; urgency=low
 
   [Chuck Short]
   * debian/patches/backport-recreate-gateway-using-dhcp.patch:
-    Makes sure to recreate gateway for moved ip.
+    Makes sure to recreate gateway for moved ip. (LP: #859587)
 
   [ Scott Moser ]
   * debian/patches/fqdn-in-local-hostname-of-ec2-metadata.patch
     Make the 'local-hostname' in the EC2 Metadata service contain
-    the domainname also.
+    the domainname also. (LP: #854614)
 
  -- Scott Moser <smoser@ubuntu.com>  Mon, 26 Sep 2011 14:34:45 -0400
 
