@@ -9,6 +9,7 @@ nova (2011.3-0ubuntu3) UNRELEASED; urgency=low
   [Chuck Short]
   * debian/patches/backport-recreate-gateway-using-dhcp.patch:
     Makes sure to recreate gateway for moved ip. (LP: #859587)
+  * debian/control: Update Vcs info.
 
   [ Scott Moser ]
   * debian/patches/fqdn-in-local-hostname-of-ec2-metadata.patch
