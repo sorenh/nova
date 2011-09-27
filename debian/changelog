@@ -1,5 +1,11 @@
 nova (2011.3-0ubuntu3) UNRELEASED; urgency=low
 
+  [Adam Gandelman]
+  * debian/nova-common.postinst: Create 'nova' group, add user to it
+    (LP: #856530)
+  * debian/nova.conf, debian/nova-compute.upstart.in: Move reference of
+    nova-compute.conf from nova.conf to nova-compute's argv. (LP: #839796)
+
   [Chuck Short]
   * debian/patches/backport-recreate-gateway-using-dhcp.patch:
     Makes sure to recreate gateway for moved ip. (LP: #859587)
