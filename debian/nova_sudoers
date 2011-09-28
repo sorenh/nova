@@ -35,6 +35,7 @@ Cmnd_Alias NOVACMDS = /bin/chmod /var/lib/nova/tmp/*/root/.ssh, \
                       /bin/kill,                                \
                       /sbin/vconfig,                            \
                       /usr/sbin/tgtadm,                         \
+                      /usr/sbin/ietadm,                         \
                       /sbin/vgs,                                \
                       /sbin/iscsiadm,                           \
                       /sbin/parted,                             \
