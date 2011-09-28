@@ -7,7 +7,12 @@ if [ "$1" = "configure" ]; then
     if ! getent passwd nova > /dev/null 2>&1; then
         adduser --system --home /var/lib/nova --ingroup nova --no-create-home --shell /bin/bash nova
     fi
-    chown -R nova:nova /var/lib/nova/ /var/log/nova/ /etc/nova/nova.conf
+    CURRENT_GROUP=$(groups nova | awk '{ print $3 }')
+    if [ $CURRENT_GROUP = 'nogroup' ]; then
+        usermod -g nova nova
+    fi
+    chown -R nova:nova /var/log/nova/ /etc/nova/nova.conf
+    find /var/lib/nova/ -mount -exec chown nova:nova {} \;
     chmod 600 /etc/nova/nova.conf
     chmod 0440 /etc/sudoers.d/nova_sudoers
     if ! grep -q sql_connection /etc/nova/nova.conf

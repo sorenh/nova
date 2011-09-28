@@ -1,3 +1,14 @@
+nova (2011.3-0ubuntu4) oneiric; urgency=low
+
+  * debian/nova-common.postinst:
+    - Exclude mounted filesystems within /var/lib/nova from user/group 
+      ownership changes so that LXC mounted root filesystems are not
+      altered (LP: #861260).
+    - Ensure that primary group for 'nova' user is 'nova' so that files
+      created by this user have the correct group ownership.
+
+ -- James Page <james.page@ubuntu.com>  Wed, 28 Sep 2011 11:56:36 +0100
+
 nova (2011.3-0ubuntu3) oneiric; urgency=low
 
   [Adam Gandelman]
