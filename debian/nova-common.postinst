@@ -11,7 +11,7 @@ if [ "$1" = "configure" ]; then
         usermod -g nova nova
     fi
     chown -R nova:nova /var/log/nova/ /etc/nova/nova.conf
-    if dpkg --compare-versions $2 lt "2011.3-0ubuntu4"; then
+    if dpkg --compare-versions "$2" lt "2011.3-0ubuntu4"; then
         # Make sure the LXC rootfs mount points are excluded
         find /var/lib/nova/ -name 'rootfs' -prune -o \
            -group root -a -user nova -exec chown nova:nova {} \;
