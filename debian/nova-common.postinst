@@ -11,8 +11,13 @@ if [ "$1" = "configure" ]; then
         usermod -g nova nova
     fi
     chown -R nova:nova /var/log/nova/ /etc/nova/nova.conf
-    # Make sure the LXC rootfs mount points are excluded
-    find /var/lib/nova/ -name 'rootfs' -prune -o -exec chown nova:nova {} \;
+    if dpkg --compare-versions $2 lt "2011.3-0ubuntu4"; then
+        # Make sure the LXC rootfs mount points are excluded
+        find /var/lib/nova/ -name 'rootfs' -prune -o \
+           -group root -a -user nova -exec chown nova:nova {} \;
+        find /var/lib/nova/ -name 'rootfs' -prune -o \
+           -group nogroup -a -user nova -exec chown nova:nova {} \;
+    fi
     chmod 600 /etc/nova/nova.conf
     chmod 0440 /etc/sudoers.d/nova_sudoers
     if ! grep -q sql_connection /etc/nova/nova.conf
