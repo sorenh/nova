@@ -3,6 +3,15 @@ nova (2011.3-0ubuntu4) UNRELEASED; urgency=low
   [Ante Karamatic]
   * Add /usr/sbin/ietadm to sudoers (LP: #861547)
   * debian/control: Fix typo in Vcs-Bzr
+ 
+  [Chuck Short]
+  * debian/patches/backport-libvirt-console-pipe.patch:
+    Move console.log to a ringbuffer so that the console.log
+    keeps filling up. (LP: #832507)
+  * debian/patches/backport-lxc-container-console-fix.patch:
+    Make euca-get-console-output usable for LXC containers.
+    (LP: #832159)
+  * debian/patches/backport-snapshot-cleanup.patch:
 
  -- Chuck Short <zulcss@ubuntu.com>  Thu, 29 Sep 2011 13:00:07 -0400
 

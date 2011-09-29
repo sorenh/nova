@@ -1,0 +1,42 @@
+Description: Make LXC container console usuable.
+Author: Chuck Short <zulcss@ubuntu.com>
+Status: https://review.openstack.org/#change,728
+diff -Naurp nova-2011.3.orig//nova/virt/libvirt/connection.py nova-2011.3//nova/virt/libvirt/connection.py
+--- nova-2011.3.orig//nova/virt/libvirt/connection.py	2011-09-22 08:02:23.000000000 -0400
++++ nova-2011.3//nova/virt/libvirt/connection.py	2011-09-29 13:17:55.042459831 -0400
+@@ -623,6 +623,25 @@ class LibvirtConnection(driver.ComputeDr
+         timer = utils.LoopingCall(_wait_for_boot)
+         return timer.start(interval=0.5, now=True)
+ 
++    def _get_lxc_console(self, instance, console_log):
++        """Get the LXC console for a running libvirt domain."""
++        virt_dom = self._lookup_by_name(instance)
++        xml = virt_dom.XMLDesc(0)
++        dom = minidom.parseString(xml)
++
++        for console in dom.getElementsByTagName('console'):
++            if console.getAttribute('type') == 'pty':
++                source = console.getElementsByTagName('source')[0]
++                pty_device = source.getAttribute('path')
++
++        out,err = utils.execute('dd',
++                                'if=%s' % pty_device,
++                                'iflag=nonblock',
++                                run_as_root=True,
++                                check_exit_code=False)
++        data = self._append_to_file(out, console_log)
++        return data
++
+     def _flush_xen_console(self, virsh_output):
+         LOG.info(_('virsh said: %r'), virsh_output)
+         virsh_output = virsh_output[0].strip()
+@@ -665,7 +684,8 @@ class LibvirtConnection(driver.ComputeDr
+             fpath = self._append_to_file(data, console_log)
+         elif FLAGS.libvirt_type == 'lxc':
+             # LXC is also special
+-            LOG.info(_("Unable to read LXC console"))
++            console_log = self._get_lxc_console(instance['name'], console_log)
++            fpath = console_log 
+         else:
+             fpath = console_log
+ 
