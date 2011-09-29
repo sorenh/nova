@@ -1,12 +1,26 @@
 nova (2011.3-0ubuntu4) oneiric; urgency=low
 
+  [James Page]
   * debian/nova-common.postinst:
     - Exclude mounted LXC rootfs filesystems within /var/lib/nova from 
       user/group ownership changes (LP: #861260).
     - Ensure that primary group for 'nova' user is 'nova' so that files
       created by this user have the correct group ownership.
 
- -- James Page <james.page@ubuntu.com>  Wed, 28 Sep 2011 14:18:48 +0100
+  [Ante Karamatic]
+  * Add /usr/sbin/ietadm to sudoers (LP: #861547)
+  * debian/control: Fix typo in Vcs-Bzr
+ 
+  [Chuck Short]
+  * debian/patches/backport-libvirt-console-pipe.patch:
+    Move console.log to a ringbuffer so that the console.log
+    keeps filling up. (LP: #832507)
+  * debian/patches/backport-lxc-container-console-fix.patch:
+    Make euca-get-console-output usable for LXC containers.
+    (LP: #832159)
+  * debian/patches/backport-snapshot-cleanup.patch:
+
+ -- James Page <james.page@ubuntu.com>  Thu, 29 Sep 2011 21:48:44 +0100
 
 nova (2011.3-0ubuntu3) oneiric; urgency=low
 
