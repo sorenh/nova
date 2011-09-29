@@ -1,4 +1,11 @@
-nova (2011.3-0ubuntu4) UNRELEASED; urgency=low
+nova (2011.3-0ubuntu4) oneiric; urgency=low
+
+  [James Page]
+  * debian/nova-common.postinst:
+    - Exclude mounted LXC rootfs filesystems within /var/lib/nova from 
+      user/group ownership changes (LP: #861260).
+    - Ensure that primary group for 'nova' user is 'nova' so that files
+      created by this user have the correct group ownership.
 
   [Ante Karamatic]
   * Add /usr/sbin/ietadm to sudoers (LP: #861547)
@@ -13,7 +20,7 @@ nova (2011.3-0ubuntu4) UNRELEASED; urgency=low
     (LP: #832159)
   * debian/patches/backport-snapshot-cleanup.patch:
 
- -- Chuck Short <zulcss@ubuntu.com>  Thu, 29 Sep 2011 13:00:07 -0400
+ -- James Page <james.page@ubuntu.com>  Thu, 29 Sep 2011 21:48:44 +0100
 
 nova (2011.3-0ubuntu3) oneiric; urgency=low
 
