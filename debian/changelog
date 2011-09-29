@@ -1,3 +1,10 @@
+nova (2011.3-0ubuntu4) UNRELEASED; urgency=low
+
+  [Ante Karamatic
+  * debian/control: Fix typo in Vcs-Bzr
+
+ -- Ante Karamatić <ivoks@ubuntu.com>  Thu, 29 Sep 2011 11:41:02 +0200
+
 nova (2011.3-0ubuntu3) oneiric; urgency=low
 
   [Adam Gandelman]
