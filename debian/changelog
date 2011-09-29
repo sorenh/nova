@@ -1,3 +1,10 @@
+nova (2011.3-0ubuntu4) UNRELEASED; urgency=low
+
+  [Ante Karamatic]
+  * Add /usr/sbin/ietadm to sudoers (LP: #861547)
+
+ -- Ante Karamatić <ivoks@ubuntu.com>  Thu, 29 Sep 2011 11:33:54 +0200
+
 nova (2011.3-0ubuntu3) oneiric; urgency=low
 
   [Adam Gandelman]
