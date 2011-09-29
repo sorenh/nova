@@ -43,7 +43,7 @@ Build-Conflicts: python-cjson
 Standards-Version: 3.9.1
 Homepage: http://launchpad.net/nova
 Vcs-Browser: http://bazaar.launchpad.net/~ubuntu-server-dev/nova/diablo/debian/files
-Vcs-Bzr: http://bazaar.launchpad.net/~ubuntu-server-de/nova/diablo
+Vcs-Bzr: http://bazaar.launchpad.net/~ubuntu-server-dev/nova/diablo
 
 
 Package: python-nova
