@@ -7,10 +7,14 @@ nova (2011.3-0ubuntu4) oneiric; urgency=low
     - Ensure that primary group for 'nova' user is 'nova' so that files
       created by this user have the correct group ownership.
 
+  [Adam Gandelman]
+  * debian/nova-common.postinst: Restrict permissions of /var/log/nova
+    (LP: #862816)
+
   [Ante Karamatic]
   * Add /usr/sbin/ietadm to sudoers (LP: #861547)
   * debian/control: Fix typo in Vcs-Bzr
- 
+
   [Chuck Short]
   * debian/patches/backport-libvirt-console-pipe.patch:
     Move console.log to a ringbuffer so that the console.log
