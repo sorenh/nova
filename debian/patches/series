@@ -9,3 +9,4 @@ backport-recreate-gateway-using-dhcp.patch
 backport-libvirt-console-pipe.patch
 backport-lxc-container-console-fix.patch
 backport-snapshot-cleanup.patch
+fix-lp863305-images-permission.patch
