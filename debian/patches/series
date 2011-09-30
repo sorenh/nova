@@ -7,5 +7,5 @@ use-netcat-instead-of-socat.patch
 fqdn-in-local-hostname-of-ec2-metadata.patch
 backport-recreate-gateway-using-dhcp.patch
 backport-libvirt-console-pipe.patch
-backport-lxc-container-console-fix.patch
+#backport-lxc-container-console-fix.patch
 backport-snapshot-cleanup.patch

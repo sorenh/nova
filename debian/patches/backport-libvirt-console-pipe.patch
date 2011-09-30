@@ -1,9 +1,159 @@
 Description: Move console.log to a ringbuffer
 Author: Robie Basak <robie.basak@canonical.com>
 Status: https://review.openstack.org/#change,706
-diff -Naurp nova-2011.3.orig//nova/utils.py nova-2011.3//nova/utils.py
+diff -Naupr nova-2011.3.orig//Authors nova-2011.3//Authors
+--- nova-2011.3.orig//Authors	2011-09-22 08:02:23.000000000 -0400
++++ nova-2011.3//Authors	2011-09-30 10:14:45.375607481 -0400
+@@ -95,6 +95,7 @@ Ricardo Carrillo Cruz <emaildericky@gmai
+ Rick Clark <rick@openstack.org>
+ Rick Harris <rconradharris@gmail.com>
+ Rob Kost <kost@isi.edu>
++Robie Basak <robie.basak@canonical.com>
+ Ryan Lane <rlane@wikimedia.org>
+ Ryan Lucio <rlucio@internap.com>
+ Ryu Ishimoto <ryu@midokura.jp>
+diff -Naupr nova-2011.3.orig//nova/tests/test_libvirt.py nova-2011.3//nova/tests/test_libvirt.py
+--- nova-2011.3.orig//nova/tests/test_libvirt.py	2011-09-22 08:02:23.000000000 -0400
++++ nova-2011.3//nova/tests/test_libvirt.py	2011-09-30 10:14:45.379607485 -0400
+@@ -565,7 +565,7 @@ class LibvirtConnTestCase(test.TestCase)
+             (lambda t: t.findall(parameter)[1].get('name'), 'DHCPSERVER'),
+             (lambda t: t.findall(parameter)[1].get('value'), '10.0.0.1'),
+             (lambda t: t.find('./devices/serial/source').get(
+-                'path').split('/')[1], 'console.log'),
++                'path').split('/')[1], 'console.fifo'),
+             (lambda t: t.find('./memory').text, '2097152')]
+         if rescue:
+             common_checks += [
+@@ -1494,3 +1494,54 @@ class NWFilterTestCase(test.TestCase):
+         self.assertEqual(original_filter_count - len(fakefilter.filters), 2)
+ 
+         db.instance_destroy(admin_ctxt, instance_ref['id'])
++
++
++class ConsoleLoggerTestCase(test.TestCase):
++    def setUp(self):
++        super(ConsoleLoggerTestCase, self).setUp()
++        eventlet.monkey_patch()
++        self.directory_path = tempfile.mkdtemp()
++        self.ringbuffer_path = os.path.join(self.directory_path, 'ring')
++        self.fifo_path = os.path.join(self.directory_path, 'fifo')
++        os.mkfifo(self.fifo_path)
++        self.console_logger = connection.ConsoleLogger(self.fifo_path,
++                                                       self.ringbuffer_path)
++        eventlet.sleep(0)
++
++    def testWriteBytes(self, reopen_writer=False, reopen_reader=False):
++        fd = os.open(self.fifo_path, os.O_WRONLY)
++        os.write(fd, '0')
++        eventlet.sleep(0)
++        eventlet.sleep(0)
++        self.assertEquals(self.console_logger.ringbuffer.peek(), '0')
++        if reopen_writer:
++            os.close(fd)
++            fd = os.open(self.fifo_path, os.O_WRONLY)
++        if reopen_reader:
++            self.console_logger.close()
++            self.console_logger = connection.ConsoleLogger(
++                    self.fifo_path,
++                    self.ringbuffer_path)
++            eventlet.sleep(0)
++        os.write(fd, '1')
++        eventlet.sleep(0)
++        eventlet.sleep(0)
++        self.assertEquals(self.console_logger.ringbuffer.peek(), '01')
++        os.close(fd)
++
++    def testReopenWriter(self):
++        self.testWriteBytes(reopen_writer=True)
++
++    def testReopenReader(self):
++        self.testWriteBytes(reopen_reader=True)
++
++    def testReopenBoth(self):
++        self.testWriteBytes(reopen_writer=True, reopen_reader=True)
++
++    def tearDown(self):
++        super(ConsoleLoggerTestCase, self).tearDown()
++        if self.console_logger:
++            self.console_logger.close()
++        os.unlink(self.ringbuffer_path)
++        os.unlink(self.fifo_path)
++        os.rmdir(self.directory_path)
+diff -Naupr nova-2011.3.orig//nova/tests/test_utils.py nova-2011.3//nova/tests/test_utils.py
+--- nova-2011.3.orig//nova/tests/test_utils.py	2011-09-22 08:02:23.000000000 -0400
++++ nova-2011.3//nova/tests/test_utils.py	2011-09-30 10:14:45.379607485 -0400
+@@ -15,9 +15,12 @@
+ #    under the License.
+ 
+ import datetime
++import itertools
+ import os
+ import tempfile
+ 
++import nose
++
+ import nova
+ from nova import exception
+ from nova import test
+@@ -439,3 +442,55 @@ class MonkeyPatchTestCase(test.TestCase)
+             in nova.tests.monkey_patch_example.CALLED_FUNCTION)
+         self.assertFalse(package_b + 'ExampleClassB.example_method_add'
+             in nova.tests.monkey_patch_example.CALLED_FUNCTION)
++
++
++class RingBufferTestCase(test.TestCase):
++    """Unit test for utils.RingBuffer()."""
++    def setUp(self):
++        super(RingBufferTestCase, self).setUp()
++        self.f = tempfile.NamedTemporaryFile()
++        self.r = utils.RingBuffer(self.f.name, max_size=4)
++
++    def tearDown(self):
++        super(RingBufferTestCase, self).tearDown()
++        self.r.close()
++        self.f.close()
++
++    def testEmpty(self):
++        self.assertEquals(self.r.peek(), '')
++
++    def testReOpen(self):
++        self.r.write('1')
++        self.r.close()
++        self.r = utils.RingBuffer(self.f.name, max_size=4)
++        self.assertEquals(self.r.peek(), '1')
++
++
++def testPermutations():
++    """Test various permutations of writing to a RingBuffer.
++
++    Try all permutations of writing [0,5) bytes three times to a RingBuffer
++    of size 4. This makes use of nose's test generator capability so cannot
++    be a subclass of test.TestCase.
++
++    """
++    def check_buffer(r, expected):
++        nose.tools.eq_(r.peek(), expected)
++
++    SIZE = 4
++    for sequence in itertools.product(range(5), range(5), range(5)):
++        f = tempfile.NamedTemporaryFile()
++        r = utils.RingBuffer(f.name, max_size=SIZE)
++        source = itertools.count()
++        expected = ''
++
++        def next_n(n):
++            return ''.join(str(next(source)) for x in range(n))
++        for entry in sequence:
++            to_insert = next_n(entry)
++            expected += to_insert
++            expected = expected[max(0, len(expected) - SIZE):]
++            r.write(to_insert)
++            yield check_buffer, r, expected
++        r.close()
++        f.close()
+diff -Naupr nova-2011.3.orig//nova/utils.py nova-2011.3//nova/utils.py
 --- nova-2011.3.orig//nova/utils.py	2011-09-22 08:02:23.000000000 -0400
-+++ nova-2011.3//nova/utils.py	2011-09-29 13:57:43.562487261 -0400
++++ nova-2011.3//nova/utils.py	2011-09-30 10:20:37.823615836 -0400
 @@ -26,10 +26,12 @@ import json
  import lockfile
  import netaddr
@@ -25,11 +175,10 @@ diff -Naurp nova-2011.3.orig//nova/utils.py nova-2011.3//nova/utils.py
  LOG = logging.getLogger("nova.utils")
  ISO_TIME_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
  PERFECT_TIME_FORMAT = "%Y-%m-%dT%H:%M:%S.%f"
-@@ -910,3 +913,130 @@ def convert_to_list_dict(lst, label):
+@@ -910,3 +913,132 @@ def convert_to_list_dict(lst, label):
      if not isinstance(lst, list):
          lst = [lst]
      return [{label: x} for x in lst]
-+
 +
 +class RingBuffer(object):
 +    """Generic userspace on-disk ringbuffer implementation."""
@@ -38,11 +187,13 @@ diff -Naurp nova-2011.3.orig//nova/utils.py nova-2011.3//nova/utils.py
 +    _header_size = struct.calcsize(_header_format)
 +
 +    def __init__(self, backing_file, max_size=65536):
-+        max_size += 1 # we need one extra byte as the buffer is kept with
-+                      # one byte free to avoid the head==tail full/empty
-+                      # problem
++        # We need one extra byte as the buffer is kept with
++        # one byte free to avoid the head==tail full/empty
++        # problem
++        max_size += 1
++
 +        if not 0 < max_size <= RingBuffer._header_max_int:
-+            raise ValueError('RingBuffer size out of range')
++            raise ValueError(_('RingBuffer size out of range'))
 +        had_already_existed = os.path.exists(backing_file)
 +        self.f = self._open(backing_file)
 +        if had_already_existed:
@@ -51,19 +202,20 @@ diff -Naurp nova-2011.3.orig//nova/utils.py nova-2011.3//nova/utils.py
 +                current_size = file_size - self._header_size
 +                if not 0 < current_size <= RingBuffer._header_max_int:
 +                    self.f.close()
-+                    raise ValueError('Disk RingBuffer size out of range')
++                    raise ValueError(_('Disk RingBuffer size out of range'))
 +                self.max_size = current_size
 +
 +                # If the file doesn't contain a header, assume it is corrupt
 +                # and recreate
 +                if file_size < self._header_size:
-+                    self._write_header(0, 0) # initialise to empty
++                    self._write_header(0, 0)  # initialise to empty
 +
 +                # If head or tail point beyond the file then bomb out
 +                head, tail = self._read_header()
 +                if head >= current_size or tail >= current_size:
 +                    self.f.close()
-+                    raise ValueError('RingBuffer %s is corrupt' % backing_file)
++                    raise ValueError(_('RingBuffer %s is corrupt') %
++                                     backing_file)
 +            else:
 +                # File is zero bytes: treat as new file
 +                self.max_size = max_size
@@ -74,7 +226,7 @@ diff -Naurp nova-2011.3.orig//nova/utils.py nova-2011.3//nova/utils.py
 +
 +    def _initialise_empty_file(self):
 +        os.ftruncate(self.f.fileno(), self.max_size + self._header_size)
-+        self._write_header(0, 0) # head == tail means no data
++        self._write_header(0, 0)  # head == tail means no data
 +
 +    @staticmethod
 +    def _open(filename):
@@ -138,13 +290,13 @@ diff -Naurp nova-2011.3.orig//nova/utils.py nova-2011.3//nova/utils.py
 +
 +            if head < unwrapped_tail <= new_head:
 +                # Write will go past tail so tail needs to be pushed back
-+                tail = new_head + 1 # one past head to indicate full
++                tail = new_head + 1  # one past head to indicate full
 +                tail %= self.max_size
 +                self._write_header(head, tail)
 +
 +            # Write the data
 +            self._write_slice(head, data[:len_to_write])
-+            data = data[len_to_write:] # data now left
++            data = data[len_to_write:]  # data now left
 +
 +            # Push head back
 +            head = new_head
@@ -156,9 +308,9 @@ diff -Naurp nova-2011.3.orig//nova/utils.py nova-2011.3//nova/utils.py
 +
 +    def close(self):
 +        self.f.close()
-diff -Naurp nova-2011.3.orig//nova/virt/libvirt/connection.py nova-2011.3//nova/virt/libvirt/connection.py
+diff -Naupr nova-2011.3.orig//nova/virt/libvirt/connection.py nova-2011.3//nova/virt/libvirt/connection.py
 --- nova-2011.3.orig//nova/virt/libvirt/connection.py	2011-09-22 08:02:23.000000000 -0400
-+++ nova-2011.3//nova/virt/libvirt/connection.py	2011-09-29 13:40:41.392475523 -0400
++++ nova-2011.3//nova/virt/libvirt/connection.py	2011-09-30 10:14:45.387607449 -0400
 @@ -37,6 +37,7 @@ Supports KVM, LXC, QEMU, UML, and XEN.
  
  """
@@ -189,7 +341,7 @@ diff -Naurp nova-2011.3.orig//nova/virt/libvirt/connection.py nova-2011.3//nova/
  flags.DEFINE_bool('libvirt_use_virtio_for_bridges',
                    False,
                    'Use virtio for bridge interfaces')
-+flags.DEFINE_integer('libvirt_console_log_size', 2**16,
++flags.DEFINE_integer('libvirt_console_log_size', 2 ** 16,
 +                     'libvirt console log ringbuffer size')
  
  
@@ -250,7 +402,7 @@ diff -Naurp nova-2011.3.orig//nova/virt/libvirt/connection.py nova-2011.3//nova/
  class LibvirtConnection(driver.ComputeDriver):
  
      def __init__(self, read_only):
-@@ -185,6 +240,8 @@ class LibvirtConnection(driver.ComputeDr
+@@ -185,9 +240,15 @@ class LibvirtConnection(driver.ComputeDr
          self.firewall_driver = fw_class(get_connection=self._get_connection)
          self.vif_driver = utils.import_object(FLAGS.libvirt_vif_driver)
  
@@ -258,8 +410,16 @@ diff -Naurp nova-2011.3.orig//nova/virt/libvirt/connection.py nova-2011.3//nova/
 +
      def init_host(self, host):
          # NOTE(nsokolov): moved instance restarting to ComputeManager
-         pass
-@@ -229,6 +286,15 @@ class LibvirtConnection(driver.ComputeDr
+-        pass
++        for name in self.list_instances():
++            base_path = os.path.join(FLAGS.instances_path, name)
++            fifo_path = os.path.join(base_path, 'console.fifo.out')
++            ringbuffer_path = os.path.join(base_path, 'console.ring')
++            self._start_console_logger(name, fifo_path, ringbuffer_path)
+ 
+     def _get_connection(self):
+         if not self._wrapped_conn or not self._test_connection():
+@@ -229,6 +290,15 @@ class LibvirtConnection(driver.ComputeDr
          else:
              return libvirt.openAuth(uri, auth, 0)
  
@@ -275,7 +435,7 @@ diff -Naurp nova-2011.3.orig//nova/virt/libvirt/connection.py nova-2011.3//nova/
      def list_instances(self):
          return [self._conn.lookupByID(x).name()
                  for x in self._conn.listDomainsID()]
-@@ -333,6 +399,7 @@ class LibvirtConnection(driver.ComputeDr
+@@ -333,6 +403,7 @@ class LibvirtConnection(driver.ComputeDr
      def _cleanup(self, instance):
          target = os.path.join(FLAGS.instances_path, instance['name'])
          instance_name = instance['name']
@@ -283,7 +443,7 @@ diff -Naurp nova-2011.3.orig//nova/virt/libvirt/connection.py nova-2011.3//nova/
          LOG.info(_('instance %(instance_name)s: deleting instance files'
                  ' %(target)s') % locals())
          if FLAGS.libvirt_type == 'lxc':
-@@ -652,24 +719,22 @@ class LibvirtConnection(driver.ComputeDr
+@@ -652,24 +723,22 @@ class LibvirtConnection(driver.ComputeDr
  
      @exception.wrap_exception()
      def get_console_output(self, instance):
@@ -313,7 +473,7 @@ diff -Naurp nova-2011.3.orig//nova/virt/libvirt/connection.py nova-2011.3//nova/
  
      @exception.wrap_exception()
      def get_ajax_console(self, instance):
-@@ -816,11 +881,23 @@ class LibvirtConnection(driver.ComputeDr
+@@ -816,11 +885,25 @@ class LibvirtConnection(driver.ComputeDr
              container_dir = '%s/rootfs' % basepath(suffix='')
              utils.execute('mkdir', '-p', container_dir)
  
@@ -326,8 +486,8 @@ diff -Naurp nova-2011.3.orig//nova/virt/libvirt/connection.py nova-2011.3//nova/
 +        console_fifo = basepath('console.fifo', '')
 +        console_ring = basepath('console.ring', '')
 +
-+        for suffix in [ '.in', '.out' ]:
-+            console_fifo_suffix = console_fifo + suffix
++        for fifo_suffix in ['.in', '.out']:
++            console_fifo_suffix = console_fifo + fifo_suffix
 +            try:
 +                console_fifo_stat = os.stat(console_fifo_suffix)
 +            except OSError, e:
@@ -336,15 +496,17 @@ diff -Naurp nova-2011.3.orig//nova/virt/libvirt/connection.py nova-2011.3//nova/
 +                else:
 +                    raise
 +            else:
-+                utils.execute('chown', os.getuid(), console_fifo_suffix,
++                utils.execute('chown', os.getuid(), console_fifo,
 +                              run_as_root=True)
-+        self._start_console_logger(inst['name'], console_fifo + '.out', console_ring)
++        self._start_console_logger(inst['name'],
++                                   console_fifo + '.out',
++                                   console_ring)
  
          if not disk_images:
              disk_images = {'image_id': inst['image_ref'],
-diff -Naurp nova-2011.3.orig//nova/virt/libvirt.xml.template nova-2011.3//nova/virt/libvirt.xml.template
+diff -Naupr nova-2011.3.orig//nova/virt/libvirt.xml.template nova-2011.3//nova/virt/libvirt.xml.template
 --- nova-2011.3.orig//nova/virt/libvirt.xml.template	2011-09-22 08:02:23.000000000 -0400
-+++ nova-2011.3//nova/virt/libvirt.xml.template	2011-09-29 13:40:41.392475523 -0400
++++ nova-2011.3//nova/virt/libvirt.xml.template	2011-09-30 10:14:45.383607472 -0400
 @@ -153,8 +153,8 @@
  
  #end for
