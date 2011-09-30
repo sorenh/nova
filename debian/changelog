@@ -27,7 +27,7 @@ nova (2011.3-0ubuntu4) oneiric; urgency=low
   * debian/patches/fix-lp863305-images-permission.patch:
     Fix image access control. (LP: #863305)
 
- -- James Page <james.page@ubuntu.com>  Thu, 29 Sep 2011 21:48:44 +0100
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 30 Sep 2011 15:21:56 -0400
 
 nova (2011.3-0ubuntu3) oneiric; urgency=low
 
