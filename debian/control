@@ -27,7 +27,7 @@ Build-Depends-Indep:
  python-cheetah,
  python-nose,
  python-paste,
- python-pastedeploy,
+ python-pastedeploy (>= 1.5.0),
  python-tempita,
  python-migrate,
  python-netaddr,
