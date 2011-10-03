@@ -1,3 +1,11 @@
+nova (2011.3-0ubuntu5) oneiric; urgency=low
+
+  * debian/nova-common.postinst:
+    - Set permissions recursively on /var/lib/nova to nova:nova for new
+      installations (LP: #865169).
+
+ -- James Page <james.page@ubuntu.com>  Mon, 03 Oct 2011 11:02:34 +0100
+
 nova (2011.3-0ubuntu4) oneiric; urgency=low
 
   [James Page]
