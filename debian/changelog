@@ -1,3 +1,10 @@
+nova (2011.3-0ubuntu6) oneiric; urgency=low
+
+  * debian/patches/backport-libvirt-console-pipe.patch: 
+    - Patch updated to fix race on instance termination (LP: #868349)
+
+ -- Robie Basak <robie.basak@ubuntu.com>  Wed, 05 Oct 2011 17:37:49 +0100
+
 nova (2011.3-0ubuntu5) oneiric; urgency=low
 
   * debian/nova-common.postinst:
