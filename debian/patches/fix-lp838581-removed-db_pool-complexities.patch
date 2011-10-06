@@ -1,0 +1,89 @@
+commit d6b460e2e87e573500f6b521939895c6d93f5fdf
+Merge: d2ac401 f3dd56e
+Author: Jenkins <jenkins@review.openstack.org>
+Date:   Tue Sep 27 17:00:53 2011 +0000
+
+    Merge "Removed db_pool complexities from nova.db.sqlalchemy.session. Fixes bug 838581."
+
+commit f3dd56e916232e38e74d9e2f24ce9a738cac63cf
+Author: Brian Lamar <brian.lamar@rackspace.com>
+Date:   Mon Sep 26 11:52:21 2011 -0400
+
+    Removed db_pool complexities from nova.db.sqlalchemy.session. Fixes bug 838581.
+    
+    Change-Id: I9b1f4790fcdb890a5113b853f1b1483f3212c530
+
+--- a/nova/db/sqlalchemy/session.py
++++ b/nova/db/sqlalchemy/session.py
+@@ -15,30 +15,16 @@
+ #    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ #    License for the specific language governing permissions and limitations
+ #    under the License.
+-"""
+-Session Handling for SQLAlchemy backend
+-"""
+ 
+-import eventlet.patcher
+-eventlet.patcher.monkey_patch()
++"""Session Handling for SQLAlchemy backend."""
+ 
+-import eventlet.db_pool
+ import sqlalchemy.orm
+-import sqlalchemy.pool
+ 
+ import nova.exception
+ import nova.flags
+-import nova.log
+ 
+ 
+ FLAGS = nova.flags.FLAGS
+-LOG = nova.log.getLogger("nova.db.sqlalchemy")
+-
+-
+-try:
+-    import MySQLdb
+-except ImportError:
+-    MySQLdb = None
+ 
+ 
+ _ENGINE = None
+@@ -71,24 +57,6 @@ def get_engine():
+     if "sqlite" in connection_dict.drivername:
+         engine_args["poolclass"] = sqlalchemy.pool.NullPool
+ 
+-    elif MySQLdb and "mysql" in connection_dict.drivername:
+-        LOG.info(_("Using mysql/eventlet db_pool."))
+-        # MySQLdb won't accept 'None' in the password field
+-        password = connection_dict.password or ''
+-        pool_args = {
+-            "db": connection_dict.database,
+-            "passwd": password,
+-            "host": connection_dict.host,
+-            "user": connection_dict.username,
+-            "min_size": FLAGS.sql_min_pool_size,
+-            "max_size": FLAGS.sql_max_pool_size,
+-            "max_idle": FLAGS.sql_idle_timeout,
+-        }
+-        creator = eventlet.db_pool.ConnectionPool(MySQLdb, **pool_args)
+-        engine_args["pool_size"] = FLAGS.sql_max_pool_size
+-        engine_args["pool_timeout"] = FLAGS.sql_pool_timeout
+-        engine_args["creator"] = creator.create
+-
+     return sqlalchemy.create_engine(FLAGS.sql_connection, **engine_args)
+ 
+ 
+--- a/nova/flags.py
++++ b/nova/flags.py
+@@ -351,12 +351,6 @@ DEFINE_string('logdir', None, 'output to
+                               'directory')
+ DEFINE_integer('logfile_mode', 0644, 'Default file mode of the logs.')
+ DEFINE_string('sqlite_db', 'nova.sqlite', 'file name for sqlite')
+-DEFINE_integer('sql_pool_timeout', 30,
+-               'seconds to wait for connection from pool before erroring')
+-DEFINE_integer('sql_min_pool_size', 10,
+-               'minimum number of SQL connections to pool')
+-DEFINE_integer('sql_max_pool_size', 10,
+-               'maximum number of SQL connections to pool')
+ DEFINE_string('sql_connection',
+               'sqlite:///$state_path/$sqlite_db',
+               'connection string for sql database')
