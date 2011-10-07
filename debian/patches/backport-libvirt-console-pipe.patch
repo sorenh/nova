@@ -1,10 +1,9 @@
 Description: Move console.log to a ringbuffer
 Author: Robie Basak <robie.basak@canonical.com>
 Status: https://review.openstack.org/#change,706
-diff -Naupr nova-2011.3.orig//Authors nova-2011.3//Authors
---- nova-2011.3.orig//Authors	2011-09-22 08:02:23.000000000 -0400
-+++ nova-2011.3//Authors	2011-09-30 10:14:45.375607481 -0400
-@@ -95,6 +95,7 @@ Ricardo Carrillo Cruz <emaildericky@gmai
+--- a/Authors
++++ b/Authors
+@@ -95,6 +95,7 @@
  Rick Clark <rick@openstack.org>
  Rick Harris <rconradharris@gmail.com>
  Rob Kost <kost@isi.edu>
@@ -12,10 +11,9 @@ diff -Naupr nova-2011.3.orig//Authors nova-2011.3//Authors
  Ryan Lane <rlane@wikimedia.org>
  Ryan Lucio <rlucio@internap.com>
  Ryu Ishimoto <ryu@midokura.jp>
-diff -Naupr nova-2011.3.orig//nova/tests/test_libvirt.py nova-2011.3//nova/tests/test_libvirt.py
---- nova-2011.3.orig//nova/tests/test_libvirt.py	2011-09-22 08:02:23.000000000 -0400
-+++ nova-2011.3//nova/tests/test_libvirt.py	2011-09-30 10:14:45.379607485 -0400
-@@ -565,7 +565,7 @@ class LibvirtConnTestCase(test.TestCase)
+--- a/nova/tests/test_libvirt.py
++++ b/nova/tests/test_libvirt.py
+@@ -565,7 +565,7 @@
              (lambda t: t.findall(parameter)[1].get('name'), 'DHCPSERVER'),
              (lambda t: t.findall(parameter)[1].get('value'), '10.0.0.1'),
              (lambda t: t.find('./devices/serial/source').get(
@@ -24,7 +22,7 @@ diff -Naupr nova-2011.3.orig//nova/tests/test_libvirt.py nova-2011.3//nova/tests
              (lambda t: t.find('./memory').text, '2097152')]
          if rescue:
              common_checks += [
-@@ -1494,3 +1494,54 @@ class NWFilterTestCase(test.TestCase):
+@@ -1501,3 +1501,54 @@
          self.assertEqual(original_filter_count - len(fakefilter.filters), 2)
  
          db.instance_destroy(admin_ctxt, instance_ref['id'])
@@ -79,9 +77,8 @@ diff -Naupr nova-2011.3.orig//nova/tests/test_libvirt.py nova-2011.3//nova/tests
 +        os.unlink(self.ringbuffer_path)
 +        os.unlink(self.fifo_path)
 +        os.rmdir(self.directory_path)
-diff -Naupr nova-2011.3.orig//nova/tests/test_utils.py nova-2011.3//nova/tests/test_utils.py
---- nova-2011.3.orig//nova/tests/test_utils.py	2011-09-22 08:02:23.000000000 -0400
-+++ nova-2011.3//nova/tests/test_utils.py	2011-09-30 10:14:45.379607485 -0400
+--- a/nova/tests/test_utils.py
++++ b/nova/tests/test_utils.py
 @@ -15,9 +15,12 @@
  #    under the License.
  
@@ -95,7 +92,7 @@ diff -Naupr nova-2011.3.orig//nova/tests/test_utils.py nova-2011.3//nova/tests/t
  import nova
  from nova import exception
  from nova import test
-@@ -439,3 +442,55 @@ class MonkeyPatchTestCase(test.TestCase)
+@@ -439,3 +442,55 @@
              in nova.tests.monkey_patch_example.CALLED_FUNCTION)
          self.assertFalse(package_b + 'ExampleClassB.example_method_add'
              in nova.tests.monkey_patch_example.CALLED_FUNCTION)
@@ -151,10 +148,9 @@ diff -Naupr nova-2011.3.orig//nova/tests/test_utils.py nova-2011.3//nova/tests/t
 +            yield check_buffer, r, expected
 +        r.close()
 +        f.close()
-diff -Naupr nova-2011.3.orig//nova/utils.py nova-2011.3//nova/utils.py
---- nova-2011.3.orig//nova/utils.py	2011-09-22 08:02:23.000000000 -0400
-+++ nova-2011.3//nova/utils.py	2011-09-30 10:20:37.823615836 -0400
-@@ -26,10 +26,12 @@ import json
+--- a/nova/utils.py
++++ b/nova/utils.py
+@@ -26,10 +26,12 @@
  import lockfile
  import netaddr
  import os
@@ -167,7 +163,7 @@ diff -Naupr nova-2011.3.orig//nova/utils.py nova-2011.3//nova/utils.py
  import struct
  import sys
  import time
-@@ -49,6 +51,7 @@ from nova import log as logging
+@@ -49,6 +51,7 @@
  from nova import version
  
  
@@ -175,7 +171,7 @@ diff -Naupr nova-2011.3.orig//nova/utils.py nova-2011.3//nova/utils.py
  LOG = logging.getLogger("nova.utils")
  ISO_TIME_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
  PERFECT_TIME_FORMAT = "%Y-%m-%dT%H:%M:%S.%f"
-@@ -910,3 +913,132 @@ def convert_to_list_dict(lst, label):
+@@ -910,3 +913,132 @@
      if not isinstance(lst, list):
          lst = [lst]
      return [{label: x} for x in lst]
@@ -308,10 +304,22 @@ diff -Naupr nova-2011.3.orig//nova/utils.py nova-2011.3//nova/utils.py
 +
 +    def close(self):
 +        self.f.close()
-diff -Naupr nova-2011.3.orig//nova/virt/libvirt/connection.py nova-2011.3//nova/virt/libvirt/connection.py
---- nova-2011.3.orig//nova/virt/libvirt/connection.py	2011-09-22 08:02:23.000000000 -0400
-+++ nova-2011.3//nova/virt/libvirt/connection.py	2011-09-30 10:14:45.387607449 -0400
-@@ -37,6 +37,7 @@ Supports KVM, LXC, QEMU, UML, and XEN.
+--- a/nova/virt/libvirt.xml.template
++++ b/nova/virt/libvirt.xml.template
+@@ -153,8 +153,8 @@
+ 
+ #end for
+         <!-- The order is significant here.  File must be defined first -->
+-        <serial type="file">
+-            <source path='${basepath}/console.log'/>
++        <serial type="pipe">
++            <source path='${basepath}/console.fifo'/>
+             <target port='1'/>
+         </serial>
+ 
+--- a/nova/virt/libvirt/connection.py
++++ b/nova/virt/libvirt/connection.py
+@@ -37,6 +37,7 @@
  
  """
  
@@ -319,7 +327,7 @@ diff -Naupr nova-2011.3.orig//nova/virt/libvirt/connection.py nova-2011.3//nova/
  import hashlib
  import functools
  import multiprocessing
-@@ -44,7 +45,9 @@ import netaddr
+@@ -44,7 +45,9 @@
  import os
  import random
  import re
@@ -329,7 +337,7 @@ diff -Naupr nova-2011.3.orig//nova/virt/libvirt/connection.py nova-2011.3//nova/
  import sys
  import tempfile
  import time
-@@ -52,6 +55,7 @@ import uuid
+@@ -52,6 +55,7 @@
  from xml.dom import minidom
  from xml.etree import ElementTree
  
@@ -337,7 +345,7 @@ diff -Naupr nova-2011.3.orig//nova/virt/libvirt/connection.py nova-2011.3//nova/
  from eventlet import greenthread
  from eventlet import tpool
  
-@@ -141,6 +145,8 @@ flags.DEFINE_string('default_local_forma
+@@ -141,6 +145,8 @@
  flags.DEFINE_bool('libvirt_use_virtio_for_bridges',
                    False,
                    'Use virtio for bridge interfaces')
@@ -346,7 +354,7 @@ diff -Naupr nova-2011.3.orig//nova/virt/libvirt/connection.py nova-2011.3//nova/
  
  
  def get_connection(read_only):
-@@ -170,6 +176,55 @@ def _get_eph_disk(ephemeral):
+@@ -170,6 +176,57 @@
      return 'disk.eph' + str(ephemeral['num'])
  
  
@@ -364,6 +372,7 @@ diff -Naupr nova-2011.3.orig//nova/virt/libvirt/connection.py nova-2011.3//nova/
 +    def _reopen(self):
 +        if self.fd is not None:
 +            os.close(self.fd)
++            self.fd = None
 +        self.fd = os.open(self.fifo_path, os.O_RDONLY | os.O_NONBLOCK)
 +
 +    def _reader_thread_func(self):
@@ -394,6 +403,7 @@ diff -Naupr nova-2011.3.orig//nova/virt/libvirt/connection.py nova-2011.3//nova/
 +            pass
 +        if self.fd is not None:
 +            os.close(self.fd)
++            self.fd = None
 +
 +    def peek(self):
 +        return self.ringbuffer.peek()
@@ -402,7 +412,7 @@ diff -Naupr nova-2011.3.orig//nova/virt/libvirt/connection.py nova-2011.3//nova/
  class LibvirtConnection(driver.ComputeDriver):
  
      def __init__(self, read_only):
-@@ -185,9 +240,15 @@ class LibvirtConnection(driver.ComputeDr
+@@ -185,9 +242,15 @@
          self.firewall_driver = fw_class(get_connection=self._get_connection)
          self.vif_driver = utils.import_object(FLAGS.libvirt_vif_driver)
  
@@ -419,7 +429,7 @@ diff -Naupr nova-2011.3.orig//nova/virt/libvirt/connection.py nova-2011.3//nova/
  
      def _get_connection(self):
          if not self._wrapped_conn or not self._test_connection():
-@@ -229,6 +290,15 @@ class LibvirtConnection(driver.ComputeDr
+@@ -229,6 +292,15 @@
          else:
              return libvirt.openAuth(uri, auth, 0)
  
@@ -435,7 +445,7 @@ diff -Naupr nova-2011.3.orig//nova/virt/libvirt/connection.py nova-2011.3//nova/
      def list_instances(self):
          return [self._conn.lookupByID(x).name()
                  for x in self._conn.listDomainsID()]
-@@ -333,6 +403,7 @@ class LibvirtConnection(driver.ComputeDr
+@@ -333,6 +405,7 @@
      def _cleanup(self, instance):
          target = os.path.join(FLAGS.instances_path, instance['name'])
          instance_name = instance['name']
@@ -443,7 +453,7 @@ diff -Naupr nova-2011.3.orig//nova/virt/libvirt/connection.py nova-2011.3//nova/
          LOG.info(_('instance %(instance_name)s: deleting instance files'
                  ' %(target)s') % locals())
          if FLAGS.libvirt_type == 'lxc':
-@@ -652,24 +723,22 @@ class LibvirtConnection(driver.ComputeDr
+@@ -652,24 +725,22 @@
  
      @exception.wrap_exception()
      def get_console_output(self, instance):
@@ -473,7 +483,7 @@ diff -Naupr nova-2011.3.orig//nova/virt/libvirt/connection.py nova-2011.3//nova/
  
      @exception.wrap_exception()
      def get_ajax_console(self, instance):
-@@ -816,11 +885,25 @@ class LibvirtConnection(driver.ComputeDr
+@@ -816,11 +887,25 @@
              container_dir = '%s/rootfs' % basepath(suffix='')
              utils.execute('mkdir', '-p', container_dir)
  
@@ -504,17 +514,3 @@ diff -Naupr nova-2011.3.orig//nova/virt/libvirt/connection.py nova-2011.3//nova/
  
          if not disk_images:
              disk_images = {'image_id': inst['image_ref'],
-diff -Naupr nova-2011.3.orig//nova/virt/libvirt.xml.template nova-2011.3//nova/virt/libvirt.xml.template
---- nova-2011.3.orig//nova/virt/libvirt.xml.template	2011-09-22 08:02:23.000000000 -0400
-+++ nova-2011.3//nova/virt/libvirt.xml.template	2011-09-30 10:14:45.383607472 -0400
-@@ -153,8 +153,8 @@
- 
- #end for
-         <!-- The order is significant here.  File must be defined first -->
--        <serial type="file">
--            <source path='${basepath}/console.log'/>
-+        <serial type="pipe">
-+            <source path='${basepath}/console.fifo'/>
-             <target port='1'/>
-         </serial>
- 

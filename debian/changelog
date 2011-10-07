@@ -1,8 +1,15 @@
-nova (2011.3-0ubuntu6) UNRELEASED; urgency=low
+nova (2011.3-0ubuntu7) UNRELEASED; urgency=low
 
   * Removed db_pool complexities from nova.db.sqlalchemy.session (LP: #838581)
 
- -- Scott Moser <smoser@ubuntu.com>  Tue, 04 Oct 2011 14:10:00 -0400
+ -- Scott Moser <smoser@ubuntu.com>  Thu, 06 Oct 2011 20:31:22 -0400
+
+nova (2011.3-0ubuntu6) oneiric; urgency=low
+
+  * debian/patches/backport-libvirt-console-pipe.patch: 
+    - Patch updated to fix race on instance termination (LP: #868349)
+
+ -- Robie Basak <robie.basak@ubuntu.com>  Wed, 05 Oct 2011 17:37:49 +0100
 
 nova (2011.3-0ubuntu5) oneiric; urgency=low
 
