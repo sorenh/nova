@@ -11,3 +11,4 @@ backport-lxc-container-console-fix.patch
 backport-snapshot-cleanup.patch
 fix-lp863305-images-permission.patch
 fix-lp838581-removed-db_pool-complexities.patch
+fix-iscsi-target-path.patch
