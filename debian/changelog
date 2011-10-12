@@ -1,5 +1,6 @@
-nova (2011.3-0ubuntu7) UNRELEASED; urgency=low
+nova (2011.3-0ubuntu6.1) UNRELEASED; urgency=low
 
+  [Scott Moser]
   * Removed db_pool complexities from nova.db.sqlalchemy.session (LP: #838581)
 
  -- Scott Moser <smoser@ubuntu.com>  Thu, 06 Oct 2011 20:31:22 -0400
