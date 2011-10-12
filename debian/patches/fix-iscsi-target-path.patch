@@ -1,6 +1,6 @@
 Description: Fix iscsi target path issues.
 Author: Chuck Short <zulcss@ubuntu.com>
-Upstream: no
+Fowrded: Not needed
 diff -Naurp nova-2011.3.orig//nova/volume/driver.py nova-2011.3//nova/volume/driver.py
 --- nova-2011.3.orig//nova/volume/driver.py	2011-10-12 13:33:29.000000000 -0400
 +++ nova-2011.3//nova/volume/driver.py	2011-10-12 13:39:51.082109791 -0400
