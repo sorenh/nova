@@ -6,6 +6,8 @@ nova (2011.3-0ubuntu6.1) oneiric-proposed; urgency=low
   [Chuck Short]
   * debian/patches/fix-iscsi-target-path.patch: Fix ISCSI target path patch.
     (LP: #871278)
+  * debian/control: Either install xen-hypervisor-4.1-amd64 or 
+    xen-hypervisor-4.1-i386 for nova-compute-xen. (LP: #873243)
 
  -- Chuck Short <zulcss@ubuntu.com>  Wed, 12 Oct 2011 14:33:25 -0400
 
