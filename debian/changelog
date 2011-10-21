@@ -1,3 +1,25 @@
+nova (2011.3-0ubuntu1) UNRELEASED; urgency=low
+
+  * New upstream release.
+  * Dropped patches, already applied upstream:
+    - debian/patches/backport-iscsitarget-choice.patch
+    - debian/patches/backport-libvirt-console-pipe.patch
+    - debian/patches/backport-lxc-container-console-fix.patch
+    - debian/patches/backport-recreate-gateway-using-dhcp.patch
+    - debian/patches/backport-snapshot-cleanup.patch
+    - debian/patches/block-migration-needs-copy-backingfile.patch
+    - debian/patches/fix-iscsi-target-path.patch
+    - debian/patches/fix-lp838581-removed-db_pool-complexities.patch
+    - debian/patches/fix-lp863305-images-permission.patch
+    - debian/patches/fqdn-in-local-hostname-of-ec2-metadata.patch
+    - debian/patches/use-netcat-instead-of-socat.patc
+   * debian/control:
+     - Add python-feedparser as a build dependency.
+     - Bump standards version to 3.9.2
+     - Point to the essex branch.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 21 Oct 2011 11:21:10 -0400
+
 nova (2011.3-0ubuntu6.1) oneiric-proposed; urgency=low
 
   [Scott Moser]
