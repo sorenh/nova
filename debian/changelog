@@ -1,4 +1,4 @@
-nova (2011.3-0ubuntu1) UNRELEASED; urgency=low
+nova (2012.1~e1~20111020.11229-0ubuntu1) precise; urgency=low
 
   * New upstream release.
   * Dropped patches, already applied upstream:
@@ -17,8 +17,10 @@ nova (2011.3-0ubuntu1) UNRELEASED; urgency=low
      - Add python-feedparser as a build dependency.
      - Bump standards version to 3.9.2
      - Point to the essex branch.
+   * debian/patches/nova-manage_flagfile_location.patch:
+     Update patch to take in account of devstack (LP: #870405)
 
- -- Chuck Short <zulcss@ubuntu.com>  Fri, 21 Oct 2011 11:21:10 -0400
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 21 Oct 2011 14:37:26 -0400
 
 nova (2011.3-0ubuntu6.1) oneiric-proposed; urgency=low
 
