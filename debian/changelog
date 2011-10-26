@@ -20,6 +20,9 @@ nova (2012.1~e1~20110909.1546-0ubuntu0) UNRELEASED; urgency=low
     - debian/nova-common.postinst: Create 'nova' group, add user to it.
     - debian/nova-common.postinst: Restrict permissions of /var/log/nova
 
+  [ Mark Washenberger ]
+  * Add support for nova-console package.
+
  -- Monty Taylor <mordred@inaugust.com>  Fri, 30 Sep 2011 09:33:16 -0700
 
 nova (2011.3~rc~20110916.r1173-0ubuntu1) oneiric; urgency=low
