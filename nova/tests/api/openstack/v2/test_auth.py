@@ -218,7 +218,7 @@ class TestFunctional(test.TestCase):
                 user_id='user1',
                 ))
 
-        db.auth_token_update(ctx, tok.token_hash, dict(
+        db.auth_token_update(ctx, tok['token_hash'], dict(
                 created_at=datetime.datetime(2000, 1, 1, 12, 0, 0),
                 ))
 

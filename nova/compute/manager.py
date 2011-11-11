@@ -965,7 +965,7 @@ class ComputeManager(manager.SchedulerDependentManager):
         """
         migration_ref = self.db.migration_get(context, migration_id)
         instance_ref = self.db.instance_get_by_uuid(context,
-                migration_ref.instance_uuid)
+                migration_ref['instance_uuid'])
 
         network_info = self._get_instance_nw_info(context, instance_ref)
         self.driver.destroy(instance_ref, network_info)
@@ -988,7 +988,7 @@ class ComputeManager(manager.SchedulerDependentManager):
         """
         migration_ref = self.db.migration_get(context, migration_id)
         instance_ref = self.db.instance_get_by_uuid(context,
-                migration_ref.instance_uuid)
+                migration_ref['instance_uuid'])
 
         old_instance_type = migration_ref['old_instance_type_id']
         instance_type = instance_types.get_instance_type(old_instance_type)
@@ -1068,7 +1068,7 @@ class ComputeManager(manager.SchedulerDependentManager):
         """Starts the migration of a running instance to another host."""
         migration_ref = self.db.migration_get(context, migration_id)
         instance_ref = self.db.instance_get_by_uuid(context,
-                migration_ref.instance_uuid)
+                migration_ref['instance_uuid'])
 
         self.db.migration_update(context,
                                  migration_id,
@@ -1112,13 +1112,13 @@ class ComputeManager(manager.SchedulerDependentManager):
 
         resize_instance = False
         instance_ref = self.db.instance_get_by_uuid(context,
-                migration_ref.instance_uuid)
+                migration_ref['instance_uuid'])
         old_instance_type_id = migration_ref['old_instance_type_id']
         new_instance_type_id = migration_ref['new_instance_type_id']
         if old_instance_type_id != new_instance_type_id:
             instance_type = instance_types.get_instance_type(
                     new_instance_type_id)
-            self.db.instance_update(context, instance_ref.uuid,
+            self.db.instance_update(context, instance_ref['uuid'],
                    dict(instance_type_id=instance_type['id'],
                         memory_mb=instance_type['memory_mb'],
                         vcpus=instance_type['vcpus'],
@@ -1126,7 +1126,7 @@ class ComputeManager(manager.SchedulerDependentManager):
             resize_instance = True
 
         instance_ref = self.db.instance_get_by_uuid(context,
-                                            instance_ref.uuid)
+                                            instance_ref['uuid'])
 
         network_info = self._get_instance_nw_info(context, instance_ref)
 
@@ -1674,7 +1674,7 @@ class ComputeManager(manager.SchedulerDependentManager):
         self.driver.unfilter_instance(instance_ref, network_info)
 
         # Database updating.
-        i_name = instance_ref.name
+        i_name = instance_ref['name']
         try:
             # Not return if floating_ip is not found, otherwise,
             # instance never be accessible..
@@ -1700,7 +1700,7 @@ class ComputeManager(manager.SchedulerDependentManager):
         rpc.call(ctxt,
                  self.db.queue_get_for(ctxt, FLAGS.compute_topic, dest),
                      {"method": "post_live_migration_at_destination",
-                      "args": {'instance_id': instance_ref.id,
+                      "args": {'instance_id': instance_ref['id'],
                                'block_migration': block_migration}})
 
         # Restore instance state

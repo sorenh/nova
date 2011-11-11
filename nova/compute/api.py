@@ -204,8 +204,10 @@ class API(base.Base):
         self._check_injected_file_quota(context, injected_files)
         self._check_requested_networks(context, requested_networks)
 
+        LOG.warn("%r" % image_href)
         (image_service, image_id) = nova.image.get_image_service(context,
                                                                  image_href)
+        LOG.warn("%r, %r" % (image_service, image_service.show))
         image = image_service.show(context, image_id)
 
         if instance_type['memory_mb'] < int(image.get('min_ram') or 0):

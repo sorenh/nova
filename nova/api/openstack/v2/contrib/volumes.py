@@ -205,6 +205,12 @@ def _translate_attachment_summary_view(_context, vol):
     if vol.get('mountpoint'):
         d['device'] = vol['mountpoint']
 
+    if not vol.get('instance'):
+        import nova.db.fake.api
+        import pprint
+        pprint.pprint(vol._values)
+        print vol
+        print d
     return d
 
 
@@ -247,6 +253,7 @@ class VolumeAttachmentController(object):
 
         instance = vol['instance']
         if instance is None or str(instance['uuid']) != server_id:
+            print 'not found', instance
             LOG.debug("instance_id != server_id")
             raise exc.HTTPNotFound()
 

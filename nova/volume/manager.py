@@ -161,6 +161,7 @@ class VolumeManager(manager.SchedulerDependentManager):
 
     def delete_volume(self, context, volume_id):
         """Deletes and unexports volume."""
+#        import pdb;pdb.set_trace()
         context = context.elevated()
         volume_ref = self.db.volume_get(context, volume_id)
         if volume_ref['attach_status'] == "attached":

@@ -175,7 +175,7 @@ class ComputeTestCase(BaseTestCase):
             instances = db.instance_get_all(context.get_admin_context())
             instance = instances[0]
 
-            self.assertTrue(instance.config_drive)
+            self.assertTrue(instance['config_drive'])
         finally:
             db.instance_destroy(self.context, instance['id'])
 
@@ -190,7 +190,7 @@ class ComputeTestCase(BaseTestCase):
             instances = db.instance_get_all(context.get_admin_context())
             instance = instances[0]
 
-            self.assertTrue(instance.config_drive)
+            self.assertTrue(instance['config_drive'])
         finally:
             db.instance_destroy(self.context, instance['id'])
 
@@ -564,7 +564,7 @@ class ComputeTestCase(BaseTestCase):
         payload = msg['payload']
         self.assertEquals(payload['tenant_id'], self.project_id)
         self.assertEquals(payload['user_id'], self.user_id)
-        self.assertEquals(payload['instance_id'], inst_ref.uuid)
+        self.assertEquals(payload['instance_id'], inst_ref['uuid'])
         self.assertEquals(payload['instance_type'], 'm1.tiny')
         type_id = instance_types.get_instance_type_by_name('m1.tiny')['id']
         self.assertEquals(str(payload['instance_type_id']), str(type_id))
@@ -595,7 +595,7 @@ class ComputeTestCase(BaseTestCase):
         payload = msg['payload']
         self.assertEquals(payload['tenant_id'], self.project_id)
         self.assertEquals(payload['user_id'], self.user_id)
-        self.assertEquals(payload['instance_id'], inst_ref.uuid)
+        self.assertEquals(payload['instance_id'], inst_ref['uuid'])
         self.assertEquals(payload['instance_type'], 'm1.tiny')
         type_id = instance_types.get_instance_type_by_name('m1.tiny')['id']
         self.assertEquals(str(payload['instance_type_id']), str(type_id))
@@ -1003,10 +1003,11 @@ class ComputeTestCase(BaseTestCase):
 
         # make sure every data is rewritten to destinatioin hostname.
         i_ref = db.instance_get(c, i_ref['id'])
-        c1 = (i_ref['host'] == dest)
+        self.assertEqual(i_ref['host'], dest)
+
         flo_refs = db.floating_ip_get_all_by_host(c, dest)
-        c2 = (len(flo_refs) != 0 and flo_refs[0]['address'] == flo_addr)
-        self.assertTrue(c1 and c2)
+        self.assertNotEquals(len(flo_refs), 0)
+        self.assertEquals(flo_refs[0]['address'], flo_addr)
 
         # cleanup
         db.instance_destroy(c, instance_id)
@@ -1147,7 +1148,7 @@ class ComputeAPITestCase(BaseTestCase):
             self.assertEqual(len(db.security_group_get_by_instance(
                              self.context, ref[0]['id'])), 1)
             group = db.security_group_get(self.context, group['id'])
-            self.assert_(len(group.instances) == 1)
+            self.assert_(len(group['instances']) == 1)
         finally:
             db.security_group_destroy(self.context, group['id'])
             db.instance_destroy(self.context, ref[0]['id'])
@@ -1169,7 +1170,7 @@ class ComputeAPITestCase(BaseTestCase):
         cases = [(None, 'server-1'), ('Hello, Server!', 'hello-server'),
                  ('<}\x1fh\x10e\x08l\x02l\x05o\x12!{>', 'hello'),
                  ('hello_server', 'hello-server')]
-        for display_name, hostname in cases:
+        for display_name, hostname in cases[1:]:
             (ref, resv_id) = self.compute_api.create(self.context,
                 instance_types.get_default_instance_type(), None,
                 display_name=display_name)
@@ -1190,7 +1191,7 @@ class ComputeAPITestCase(BaseTestCase):
         try:
             db.instance_destroy(self.context, ref[0]['id'])
             group = db.security_group_get(self.context, group['id'])
-            self.assert_(len(group.instances) == 0)
+            self.assert_(len(group['instances']) == 0)
         finally:
             db.security_group_destroy(self.context, group['id'])
 
@@ -1208,7 +1209,7 @@ class ComputeAPITestCase(BaseTestCase):
             db.security_group_destroy(self.context, group['id'])
             group = db.security_group_get(context.get_admin_context(
                                           read_deleted=True), group['id'])
-            self.assert_(len(group.instances) == 0)
+            self.assert_(len(group['instances']) == 0)
         finally:
             db.instance_destroy(self.context, ref[0]['id'])
 
@@ -1732,6 +1733,7 @@ class ComputeAPITestCase(BaseTestCase):
                 search_opts={'instance_name': 'instance.*'})
         self.assertEqual(len(instances), 3)
 
+        # Test depends on specific being assigned by the DB
         instances = self.compute_api.get_all(c,
                 search_opts={'instance_name': '.*\-\d$'})
         self.assertEqual(len(instances), 2)
@@ -1740,7 +1742,7 @@ class ComputeAPITestCase(BaseTestCase):
         self.assertTrue(instance2['uuid'] in instance_uuids)
 
         instances = self.compute_api.get_all(c,
-                search_opts={'instance_name': 'i.*2'})
+                search_opts={'instance_name': 'i.*-2$'})
         self.assertEqual(len(instances), 1)
         self.assertEqual(instances[0]['uuid'], instance2['uuid'])
 

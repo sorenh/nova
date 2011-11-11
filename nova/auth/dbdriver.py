@@ -175,7 +175,7 @@ class DbDriver(object):
     def is_in_project(self, uid, project_id):
         """Check if user is in project"""
         user, project = self._validate_user_and_project(uid, project_id)
-        return user in project.members
+        return user in project['members']
 
     def has_role(self, uid, role, project_id=None):
         """Check if user has role

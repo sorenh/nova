@@ -889,7 +889,7 @@ class SimpleDriverTestCase(test.TestCase):
         dic = {'instance_id': instance_id, 'size': 1}
         v_ref = db.volume_create(self.context, {'instance_id': instance_id,
                                                 'size': 1})
-        t1 = utils.utcnow() - datetime.timedelta(1)
+        t1 = utils.utcnow() - datetime.timedelta(100)
         dic = {'created_at': t1, 'updated_at': t1, 'binary': 'nova-volume',
                'topic': 'volume', 'report_count': 0}
         s_ref = db.service_create(self.context, dic)
@@ -934,7 +934,7 @@ class SimpleDriverTestCase(test.TestCase):
         """Confirms exception raises in case dest host does not exist."""
         instance_id = _create_instance()['id']
         i_ref = db.instance_get(self.context, instance_id)
-        t = utils.utcnow() - datetime.timedelta(10)
+        t = utils.utcnow() - datetime.timedelta(FLAGS.service_down_time + 1)
         s_ref = self._create_compute_service(created_at=t, updated_at=t,
                                              host=i_ref['host'])
 

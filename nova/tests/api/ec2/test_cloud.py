@@ -125,10 +125,13 @@ class CloudTestCase(test.TestCase):
         self.stubs.Set(rpc, 'cast', rpc.call)
 
         # make sure we can map ami-00000001/2 to a uuid in FakeImageService
-        db.api.s3_image_create(self.context,
-                               'cedef40a-ed67-4d10-800e-17455edce175')
-        db.api.s3_image_create(self.context,
-                               '76fa36fc-c930-4bf3-8c8a-ea2a2420deb6')
+        img = db.api.s3_image_create(self.context,
+                                     'cedef40a-ed67-4d10-800e-17455edce175')
+        self.ami1 = 'ami-%08x' % (int(img['id']),)
+
+        img = db.api.s3_image_create(self.context,
+                                     '76fa36fc-c930-4bf3-8c8a-ea2a2420deb6')
+        self.ami2 = 'ami-%08x' % (int(img['id']),)
 
     def _stub_instance_get_with_fixed_ips(self, func_name):
         orig_func = getattr(self.cloud.compute_api, func_name)
@@ -638,12 +641,12 @@ class CloudTestCase(test.TestCase):
                  'host': 'host1',
                  'vm_state': 'active'}
         inst2 = db.instance_create(self.context, args2)
-        db.instance_destroy(self.context, inst1.id)
+        db.instance_destroy(self.context, inst1['id'])
         result = self.cloud.describe_instances(self.context)
         self.assertEqual(len(result['reservationSet']), 1)
         result1 = result['reservationSet'][0]['instancesSet']
         self.assertEqual(result1[0]['instanceId'],
-                         ec2utils.id_to_ec2_id(inst2.id))
+                         ec2utils.id_to_ec2_id(inst2['id']))
 
     def _block_device_mapping_create(self, instance_id, mappings):
         volumes = []
@@ -728,7 +731,7 @@ class CloudTestCase(test.TestCase):
         db.instance_destroy(self.context, inst1['id'])
 
     _expected_instance_bdm1 = {
-        'instanceId': 'i-00000001',
+        'instanceId': 'DONTCARE',
         'rootDeviceName': '/dev/sdb1',
         'rootDeviceType': 'ebs'}
 
@@ -736,36 +739,36 @@ class CloudTestCase(test.TestCase):
         {'deviceName': '/dev/sdb1',
          'ebs': {'status': 'in-use',
                  'deleteOnTermination': False,
-                 'volumeId': 2,
+                 'volumeId': '2',
                  }},
         {'deviceName': '/dev/sdb2',
          'ebs': {'status': 'in-use',
                  'deleteOnTermination': False,
-                 'volumeId': 3,
+                 'volumeId': '3',
                  }},
         {'deviceName': '/dev/sdb3',
          'ebs': {'status': 'in-use',
                  'deleteOnTermination': True,
-                 'volumeId': 5,
+                 'volumeId': '5',
                  }},
         {'deviceName': '/dev/sdb4',
          'ebs': {'status': 'in-use',
                  'deleteOnTermination': False,
-                 'volumeId': 7,
+                 'volumeId': '7',
                  }},
         {'deviceName': '/dev/sdb5',
          'ebs': {'status': 'in-use',
                  'deleteOnTermination': False,
-                 'volumeId': 9,
+                 'volumeId': '9',
                  }},
         {'deviceName': '/dev/sdb6',
          'ebs': {'status': 'in-use',
                  'deleteOnTermination': False,
-                 'volumeId': 11, }}]
+                 'volumeId': '11', }}]
         # NOTE(yamahata): swap/ephemeral device case isn't supported yet.
 
     _expected_instance_bdm2 = {
-        'instanceId': 'i-00000002',
+        'instanceId': 'DONTCARE',
         'rootDeviceName': '/dev/sdc1',
         'rootDeviceType': 'instance-store'}
 
@@ -845,13 +848,13 @@ class CloudTestCase(test.TestCase):
         # list all
         result1 = describe_images(self.context)
         result1 = result1['imagesSet'][0]
-        self.assertEqual(result1['imageId'], 'ami-00000001')
+        self.assertEqual(result1['imageId'], self.ami1)
         # provided a valid image_id
-        result2 = describe_images(self.context, ['ami-00000001'])
+        result2 = describe_images(self.context, [self.ami1])
         self.assertEqual(1, len(result2['imagesSet']))
         # provide more than 1 valid image_id
-        result3 = describe_images(self.context, ['ami-00000001',
-                                                 'ami-00000002'])
+        result3 = describe_images(self.context, [self.ami1,
+                                                 self.ami2])
         self.assertEqual(2, len(result3['imagesSet']))
         # provide an non-existing image_id
         self.stubs.UnsetAll()
@@ -1000,14 +1003,14 @@ class CloudTestCase(test.TestCase):
         describe_images = self.cloud.describe_images
         self._setUpImageSet()
 
-        result = describe_images(self.context, ['ami-00000001'])
+        result = describe_images(self.context, [self.ami1])
         result = self._assertImageSet(result, 'instance-store',
                                       self._expected_root_device_name1)
 
         self.assertDictListUnorderedMatch(result['blockDeviceMapping'],
                                           self._expected_bdms1, 'deviceName')
 
-        result = describe_images(self.context, ['ami-00000002'])
+        result = describe_images(self.context, [self.ami2])
         result = self._assertImageSet(result, 'ebs',
                                       self._expected_root_device_name2)
 
@@ -1036,11 +1039,11 @@ class CloudTestCase(test.TestCase):
         describe_image_attribute = self.cloud.describe_image_attribute
         self._setUpImageSet()
 
-        result = describe_image_attribute(self.context, 'ami-00000001',
+        result = describe_image_attribute(self.context, self.ami1,
                                           'rootDeviceName')
         self.assertEqual(result['rootDeviceName'],
                          self._expected_root_device_name1)
-        result = describe_image_attribute(self.context, 'ami-00000002',
+        result = describe_image_attribute(self.context, self.ami2,
                                           'rootDeviceName')
         self.assertEqual(result['rootDeviceName'],
                          self._expected_root_device_name2)
@@ -1049,11 +1052,11 @@ class CloudTestCase(test.TestCase):
         describe_image_attribute = self.cloud.describe_image_attribute
         self._setUpImageSet()
 
-        result = describe_image_attribute(self.context, 'ami-00000001',
+        result = describe_image_attribute(self.context, self.ami1,
                                           'blockDeviceMapping')
         self.assertDictListUnorderedMatch(result['blockDeviceMapping'],
                                           self._expected_bdms1, 'deviceName')
-        result = describe_image_attribute(self.context, 'ami-00000002',
+        result = describe_image_attribute(self.context, self.ami2,
                                           'blockDeviceMapping')
         self.assertDictListUnorderedMatch(result['blockDeviceMapping'],
                                           self._expected_bdms2, 'deviceName')
@@ -1113,7 +1116,7 @@ class CloudTestCase(test.TestCase):
 
         self.stubs.Set(fake._FakeImageService, 'delete', fake_delete)
         self.assertRaises(exception.NotFound, deregister_image, self.context,
-                          'aki-00000001')
+                          self.ami1.replace('ami', 'aki'))
 
     def _run_instance(self, **kwargs):
         rv = self.cloud.run_instances(self.context, **kwargs)
@@ -1200,7 +1203,7 @@ class CloudTestCase(test.TestCase):
         self.cloud.delete_key_pair(self.context, 'test')
 
     def test_run_instances(self):
-        kwargs = {'image_id': 'ami-00000001',
+        kwargs = {'image_id': self.ami1,
                   'instance_type': FLAGS.default_instance_type,
                   'max_count': 1}
         run_instances = self.cloud.run_instances
@@ -1221,9 +1224,7 @@ class CloudTestCase(test.TestCase):
 
         result = run_instances(self.context, **kwargs)
         instance = result['instancesSet'][0]
-        self.assertEqual(instance['imageId'], 'ami-00000001')
-        self.assertEqual(instance['displayName'], 'Server 1')
-        self.assertEqual(instance['instanceId'], 'i-00000001')
+        self.assertEqual(instance['imageId'], self.ami1)
         self.assertEqual(instance['instanceState']['name'], 'running')
         self.assertEqual(instance['instanceType'], 'm1.small')
 
@@ -1263,7 +1264,7 @@ class CloudTestCase(test.TestCase):
         run_instances(self.context, **kwargs)
 
     def test_run_instances_image_state_none(self):
-        kwargs = {'image_id': 'ami-00000001',
+        kwargs = {'image_id': self.ami1,
                   'instance_type': FLAGS.default_instance_type,
                   'max_count': 1}
         run_instances = self.cloud.run_instances
@@ -1281,7 +1282,7 @@ class CloudTestCase(test.TestCase):
                           self.context, **kwargs)
 
     def test_run_instances_image_state_invalid(self):
-        kwargs = {'image_id': 'ami-00000001',
+        kwargs = {'image_id': self.ami1,
                   'instance_type': FLAGS.default_instance_type,
                   'max_count': 1}
         run_instances = self.cloud.run_instances
@@ -1384,7 +1385,7 @@ class CloudTestCase(test.TestCase):
         # enforce periodic tasks run in short time to avoid wait for 60s.
         self._restart_compute_service(periodic_interval=0.3)
 
-        kwargs = {'image_id': 'ami-1',
+        kwargs = {'image_id': self.ami1,
                   'instance_type': FLAGS.default_instance_type,
                   'max_count': 1, }
         instance_id = self._run_instance(**kwargs)
@@ -1682,7 +1683,7 @@ class CloudTestCase(test.TestCase):
         (volumes, snapshots) = self._setUpImageSet(
             create_volumes_and_snapshots=True)
 
-        kwargs = {'image_id': 'ami-1',
+        kwargs = {'image_id': self.ami1,
                   'instance_type': FLAGS.default_instance_type,
                   'max_count': 1}
         ec2_instance_id = self._run_instance(**kwargs)
@@ -1810,10 +1811,10 @@ class CloudTestCase(test.TestCase):
                           'instanceType': 'fake_type'})
         self.assertEqual(get_attribute('kernel'),
                          {'instance_id': 'i-12345678',
-                          'kernel': 'aki-00000001'})
+                          'kernel': self.ami1.replace('ami', 'aki')})
         self.assertEqual(get_attribute('ramdisk'),
                          {'instance_id': 'i-12345678',
-                          'ramdisk': 'ari-00000002'})
+                          'ramdisk': self.ami2.replace('ami', 'ari')})
         self.assertEqual(get_attribute('rootDeviceName'),
                          {'instance_id': 'i-12345678',
                           'rootDeviceName': '/dev/sdh'})

@@ -383,10 +383,16 @@ class AdminControllerTestCase(test.TestCase):
                 self._ac.describe_external_address_blocks(self._c))
 
     def test_remove_external_address_block(self):
+        import nova.db.fake.api
+        from pprint import pprint
+        pprint(nova.db.fake.api._db['provider_fw_rules'])
+
         self._ac.block_external_addresses(self._c, '192.168.100.1/24')
+        pprint(nova.db.fake.api._db['provider_fw_rules'])
 
         result = self._ac.remove_external_address_block(self._c,
                                                         '192.168.100.1/24')
+        pprint(nova.db.fake.api._db['provider_fw_rules'])
         self.assertEqual('OK', result['status'])
         self.assertEqual('Deleted 3 rules', result['message'])
 

@@ -131,6 +131,7 @@ class Scheduler(object):
     @staticmethod
     def service_is_up(service):
         """Check whether a service is up based on last heartbeat."""
+#        import pdb; pdb.set_trace()
         last_heartbeat = service['updated_at'] or service['created_at']
         # Timestamps in DB are UTC.
         elapsed = utils.total_seconds(utils.utcnow() - last_heartbeat)
@@ -140,7 +141,7 @@ class Scheduler(object):
         """Return the list of hosts that have a running service for topic."""
 
         services = db.service_get_all_by_topic(context, topic)
-        return [service.host
+        return [service['host']
                 for service in services
                 if self.service_is_up(service)]
 

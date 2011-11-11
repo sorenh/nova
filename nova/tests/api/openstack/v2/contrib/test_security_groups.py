@@ -499,6 +499,7 @@ class TestSecurityGroupRules(test.TestCase):
             if group_id == db1['id']:
                 return db1
             if group_id == db2['id']:
+                print 'returning db2'
                 return db2
             raise exception.NotFound()
 
@@ -513,6 +514,11 @@ class TestSecurityGroupRules(test.TestCase):
         super(TestSecurityGroupRules, self).tearDown()
 
     def test_create_by_cidr(self):
+        # FIXME(soren): This looks to me to be horrendously broken.
+        #               It creates security group rules belonging to
+        #               a security group that doesn't exist. I.e. the
+        #               test relies on the database allowing
+        #               inconsistencies.
         rule = security_group_rule_template(cidr='10.2.3.124/24')
 
         req = fakes.HTTPRequest.blank('/v2/123/os-security-group-rules')

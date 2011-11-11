@@ -248,7 +248,7 @@ class CloudController(object):
         enabled_services = db.service_get_all(ctxt, False)
         disabled_services = db.service_get_all(ctxt, True)
         available_zones = []
-        for zone in [service.availability_zone for service
+        for zone in [service['availability_zone'] for service
                      in enabled_services]:
             if not zone in available_zones:
                 available_zones.append(zone)
@@ -447,22 +447,22 @@ class CloudController(object):
 
     def _format_security_group(self, context, group):
         g = {}
-        g['groupDescription'] = group.description
-        g['groupName'] = group.name
-        g['ownerId'] = group.project_id
+        g['groupDescription'] = group['description']
+        g['groupName'] = group['name']
+        g['ownerId'] = group['project_id']
         g['ipPermissions'] = []
-        for rule in group.rules:
+        for rule in group['rules']:
             r = {}
             r['groups'] = []
             r['ipRanges'] = []
-            if rule.group_id:
-                source_group = db.security_group_get(context, rule.group_id)
-                r['groups'] += [{'groupName': source_group.name,
-                                 'userId': source_group.project_id}]
-                if rule.protocol:
-                    r['ipProtocol'] = rule.protocol
-                    r['fromPort'] = rule.from_port
-                    r['toPort'] = rule.to_port
+            if rule['group_id']:
+                source_group = db.security_group_get(context, rule['group_id'])
+                r['groups'] += [{'groupName': source_group['name'],
+                                 'userId': source_group['project_id']}]
+                if rule['protocol']:
+                    r['ipProtocol'] = rule['protocol']
+                    r['fromPort'] = rule['from_port']
+                    r['toPort'] = rule['to_port']
                     g['ipPermissions'] += [dict(r)]
                 else:
                     for protocol, min_port, max_port in (('icmp', -1, -1),
@@ -473,10 +473,10 @@ class CloudController(object):
                         r['toPort'] = max_port
                         g['ipPermissions'] += [dict(r)]
             else:
-                r['ipProtocol'] = rule.protocol
-                r['fromPort'] = rule.from_port
-                r['toPort'] = rule.to_port
-                r['ipRanges'] += [{'cidrIp': rule.cidr}]
+                r['ipProtocol'] = rule['protocol']
+                r['fromPort'] = rule['from_port']
+                r['toPort'] = rule['to_port']
+                r['ipRanges'] += [{'cidrIp': rule['cidr']}]
                 g['ipPermissions'] += [r]
         return g
 
@@ -612,7 +612,7 @@ class CloudController(object):
         """Indicates whether the specified rule values are already
            defined in the given security group.
         """
-        for rule in security_group.rules:
+        for rule in security_group['rules']:
             if 'group_id' in values:
                 if rule['group_id'] == values['group_id']:
                     return rule['id']
@@ -659,7 +659,7 @@ class CloudController(object):
                 raise exception.ApiError(_(err % rulesvalues))
 
             for values_for_rule in rulesvalues:
-                values_for_rule['parent_group_id'] = security_group.id
+                values_for_rule['parent_group_id'] = security_group['id']
                 rule_id = self._security_group_rule_exists(security_group,
                                                            values_for_rule)
                 if rule_id:
@@ -708,7 +708,7 @@ class CloudController(object):
                 err = "%s Not enough parameters to build a valid rule"
                 raise exception.ApiError(_(err % rulesvalues))
             for values_for_rule in rulesvalues:
-                values_for_rule['parent_group_id'] = security_group.id
+                values_for_rule['parent_group_id'] = security_group['id']
                 if self._security_group_rule_exists(security_group,
                                                     values_for_rule):
                     err = '%s - This rule already exists in group'
@@ -793,7 +793,7 @@ class CloudController(object):
             if not security_group:
                 raise notfound(security_group_id=group_id)
         LOG.audit(_("Delete security group %s"), group_name, context=context)
-        db.security_group_destroy(context, security_group.id)
+        db.security_group_destroy(context, security_group['id'])
         return True
 
     def get_console_output(self, context, instance_id, **kwargs):

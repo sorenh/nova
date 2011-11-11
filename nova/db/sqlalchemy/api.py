@@ -19,8 +19,9 @@
 """Implementation of SQLAlchemy backend."""
 
 import datetime
+import os.path
 import re
-import warnings
+import shutil
 
 from nova import block_device
 from nova import db
@@ -30,6 +31,15 @@ from nova import ipv6
 from nova import utils
 from nova import log as logging
 from nova.compute import vm_states
+from nova.db.api import authorize_project_context
+from nova.db.api import authorize_user_context
+from nova.db.api import can_read_deleted
+from nova.db.api import is_admin_context
+from nova.db.api import is_user_context
+from nova.db.api import require_admin_context
+from nova.db.api import require_context
+from nova.db.api import require_instance_exists
+from nova.db.api import require_volume_exists
 from nova.db.sqlalchemy import models
 from nova.db.sqlalchemy.session import get_session
 from sqlalchemy import or_
@@ -43,110 +53,6 @@ from sqlalchemy.sql.expression import literal_column
 FLAGS = flags.FLAGS
 LOG = logging.getLogger("nova.db.sqlalchemy")
 
-
-def is_admin_context(context):
-    """Indicates if the request context is an administrator."""
-    if not context:
-        warnings.warn(_('Use of empty request context is deprecated'),
-                      DeprecationWarning)
-        raise Exception('die')
-    return context.is_admin
-
-
-def is_user_context(context):
-    """Indicates if the request context is a normal user."""
-    if not context:
-        return False
-    if context.is_admin:
-        return False
-    if not context.user_id or not context.project_id:
-        return False
-    return True
-
-
-def authorize_project_context(context, project_id):
-    """Ensures a request has permission to access the given project."""
-    if is_user_context(context):
-        if not context.project_id:
-            raise exception.NotAuthorized()
-        elif context.project_id != project_id:
-            raise exception.NotAuthorized()
-
-
-def authorize_user_context(context, user_id):
-    """Ensures a request has permission to access the given user."""
-    if is_user_context(context):
-        if not context.user_id:
-            raise exception.NotAuthorized()
-        elif context.user_id != user_id:
-            raise exception.NotAuthorized()
-
-
-def can_read_deleted(context):
-    """Indicates if the context has access to deleted objects."""
-    if not context:
-        return False
-    return context.read_deleted
-
-
-def require_admin_context(f):
-    """Decorator to require admin request context.
-
-    The first argument to the wrapped function must be the context.
-
-    """
-
-    def wrapper(*args, **kwargs):
-        if not is_admin_context(args[0]):
-            raise exception.AdminRequired()
-        return f(*args, **kwargs)
-    return wrapper
-
-
-def require_context(f):
-    """Decorator to require *any* user or admin context.
-
-    This does no authorization for user or project access matching, see
-    :py:func:`authorize_project_context` and
-    :py:func:`authorize_user_context`.
-
-    The first argument to the wrapped function must be the context.
-
-    """
-
-    def wrapper(*args, **kwargs):
-        if not is_admin_context(args[0]) and not is_user_context(args[0]):
-            raise exception.NotAuthorized()
-        return f(*args, **kwargs)
-    return wrapper
-
-
-def require_instance_exists(f):
-    """Decorator to require the specified instance to exist.
-
-    Requires the wrapped function to use context and instance_id as
-    their first two arguments.
-    """
-
-    def wrapper(context, instance_id, *args, **kwargs):
-        db.instance_get(context, instance_id)
-        return f(context, instance_id, *args, **kwargs)
-    wrapper.__name__ = f.__name__
-    return wrapper
-
-
-def require_volume_exists(f):
-    """Decorator to require the specified volume to exist.
-
-    Requires the wrapped function to use context and volume_id as
-    their first two arguments.
-    """
-
-    def wrapper(context, volume_id, *args, **kwargs):
-        db.volume_get(context, volume_id)
-        return f(context, volume_id, *args, **kwargs)
-    wrapper.__name__ = f.__name__
-    return wrapper
 
 
 ###################
@@ -4211,3 +4117,20 @@ def sm_volume_get(context, volume_id):
 def sm_volume_get_all(context):
     session = get_session()
     return session.query(models.SMVolume).all()
+
+_baseline_recorded = False
+
+def baseline_recorded():
+    return _baseline_recorded
+
+def record_baseline():
+    global _baseline_recorded
+    testdb = os.path.join(FLAGS.state_path, FLAGS.sqlite_db)
+    cleandb = os.path.join(FLAGS.state_path, FLAGS.sqlite_clean_db)
+    shutil.copyfile(testdb, cleandb)
+    _baseline_recorded = True
+
+def reset():
+    testdb = os.path.join(FLAGS.state_path, FLAGS.sqlite_db)
+    cleandb = os.path.join(FLAGS.state_path, FLAGS.sqlite_clean_db)
+    shutil.copyfile(cleandb, testdb)

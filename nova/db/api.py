@@ -42,13 +42,15 @@ these objects be simple dictionaries.
 
 """
 
+import warnings
+
 from nova import exception
 from nova import flags
 from nova import utils
 
 
 FLAGS = flags.FLAGS
-flags.DEFINE_string('db_backend', 'sqlalchemy',
+flags.DEFINE_string('db_backend', 'fake',
                     'The backend to use for db')
 flags.DEFINE_boolean('enable_new_services', True,
                      'Services to be added to the available pool on create')
@@ -62,7 +64,8 @@ flags.DEFINE_string('vsa_name_template', 'vsa-%08x',
                     'Template string to be used to generate VSA names')
 
 IMPL = utils.LazyPluggable(FLAGS['db_backend'],
-                           sqlalchemy='nova.db.sqlalchemy.api')
+                           sqlalchemy='nova.db.sqlalchemy.api',
+                           fake='nova.db.fake.api')
 
 
 class NoMoreNetworks(exception.Error):
@@ -75,12 +78,116 @@ class NoMoreTargets(exception.Error):
     pass
 
 
+def is_admin_context(context):
+    """Indicates if the request context is an administrator."""
+    if not context:
+        warnings.warn(_('Use of empty request context is deprecated'),
+                      DeprecationWarning)
+        raise Exception('die')
+    return context.is_admin
+
+
+def is_user_context(context):
+    """Indicates if the request context is a normal user."""
+    if not context:
+        return False
+    if context.is_admin:
+        return False
+    if not context.user_id or not context.project_id:
+        return False
+    return True
+
+
+def authorize_project_context(context, project_id):
+    """Ensures a request has permission to access the given project."""
+    if is_user_context(context):
+        if not context.project_id:
+            raise exception.NotAuthorized()
+        elif context.project_id != project_id:
+            raise exception.NotAuthorized()
+
+
+def authorize_user_context(context, user_id):
+    """Ensures a request has permission to access the given user."""
+    if is_user_context(context):
+        if not context.user_id:
+            raise exception.NotAuthorized()
+        elif context.user_id != user_id:
+            raise exception.NotAuthorized()
+
+
+def can_read_deleted(context):
+    """Indicates if the context has access to deleted objects."""
+    if not context:
+        return False
+    return context.read_deleted
+
+def require_admin_context(f):
+    """Decorator to require admin request context.
+
+    The first argument to the wrapped function must be the context.
+
+    """
+
+    def wrapper(*args, **kwargs):
+        if not is_admin_context(args[0]):
+            raise exception.AdminRequired()
+        return f(*args, **kwargs)
+    return wrapper
+
+def require_context(f):
+    """Decorator to require *any* user or admin context.
+
+    This does no authorization for user or project access matching, see
+    :py:func:`authorize_project_context` and
+    :py:func:`authorize_user_context`.
+
+    The first argument to the wrapped function must be the context.
+
+    """
+
+    def wrapper(*args, **kwargs):
+        if not is_admin_context(args[0]) and not is_user_context(args[0]):
+            raise exception.NotAuthorized()
+        return f(*args, **kwargs)
+    return wrapper
+
+
+def require_instance_exists(f):
+    """Decorator to require the specified instance to exist.
+
+    Requires the wrapped function to use context and instance_id as
+    their first two arguments.
+    """
+
+    def wrapper(context, instance_id, *args, **kwargs):
+        db.instance_get(context, instance_id)
+        return f(context, instance_id, *args, **kwargs)
+    wrapper.__name__ = f.__name__
+    return wrapper
+
+
+def require_volume_exists(f):
+    """Decorator to require the specified volume to exist.
+
+    Requires the wrapped function to use context and volume_id as
+    their first two arguments.
+    """
+
+    def wrapper(context, volume_id, *args, **kwargs):
+        db.volume_get(context, volume_id)
+        return f(context, volume_id, *args, **kwargs)
+    wrapper.__name__ = f.__name__
+    return wrapper
+
+
+
 ###################
 
 
-def service_destroy(context, instance_id):
+def service_destroy(context, service_id):
     """Destroy the service or raise if it does not exist."""
-    return IMPL.service_destroy(context, instance_id)
+    return IMPL.service_destroy(context, service_id)
 
 
 def service_get(context, service_id):
@@ -1714,3 +1821,12 @@ def sm_volume_get(context, volume_id):
 def sm_volume_get_all(context):
     """Get all child Zones."""
     return IMPL.sm_volume_get_all(context)
+
+def baseline_recorded():
+    return IMPL.baseline_recorded()
+
+def record_baseline():
+    return IMPL.record_baseline()
+
+def reset():
+    return IMPL.reset()

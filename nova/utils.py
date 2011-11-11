@@ -482,7 +482,7 @@ class LazyPluggable(object):
         if not self.__backend:
             backend_name = self.__pivot.value
             if backend_name not in self.__backends:
-                raise exception.Error(_('Invalid backend: %s') % backend_name)
+                raise exception.Error(_('Invalid backend: %s, %r') % (backend_name, self.__backends))
 
             backend = self.__backends[backend_name]
             if type(backend) == type(tuple()):

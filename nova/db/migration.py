@@ -27,7 +27,8 @@ flags.DECLARE('db_backend', 'nova.db')
 
 
 IMPL = utils.LazyPluggable(FLAGS['db_backend'],
-                           sqlalchemy='nova.db.sqlalchemy.migration')
+                           sqlalchemy='nova.db.sqlalchemy.migration',
+                           fake='nova.db.fake.api')
 
 
 def db_sync(version=None):

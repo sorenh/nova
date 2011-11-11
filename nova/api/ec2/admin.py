@@ -376,7 +376,7 @@ class AdminController(object):
     def describe_external_address_blocks(self, context):
         blocks = db.provider_fw_rule_get_all(context)
         # NOTE(todd): use a set since we have icmp/udp/tcp rules with same cidr
-        blocks = set([b.cidr for b in blocks])
+        blocks = set([b['cidr'] for b in blocks])
         blocks = [{'cidr': b} for b in blocks]
         return {'externalIpBlockInfo':
                 list(sorted(blocks, key=lambda k: k['cidr']))}

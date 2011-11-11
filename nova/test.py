@@ -35,6 +35,7 @@ import nova.image.fake
 import shutil
 import stubout
 
+from nova import db
 from nova import fakerabbit
 from nova import flags
 from nova import log
@@ -120,8 +121,7 @@ class TestCase(unittest.TestCase):
         #             now that we have some required db setup for the system
         #             to work properly.
         self.start = utils.utcnow()
-        shutil.copyfile(os.path.join(FLAGS.state_path, FLAGS.sqlite_clean_db),
-                        os.path.join(FLAGS.state_path, FLAGS.sqlite_db))
+        db.reset()
 
         # emulate some of the mox stuff, we can't use the metaclass
         # because it screws with our generators
@@ -262,17 +262,20 @@ class TestCase(unittest.TestCase):
             self.assertDictMatch(d1, d2, approx_equal=approx_equal,
                                  tolerance=tolerance)
 
-    def assertSubDictMatch(self, sub_dict, super_dict):
+    def assertSubDictMatch(self, sub_dict, super_dict, _keys=''):
         """Assert a sub_dict is subset of super_dict."""
         self.assertTrue(set(sub_dict.keys()).issubset(set(super_dict.keys())))
         for k, sub_value in sub_dict.items():
             super_value = super_dict[k]
             if isinstance(sub_value, dict):
-                self.assertSubDictMatch(sub_value, super_value)
+                self.assertSubDictMatch(sub_value, super_value,
+                                        _keys='%s[%r]' % (_keys, k))
             elif 'DONTCARE' in (sub_value, super_value):
                 continue
             else:
-                self.assertEqual(sub_value, super_value)
+                self.assertEqual(sub_value, super_value,
+                                 '%s[%r] did not match: %r vs. %r' % 
+                                 (_keys, k, sub_value, super_value))
 
     def assertIn(self, a, b, *args, **kwargs):
         """Python < v2.7 compatibility.  Assert 'a' in 'b'"""
