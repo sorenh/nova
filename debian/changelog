@@ -1,3 +1,11 @@
+nova (2012.1~e1-0ubuntu1) precise; urgency=low
+
+  * New upstream release.
+  * debian/control: Dropped python-feedparser until MIR comes through. 
+  * Synced with upstream bzr packaging.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 11 Nov 2011 09:25:25 -0500
+
 nova (2012.1~e1~20111020.11229-0ubuntu1) precise; urgency=low
 
   * New upstream release.
