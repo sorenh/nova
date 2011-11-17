@@ -1,3 +1,10 @@
+nova (2012.1~e1-0ubuntu2) precise; urgency=low
+
+  * Revert debian/nova-manage_flagfile_location.patch: It 
+    was causing more problems then it should have. (LP: #891229) 
+
+ -- Chuck Short <zulcss@ubuntu.com>  Wed, 16 Nov 2011 21:12:34 -0500
+
 nova (2012.1~e1-0ubuntu1) precise; urgency=low
 
   * New upstream release.

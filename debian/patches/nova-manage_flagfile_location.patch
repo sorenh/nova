@@ -1,16 +1,12 @@
-diff -Naurp nova-2012.1.orig/bin/nova-manage nova-2012.1//bin/nova-manage
---- nova-2012.1.orig/bin/nova-manage	2011-10-20 10:47:23.000000000 -0400
-+++ nova-2012.1//bin/nova-manage	2011-10-21 14:34:32.417280528 -0400
-@@ -2075,7 +2075,11 @@ def methods_of(obj):
+diff -Naurp nova-2012.1~e1.orig/bin/nova-manage nova-2012.1~e1/bin/nova-manage
+--- nova-2012.1~e1.orig/bin/nova-manage	2011-11-16 21:09:35.070424351 -0500
++++ nova-2012.1~e1/bin/nova-manage	2011-11-16 21:10:35.002424018 -0500
+@@ -2274,7 +2274,7 @@ def methods_of(obj):
  
  def main():
      """Parse options and call the appropriate class/method."""
 -    utils.default_flagfile()
-+	cfg = "/etc/nova/nova.conf"
-+	if not (os.path.exists(cfg) and os.access(cfg, os.R_OK)):
-+		cfg = "nova.conf"
-+	utils.default_flagfile(cfg)
-+
++    utils.default_flagfile('/etc/nova/nova.conf')
      argv = FLAGS(sys.argv)
      logging.setup()
  
