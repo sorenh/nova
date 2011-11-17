@@ -1,2 +1,1 @@
 usr/bin/nova-api
-debian/api-paste.ini etc/nova
