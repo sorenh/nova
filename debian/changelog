@@ -21,6 +21,7 @@ nova (2012.1~e1~20110909.1546-0ubuntu0) UNRELEASED; urgency=low
     - debian/nova-common.postinst: Restrict permissions of /var/log/nova
   * Updated debian/patches/packaged-ajaxterm-calls.patch to fix FTBFS.
   * Updated debian/patches/nova-manage_flagfile_location.patch
+  * debian/nova-api.install, debian/rules: Use etc/nova/api-paste.ini.
 
   [ Mark Washenberger ]
   * Add support for nova-console package.
