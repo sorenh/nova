@@ -1,9 +1,7 @@
-=== modified file 'bin/nova-manage'
-Index: nova-2011.3~bzr1054/bin/nova-manage
-===================================================================
---- nova-2011.3~bzr1054.orig/bin/nova-manage
-+++ nova-2011.3~bzr1054/bin/nova-manage
-@@ -1098,7 +1098,7 @@
+diff -Naurp nova-2012.1~e1.orig/bin/nova-manage nova-2012.1~e1/bin/nova-manage
+--- nova-2012.1~e1.orig/bin/nova-manage	2011-11-16 21:09:35.070424351 -0500
++++ nova-2012.1~e1/bin/nova-manage	2011-11-16 21:10:35.002424018 -0500
+@@ -2274,7 +2274,7 @@ def methods_of(obj):
  
  def main():
      """Parse options and call the appropriate class/method."""
