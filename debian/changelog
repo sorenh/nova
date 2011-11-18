@@ -1,9 +1,9 @@
-nova (2012.1~e2~20111116.11495-0ubuntu1) UNRELEASED; urgency=low
+nova (2012.1~e2~20111116.11495-0ubuntu1) precise; urgency=low
 
   * New upstream version. 
   * Refreshed debian/patches/ackaged-ajaxterm-calls.patch.
 
- -- Chuck Short <zulcss@ubuntu.com>  Fri, 18 Nov 2011 09:22:59 -0500
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 18 Nov 2011 09:40:58 -0500
 
 nova (2012.1~e1-0ubuntu3) precise; urgency=low
 
