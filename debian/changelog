@@ -2,6 +2,7 @@ nova (2012.1~e1~20110909.1546-0ubuntu0) UNRELEASED; urgency=low
 
   [ Dan Prince ]
   * Fix dnsmasq line in nova_sudoers.
+  * Update ajaxterm patch to work with latest nova code.
 
   [ Monty Taylor ]
   * Added python-feedparser to build-deps.
