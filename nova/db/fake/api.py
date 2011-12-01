@@ -618,20 +618,38 @@ class Zone(FakeDbObj):
 class FixedIp(FakeDbObj):
     key = 'fixed_ips'
 
-    simple_fields = ['address']
+    simple_fields = ['address', 'network_id', 'virtual_interface_id',
+                     'instance_id', 'allocated', 'leased', 'reserved',
+                     'host']
+
+    defaults = {'allocated': False,
+                'leased': False,
+                'reserved': False}
 
     def __getitem__(self, key):
         if key == 'network':
-            return Network.get_obj(context.get_admin_context(),
-                                   self['network_id'])
+            if self['network_id'] is not None:
+                return Network.get_obj(context.get_admin_context(),
+                                       self['network_id'])
+            else:
+                return None
         elif key == 'floating_ips':
             return FloatingIp.get_by_fixed_ip(context.get_admin_context(),
                                               self['id'])
+        elif key == 'virtual_interface':
+            if self['virtual_interface_id'] is not None:
+                return VirtualInterface.get_obj(context.get_admin_context(),
+                                                self['virtual_interface_id'])
+            else:
+                return None
         elif key == 'instance':
-            return Instance.get_obj(context.get_admin_context(),
-                                   self['instance_id'])
+            if self['instance_id'] is not None:
+                return Instance.get_obj(context.get_admin_context(),
+                                        self['instance_id'])
+            else:
+                return None
         elif key in self.simple_fields:
-            return self._values.get(key, None)
+            return self._values.get(key, self.defaults.get(key, None))
         else:
             return super(FixedIp, self).__getitem__(key)
 
@@ -1323,27 +1341,27 @@ def network_get_all_by_host(context, host):
 
 ### Fixed Ip ###
 
-def fixed_ip_associate_pool(context, network_id, instance_id=None, host=None):
-    return FixedIp.associate_pool(context, network_id, instance_id, host)
+def fixed_ip_create(context, values):
+    return FixedIp.create(context, values)['address']
+
+def fixed_ip_get(context, id):
+    return FixedIp.get_obj(context, id)
+
+def fixed_ip_get_by_address(context, address):
+    return FixedIp.get_by_address(context, address)
 
 def fixed_ip_get_by_instance(context, instance_id):
     return FixedIp.get_by_instance(context, instance_id)
+
+def fixed_ip_associate_pool(context, network_id, instance_id=None, host=None):
+    return FixedIp.associate_pool(context, network_id, instance_id, host)
 
 def fixed_ip_bulk_create(context, ips):
     for ip in ips:
         FixedIp.create(context, ip)
 
-def fixed_ip_create(context, values):
-    return FixedIp.create(context, values)['address']
-
 def fixed_ip_update(context, address, values):
     return FixedIp.get_by_address(context, address).update(values)
-
-def fixed_ip_get_by_address(context, address):
-    return FixedIp.get_by_address(context, address)
-
-def fixed_ip_get(context, id):
-    return FixedIp.get_obj(context, id)
 
 ### Provider FW Rule ###
 

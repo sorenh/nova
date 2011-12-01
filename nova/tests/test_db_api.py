@@ -344,6 +344,34 @@ class _DbApiTestCase(test.TestCase):
             self.assertEquals(set([x['id'] for x in actual]),
                               set(expected[host]))
 
+    def test_fixed_ip_create(self):
+        ctxt = context.get_admin_context()
+        fixed_ip = db.fixed_ip_create(ctxt, {'address': '10.10.10.10'})
+
+        self.assertEquals(type(fixed_ip), str)
+        self.assertEquals(fixed_ip, '10.10.10.10')
+
+        fixed_ip_obj = db.fixed_ip_get_by_address(ctxt, '10.10.10.10')
+        self.assertEquals(fixed_ip_obj['address'], '10.10.10.10')
+
+        fixed_ip_obj = db.fixed_ip_get(ctxt, fixed_ip_obj['id'])
+        self.assertEquals(fixed_ip_obj['address'], '10.10.10.10')
+
+    def test_fixed_ip_create_defaults(self):
+        ctxt = context.get_admin_context()
+        fixed_ip = db.fixed_ip_create(ctxt, {'address': '10.10.10.10'})
+        fixed_ip = db.fixed_ip_get_by_address(ctxt, '10.10.10.10')
+
+        for key in ['network_id', 'virtual_interface_id', 'instance_id',
+                    'network', 'virtual_interface', 'instance', 'host']:
+            self.assertIsNone(fixed_ip[key], '%s was not None by default')
+
+        for key in ['allocated', 'leased', 'reserved']:
+            self.assertFalse(fixed_ip[key], '%s was not False by default')
+
+        for key in ['floating_ips']:
+            self.assertTrue(len(fixed_ip[key]) == 0, '%s was not of length '
+                                                     '0 by default')
 
 class FakeDbDriverTestCase(_DbApiTestCase):
     def get_db_driver(self):
