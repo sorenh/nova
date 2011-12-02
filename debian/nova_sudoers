@@ -3,10 +3,8 @@ Cmnd_Alias NOVACMDS = /bin/chmod /var/lib/nova/tmp/*/root/.ssh, \
                       /bin/chown,                               \
                       /bin/chmod,                               \
                       /bin/dd,                                  \
-                      /sbin/ifconfig,                           \
                       /sbin/ip,                                 \
                       /sbin/route,                              \
-                      /sbin/iptables,                           \
                       /sbin/iptables-save,                      \
                       /sbin/iptables-restore,                   \
                       /sbin/ip6tables-save,                     \
@@ -23,17 +21,11 @@ Cmnd_Alias NOVACMDS = /bin/chmod /var/lib/nova/tmp/*/root/.ssh, \
                       /sbin/tune2fs,                            \
                       /bin/umount,                              \
                       /sbin/vgcreate,                           \
-                      /usr/bin/virsh,                           \
                       /usr/bin/qemu-nbd,                        \
                       /usr/sbin/brctl,                          \
                       /sbin/brctl,                              \
                       /usr/sbin/radvd,                          \
-                      /sbin/pvcreate,                           \
-                      /sbin/aoe-discover,                       \
-                      /sbin/vgcreate,                           \
-                      /bin/aoe-stat,                            \
                       /bin/kill,                                \
-                      /sbin/vconfig,                            \
                       /usr/sbin/tgtadm,                         \
                       /usr/sbin/ietadm,                         \
                       /sbin/vgs,                                \
