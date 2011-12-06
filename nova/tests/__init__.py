@@ -52,7 +52,7 @@ def setup():
     ctxt = context.get_admin_context()
     network = network_manager.VlanManager()
     bridge_interface = FLAGS.flat_interface or FLAGS.vlan_interface
-    if False:
+    if True:
         network.create_networks(ctxt,
                             label='test',
                             cidr=FLAGS.fixed_range,

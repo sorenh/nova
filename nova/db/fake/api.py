@@ -1451,9 +1451,12 @@ def instance_create(context, values):
     return Instance.create(context, values)
 
 def instance_add_security_group(context, instance_id, security_group_id):
-    instance = Instance.get_obj(context, instance_id)
+    if utils.is_uuid_like(instance_id):
+        inst = Instance.get_by_uuid(context, instance_id)
+    else:
+        inst = Instance.get_obj(context, instance_id)
     security_group = SecurityGroup.get_obj(context, security_group_id)
-    instance.add_security_group(context, security_group)
+    inst.add_security_group(context, security_group)
 
 def instance_update(context, instance_id, values):
     if utils.is_uuid_like(instance_id):
