@@ -5,7 +5,7 @@ if [ "$1" = "configure" ]; then
         addgroup --system nova >/dev/null
     fi
     if ! getent passwd nova > /dev/null 2>&1; then
-        adduser --system --home /var/lib/nova --ingroup nova --no-create-home --shell /bin/bash nova
+        adduser --system --home /var/lib/nova --ingroup nova --no-create-home --shell /bin/false nova
     fi
     if [ "$(id -gn nova)"  = "nogroup" ]; then
         usermod -g nova nova

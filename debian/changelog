@@ -1,3 +1,10 @@
+nova (2012.1~e2~20111202.11641-0ubuntu3) UNRELEASED; urgency=low
+
+  * debian/nova-common.postinst, debian/*.upstart.in: Use /bin/false 
+    for nova's shell. (LP: #890362) 
+
+ -- Chuck Short <zulcss@ubuntu.com>  Thu, 08 Dec 2011 16:01:24 -0500
+
 nova (2012.1~e2~20111202.11641-0ubuntu2) precise; urgency=low
 
   * debian/nova.conf: Remove parameter to --force_dhcp_release 
