@@ -1,3 +1,10 @@
+nova (2012.1~e2~20111202.11641-0ubuntu2) precise; urgency=low
+
+  * debian/nova.conf: Remove parameter to --force_dhcp_release 
+    (LP: #891227)
+
+ -- Adam Gandelman <adamg@canonical.com>  Fri, 02 Dec 2011 11:31:34 -0800
+
 nova (2012.1~e2~20111202.11641-0ubuntu1) precise; urgency=low
 
   * New upstream release.
