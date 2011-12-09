@@ -1,0 +1,10 @@
+diff -Naurp nova-2012.1.orig/tools/pip-requires nova-2012.1/tools/pip-requires
+--- nova-2012.1.orig/tools/pip-requires	2011-12-08 18:49:54.000000000 -0500
++++ nova-2012.1/tools/pip-requires	2011-12-09 14:11:41.599802588 -0500
+@@ -28,6 +28,5 @@ glance
+ xattr>=0.6.0
+ suds==0.4
+ coverage
+-nosexcover
+ paramiko
+ feedparser

@@ -1,3 +1,12 @@
+nova (2012.1~e2~20111208.11721-0ubuntu1) UNRELEASED; urgency=low
+
+  * New upstream release. 
+  * debian/control:
+    + Add python-suds as a dependency.
+  * debian/patches: Temporarily disable python-nosexcover.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 09 Dec 2011 09:31:08 -0500
+
 nova (2012.1~e2~20111202.11641-0ubuntu2) precise; urgency=low
 
   * debian/nova.conf: Remove parameter to --force_dhcp_release 
