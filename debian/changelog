@@ -1,3 +1,9 @@
+nova (2012.1~e2~20111208.11721-0ubuntu2) precise; urgency=low
+
+  * Disable python-coverage as well.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Mon, 12 Dec 2011 10:13:04 -0500
+
 nova (2012.1~e2~20111208.11721-0ubuntu1) precise; urgency=low
 
   * New upstream release. 
