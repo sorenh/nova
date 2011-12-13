@@ -1,3 +1,9 @@
+nova (2012.1~e2~20111208.11721-0ubuntu1) UNRELEASED; urgency=low
+
+  *  debian/nova-console.isntall: Fix empty package.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Tue, 13 Dec 2011 16:04:20 -0500
+
 nova (2012.1~e2~20111208.11721-0ubuntu2) precise; urgency=low
 
   * Disable python-coverage as well.
