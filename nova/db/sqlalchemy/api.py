@@ -19,8 +19,9 @@
 """Implementation of SQLAlchemy backend."""
 
 import datetime
+import os.path
 import re
-import warnings
+import shutil
 
 from nova import block_device
 from nova import db
@@ -4035,3 +4036,22 @@ def instance_fault_get_by_instance(context, instance_uuid):
                 filter_by(instance_uuid=instance_uuid).\
                 order_by(desc("created_at")).\
                 first()
+    session = get_session()
+    return session.query(models.SMVolume).all()
+
+_baseline_recorded = False
+
+def baseline_recorded():
+    return _baseline_recorded
+
+def record_baseline():
+    global _baseline_recorded
+    testdb = os.path.join(FLAGS.state_path, FLAGS.sqlite_db)
+    cleandb = os.path.join(FLAGS.state_path, FLAGS.sqlite_clean_db)
+    shutil.copyfile(testdb, cleandb)
+    _baseline_recorded = True
+
+def reset():
+    testdb = os.path.join(FLAGS.state_path, FLAGS.sqlite_db)
+    cleandb = os.path.join(FLAGS.state_path, FLAGS.sqlite_clean_db)
+    shutil.copyfile(cleandb, testdb)

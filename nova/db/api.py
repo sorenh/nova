@@ -1769,3 +1769,16 @@ def instance_fault_create(context, values):
 def instance_fault_get_by_instance(context, instance_uuid):
     """Get first instance fault with the given instance uuid."""
     return IMPL.instance_fault_get_by_instance(context, instance_uuid)
+
+
+####################
+
+
+def baseline_recorded():
+    return IMPL.baseline_recorded()
+
+def record_baseline():
+    return IMPL.record_baseline()
+
+def reset():
+    return IMPL.reset()

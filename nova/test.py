@@ -35,6 +35,8 @@ import nova.image.fake
 import shutil
 import stubout
 
+from nova import db
+from nova import fakerabbit
 from nova import flags
 from nova import log
 from nova import rpc
@@ -120,8 +122,7 @@ class TestCase(unittest.TestCase):
         #             now that we have some required db setup for the system
         #             to work properly.
         self.start = utils.utcnow()
-        shutil.copyfile(os.path.join(FLAGS.state_path, FLAGS.sqlite_clean_db),
-                        os.path.join(FLAGS.state_path, FLAGS.sqlite_db))
+        db.reset()
 
         # emulate some of the mox stuff, we can't use the metaclass
         # because it screws with our generators

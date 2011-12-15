@@ -35,11 +35,7 @@
 import __builtin__
 setattr(__builtin__, '_', lambda x: x)
 
-
 def setup():
-    import os
-    import shutil
-
     from nova import context
     from nova import flags
     from nova import db
@@ -49,9 +45,9 @@ def setup():
 
     FLAGS = flags.FLAGS
 
-    testdb = os.path.join(FLAGS.state_path, FLAGS.sqlite_db)
-    if os.path.exists(testdb):
+    if db.baseline_recorded():
         return
+
     migration.db_sync()
     ctxt = context.get_admin_context()
     network = network_manager.VlanManager()
@@ -73,5 +69,4 @@ def setup():
     for net in db.network_get_all(ctxt):
         network.set_network_host(ctxt, net)
 
-    cleandb = os.path.join(FLAGS.state_path, FLAGS.sqlite_clean_db)
-    shutil.copyfile(testdb, cleandb)
+    db.record_baseline()

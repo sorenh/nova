@@ -20,11 +20,13 @@
 
 import datetime
 
-from nova import test
 from nova import context
 from nova import db
+from nova import exception
 from nova import flags
 from nova import utils
+from nova import test
+from nova import tests
 
 FLAGS = flags.FLAGS
 
@@ -264,3 +266,192 @@ class DbApiTestCase(test.TestCase):
         # Retrieve the fault to ensure it was successfully added
         instance_fault = db.instance_fault_get_by_instance(ctxt, uuid)
         self.assertEqual(500, instance_fault['code'])
+
+
+class _DbApiTestCase(test.TestCase):
+    def setUp(self):
+        self.saved_db_imp = db.api.IMPL
+        self.saved_migration_imp = db.migration.IMPL
+
+        db.api.IMPL = self.get_db_driver()
+        db.migration.IMPL = self.get_migration_driver()
+
+        tests.setup()
+        super(_DbApiTestCase, self).setUp()
+
+    def tearDown(self):
+        super(_DbApiTestCase, self).tearDown()
+        db.api.IMPL = self.saved_db_imp 
+        db.migration.IMPL = self.saved_db_imp 
+
+    def test_network_create_safe_defaults(self):
+        ctxt = context.get_admin_context()
+        network = db.network_create_safe(ctxt, {})
+
+        # TODO(soren): Document somewhere that this is required.
+        #              All the *_create methods return severely
+        #              amputated objects (nothing is joinedloaded)
+        network = db.network_get(ctxt, network['id'])
+
+        for key in ['label', 'cidr', 'cidr_v6', 'gateway_v6', 'netmask_v6',
+                    'netmask', 'bridge', 'bridge_interface', 'gateway',
+                    'broadcast', 'dns1', 'dns2', 'vlan', 'vpn_public_address',
+                    'vpn_public_port', 'vpn_private_address', 'dhcp_start',
+                    'project_id', 'priority', 'host']:
+            self.assertIsNone(network[key], '%s was not None by default')
+
+        for key in ['injected', 'multi_host']:
+            self.assertFalse(network[key], '%s was not False by default')
+
+        for key in ['virtual_interfaces', 'fixed_ips']:
+            self.assertTrue(len(network[key]) == 0, '%s was not of length 0 by default')
+
+    def test_network_associate(self):
+        ctxt = context.get_admin_context()
+
+        network_ids = []
+        network_ids.append(db.network_create_safe(ctxt, {})['id'])
+        network_ids.append(db.network_create_safe(ctxt, {})['id'])
+
+        network = db.network_associate(ctxt, 'fake')
+        network_ids.remove(network['id'])
+
+        self.assertEquals(db.network_associate(ctxt, 'fake')['id'],
+                          network['id'],
+                          'network_associate(..., force=False) didn\'t give '
+                          'the same network when called for a project for the '
+                          'second time.')
+
+        # Calling network_associate with force=True should associate
+        # the other network with his project_id
+        network = db.network_associate(ctxt, 'fake', force=True)
+        self.assertEquals(network['id'], network_ids[0])
+
+        # ...and finally, if there are no more networks, we should get an error
+        self.assertRaises(db.NoMoreNetworks,
+                          db.network_associate, ctxt, 'fake', force=True)
+
+
+    def test_network_get_all(self):
+        ctxt = context.get_admin_context()
+
+        self.assertRaises(exception.NoNetworksFound, db.network_get_all, ctxt)
+
+        network_ids = []
+        network_ids.append(db.network_create_safe(ctxt, {})['id'])
+        self.assertEquals(len(db.network_get_all(ctxt)), 1)
+        network_ids.append(db.network_create_safe(ctxt, {})['id'])
+        self.assertEquals(len(db.network_get_all(ctxt)), 2)
+
+        self.assertEquals(set([n['id'] for n in db.network_get_all(ctxt)]),
+                          set(network_ids))
+
+    def test_network_vif_backref(self):
+        ctxt = context.get_admin_context()
+        network = db.network_create_safe(ctxt, {})
+        inst = db.instance_create(ctxt, {})
+
+        vif = db.virtual_interface_create(ctxt, {'network_id': network['id'],
+                                                 'instance_id': inst['id']})
+
+        # Reload the network objects
+        network = db.network_get(ctxt, network['id'])
+        self.assertTrue(len(network['virtual_interfaces']) == 1)
+        self.assertEquals(network['virtual_interfaces'][0]['id'], vif['id'])
+
+    def test_network_fixed_ip_backref(self):
+        ctxt = context.get_admin_context()
+        network = db.network_create_safe(ctxt, {})
+
+        fixed_ip = db.fixed_ip_create(ctxt, {'address': '10.10.10.10',
+                                             'network_id': network['id']})
+
+        self.assertTrue(len(network['fixed_ips']) == 1)
+        self.assertEquals(network['fixed_ips'][0]['address'],
+                          fixed_ip)
+
+
+    def test_virtual_interface_create_requires_instance(self):
+        ctxt = context.get_admin_context()
+        inst = db.instance_create(ctxt, {})
+
+        # Fails without instance_id set
+        self.assertRaises(exception.DBError,
+                          db.virtual_interface_create, ctxt, {})
+
+        # Succeeds if it's added
+        db.virtual_interface_create(ctxt, {'instance_id': inst['id']})
+
+    def test_network_update(self):
+        ctxt = context.get_admin_context()
+        network = db.network_create_safe(ctxt, {'label': 'oldlabel'})
+        db.network_update(ctxt, network['id'], {'label': 'newlabel'})
+
+        network = db.network_get(ctxt, network['id'])
+        self.assertEquals(network['label'], 'newlabel')
+
+    def test_network_set_host(self):
+        ctxt = context.get_admin_context()
+        network = db.network_create_safe(ctxt, {})
+
+        db.network_set_host(ctxt, network['id'], 'somehost')
+
+        network = db.network_get(ctxt, network['id'])
+        self.assertEquals(network['host'], 'somehost')
+
+    def test_network_get_all_by_host(self):
+        ctxt = context.get_admin_context()
+
+        expected = {}
+        for host in ['hosta', 'hostb']:
+            expected[host] = []
+            for x in range(2):
+                network = db.network_create_safe(ctxt, {})
+                expected[host].append(network['id'])
+                db.network_set_host(ctxt, network['id'], host)
+                # NOTE(soren): This is only needed as long as bug 898167 exists
+                db.fixed_ip_create(ctxt, {'network_id': network['id']})
+
+        for host in ['hosta', 'hostb']:
+            actual = db.network_get_all_by_host(ctxt, host)
+            self.assertEquals(set([x['id'] for x in actual]),
+                              set(expected[host]))
+
+    def test_fixed_ip_create(self):
+        ctxt = context.get_admin_context()
+        fixed_ip = db.fixed_ip_create(ctxt, {'address': '10.10.10.10'})
+
+        self.assertEquals(type(fixed_ip), str)
+        self.assertEquals(fixed_ip, '10.10.10.10')
+
+        fixed_ip_obj = db.fixed_ip_get_by_address(ctxt, '10.10.10.10')
+        self.assertEquals(fixed_ip_obj['address'], '10.10.10.10')
+
+        fixed_ip_obj = db.fixed_ip_get(ctxt, fixed_ip_obj['id'])
+        self.assertEquals(fixed_ip_obj['address'], '10.10.10.10')
+
+    def test_fixed_ip_create_defaults(self):
+        ctxt = context.get_admin_context()
+        fixed_ip = db.fixed_ip_create(ctxt, {'address': '10.10.10.10'})
+        fixed_ip = db.fixed_ip_get_by_address(ctxt, '10.10.10.10')
+
+        for key in ['network_id', 'virtual_interface_id', 'instance_id',
+                    'network', 'virtual_interface', 'instance', 'host']:
+            self.assertIsNone(fixed_ip[key], '%s was not None by default')
+
+        for key in ['allocated', 'leased', 'reserved']:
+            self.assertFalse(fixed_ip[key], '%s was not False by default')
+
+        for key in ['floating_ips']:
+            self.assertTrue(len(fixed_ip[key]) == 0, '%s was not of length '
+                                                     '0 by default')
+
+
+class SQLAlchemyDbDriverTestCase(_DbApiTestCase):
+    def get_db_driver(self):
+        import nova.db.sqlalchemy.api
+        return nova.db.sqlalchemy.api
+
+    def get_migration_driver(self):
+        import nova.db.sqlalchemy.migration
+        return nova.db.sqlalchemy.migration
