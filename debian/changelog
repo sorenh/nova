@@ -2,7 +2,7 @@ nova (2012.1~e2-0ubuntu1) precise; urgency=low
 
   * New usptream release. Fixes the following bugs:
     (LP: #871278, #848643, #859679, #83199)
-  * debian/nova-console.intall: Fix empty package.
+  * debian/nova-console.install: Fix empty package.
   * debian/patches, debian/pydist-overrides: Cleaner way 
     of disabling unwanted python-dependencies.
   * debian/control: 
@@ -10,6 +10,8 @@ nova (2012.1~e2-0ubuntu1) precise; urgency=low
     - Update build dependencies.
   * debian/nova.conf: Use virtio networking by default.
     (LP: #904480)
+  * debian/fix-traversal-via-image-register.patch: Dropped
+    fixed upstream.
 
  -- Chuck Short <zulcss@ubuntu.com>  Fri, 16 Dec 2011 13:03:55 -0500
 
