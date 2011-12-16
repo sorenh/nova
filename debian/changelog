@@ -13,6 +13,16 @@ nova (2012.1~e2-0ubuntu1) precise; urgency=low
 
  -- Chuck Short <zulcss@ubuntu.com>  Fri, 16 Dec 2011 13:03:55 -0500
 
+nova (2012.1~e2~20111208.11721-0ubuntu3) precise; urgency=low
+
+  * SECURITY UPDATE: fix directory traversal during image registration via
+    EC2 API and S3/RegisterImage
+    - fix-traversal-via-image-register.patch: adjust nova/image/s3.py to
+      use basename instead of absolute path
+    - CVE-2011-4596
+
+ -- Jamie Strandboge <jamie@ubuntu.com>  Tue, 13 Dec 2011 08:39:13 -0600
+
 nova (2012.1~e2~20111208.11721-0ubuntu2) precise; urgency=low
 
   * Disable python-coverage as well.
