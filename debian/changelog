@@ -1,8 +1,8 @@
-nova (2012.1~e2-0ubuntu2) UNRELEASED; urgency=low
+nova (2012.1~e2-0ubuntu2) precise; urgency=low
 
   * debian/nova.conf: Fix misconfiguration. 
 
- -- Chuck Short <zulcss@ubuntu.com>  Fri, 16 Dec 2011 14:38:55 -0500
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 16 Dec 2011 16:13:46 -0500
 
 nova (2012.1~e2-0ubuntu1) precise; urgency=low
 
