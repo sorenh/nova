@@ -1,11 +1,15 @@
-nova (2012.1~e2~20111208.11721-0ubuntu1) UNRELEASED; urgency=low
+nova (2012.1~e2-0ubuntu1) UNRELEASED; urgency=low
 
-  *  New usptream release. Fixes the following bugs:
-     (LP: #871278, #848643, #859679, #83199)
-  *  debian/nova-console.intall: Fix empty package.
-  *  debian/patches, debian/pydist-overrides: Cleaner way 
-     of disabling unwanted python-dependencies.
-  *  debian/control: Suggest keystone. (LP: #901881)
+  * New usptream release. Fixes the following bugs:
+    (LP: #871278, #848643, #859679, #83199)
+  * debian/nova-console.intall: Fix empty package.
+  * debian/patches, debian/pydist-overrides: Cleaner way 
+    of disabling unwanted python-dependencies.
+  * debian/control: 
+    - Suggest keystone. (LP: #901881)
+    - Update build dependencies.
+  * debian/nova.conf: Use virtio networking by default.
+    (LP: #904480)
 
  -- Chuck Short <zulcss@ubuntu.com>  Tue, 13 Dec 2011 16:04:20 -0500
 

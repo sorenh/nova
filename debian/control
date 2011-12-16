@@ -38,6 +38,10 @@ Build-Depends-Indep:
  python-simplejson,
  python-lxml,
  python-unittest2,
+ python-daemon,
+ python-suds,
+ python-xattr,
+ python-feedparser,
  pep8
 Build-Conflicts: python-cjson
 Standards-Version: 3.9.2
@@ -76,6 +80,10 @@ Depends: ${python:Depends},
  python-novaclient,
  python-simplejson,
  python-lxml,
+ python-feedparser,
+ python-xattr,
+ python-daemon,
+ python-suds,
  sudo,
  ${misc:Depends}
 Suggests: python-suds (>= 0.4.0),
