@@ -104,6 +104,7 @@ Package: nova-common
 Architecture: all
 Depends: python-amqplib, python-nova (= ${binary:Version}), ${python:Depends}, ${misc:Depends}, adduser
 Provides: ${python:Provides}
+Suggests: python-keystone
 Description: OpenStack Compute - common files
  OpenStack is a reliable cloud infrastructure. Its mission is to produce
  the ubiquitous cloud computing platform that will meet the needs of public
