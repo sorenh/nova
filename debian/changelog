@@ -1,3 +1,125 @@
+nova (2012.1~e2-0ubuntu2) precise; urgency=low
+
+  * debian/nova.conf: Fix misconfiguration. 
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 16 Dec 2011 16:13:46 -0500
+
+nova (2012.1~e2-0ubuntu1) precise; urgency=low
+
+  * New usptream release. Fixes the following bugs:
+    (LP: #871278, #848643, #859679, #83199)
+  * debian/nova-console.install: Fix empty package.
+  * debian/patches, debian/pydist-overrides: Cleaner way 
+    of disabling unwanted python-dependencies.
+  * debian/control: 
+    - Suggest python-keystone. (LP: #901881)
+    - Update build dependencies.
+  * debian/nova.conf: Use virtio networking by default.
+    (LP: #904480)
+  * debian/fix-traversal-via-image-register.patch: Dropped
+    fixed upstream.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 16 Dec 2011 13:03:55 -0500
+
+nova (2012.1~e2~20111208.11721-0ubuntu3) precise; urgency=low
+
+  * SECURITY UPDATE: fix directory traversal during image registration via
+    EC2 API and S3/RegisterImage
+    - fix-traversal-via-image-register.patch: adjust nova/image/s3.py to
+      use basename instead of absolute path
+    - CVE-2011-4596
+
+ -- Jamie Strandboge <jamie@ubuntu.com>  Tue, 13 Dec 2011 08:39:13 -0600
+
+nova (2012.1~e2~20111208.11721-0ubuntu2) precise; urgency=low
+
+  * Disable python-coverage as well.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Mon, 12 Dec 2011 10:13:04 -0500
+
+nova (2012.1~e2~20111208.11721-0ubuntu1) precise; urgency=low
+
+  * New upstream release. 
+  * debian/control:
+    + Add python-suds as a dependency.
+  * debian/patches: Temporarily disable python-nosexcover.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 09 Dec 2011 14:24:07 -0500
+
+nova (2012.1~e2~20111202.11641-0ubuntu2) precise; urgency=low
+
+  * debian/nova.conf: Remove parameter to --force_dhcp_release 
+    (LP: #891227)
+
+ -- Adam Gandelman <adamg@canonical.com>  Fri, 02 Dec 2011 11:31:34 -0800
+
+nova (2012.1~e2~20111202.11641-0ubuntu1) precise; urgency=low
+
+  * New upstream release.
+  * debian/nova_sudoers: Clean up to remove unused programs
+    needed by root. (LP: #989583)
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 02 Dec 2011 10:56:30 -0500
+
+nova (2012.1~e2~20111125.11566-0ubuntu1) precise; urgency=low
+
+  * New upstream release. 
+  * Refreshed debian/patches/packaged-ajaxterm-calls.patch.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 25 Nov 2011 14:02:18 -0500
+
+nova (2012.1~e2~20111116.11495-0ubuntu1) precise; urgency=low
+
+  * New upstream version. 
+  * Refreshed debian/patches/packaged-ajaxterm-calls.patch.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 18 Nov 2011 09:40:58 -0500
+
+nova (2012.1~e1-0ubuntu3) precise; urgency=low
+
+  * debian/rules: Take the api-paste.ini from nova/etc.  
+
+ -- Chuck Short <zulcss@ubuntu.com>  Thu, 17 Nov 2011 14:10:03 -0500
+
+nova (2012.1~e1-0ubuntu2) precise; urgency=low
+
+  * Revert debian/nova-manage_flagfile_location.patch: It 
+    was causing more problems then it should have. (LP: #891229) 
+
+ -- Chuck Short <zulcss@ubuntu.com>  Wed, 16 Nov 2011 21:12:34 -0500
+
+nova (2012.1~e1-0ubuntu1) precise; urgency=low
+
+  * New upstream release.
+  * debian/control: Dropped python-feedparser until MIR comes through. 
+  * Synced with upstream bzr packaging.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 11 Nov 2011 09:25:25 -0500
+
+nova (2012.1~e1~20111020.11229-0ubuntu1) precise; urgency=low
+
+  * New upstream release.
+  * Dropped patches, already applied upstream:
+    - debian/patches/backport-iscsitarget-choice.patch
+    - debian/patches/backport-libvirt-console-pipe.patch
+    - debian/patches/backport-lxc-container-console-fix.patch
+    - debian/patches/backport-recreate-gateway-using-dhcp.patch
+    - debian/patches/backport-snapshot-cleanup.patch
+    - debian/patches/block-migration-needs-copy-backingfile.patch
+    - debian/patches/fix-iscsi-target-path.patch
+    - debian/patches/fix-lp838581-removed-db_pool-complexities.patch
+    - debian/patches/fix-lp863305-images-permission.patch
+    - debian/patches/fqdn-in-local-hostname-of-ec2-metadata.patch
+    - debian/patches/use-netcat-instead-of-socat.patc
+   * debian/control:
+     - Add python-feedparser as a build dependency.
+     - Bump standards version to 3.9.2
+     - Point to the essex branch.
+   * debian/patches/nova-manage_flagfile_location.patch:
+     Update patch to take in account of devstack (LP: #870405)
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 21 Oct 2011 14:37:26 -0400
+
 nova (2012.1~e1~20110909.1546-0ubuntu0) UNRELEASED; urgency=low
 
   [ Dan Prince ]
@@ -30,6 +152,146 @@ nova (2012.1~e1~20110909.1546-0ubuntu0) UNRELEASED; urgency=low
   * Add support for nova-console package.
 
  -- Monty Taylor <mordred@inaugust.com>  Fri, 30 Sep 2011 09:33:16 -0700
+
+nova (2011.3-0ubuntu6.1) oneiric-proposed; urgency=low
+
+  [Scott Moser]
+  * Removed db_pool complexities from nova.db.sqlalchemy.session (LP: #838581)
+
+  [Chuck Short]
+  * debian/patches/fix-iscsi-target-path.patch: Fix ISCSI target path patch.
+    (LP: #871278)
+  * debian/control: Either install xen-hypervisor-4.1-amd64 or 
+    xen-hypervisor-4.1-i386 for nova-compute-xen. (LP: #873243)
+
+ -- Chuck Short <zulcss@ubuntu.com>  Wed, 12 Oct 2011 14:33:25 -0400
+
+nova (2011.3-0ubuntu6) oneiric; urgency=low
+
+  * debian/patches/backport-libvirt-console-pipe.patch: 
+    - Patch updated to fix race on instance termination (LP: #868349)
+
+ -- Robie Basak <robie.basak@ubuntu.com>  Wed, 05 Oct 2011 17:37:49 +0100
+
+nova (2011.3-0ubuntu5) oneiric; urgency=low
+
+  * debian/nova-common.postinst:
+    - Set permissions recursively on /var/lib/nova to nova:nova for new
+      installations (LP: #865169).
+  * debian/patches/backport-libvirt-console-pipe.patch:
+    - Patch updated to use correct patchset from upstream - incorrect version
+      was uploaded in -0ubuntu4 (LP: #832507).
+
+ -- James Page <james.page@ubuntu.com>  Tue, 04 Oct 2011 09:43:55 +0100
+
+nova (2011.3-0ubuntu4) oneiric; urgency=low
+
+  [James Page]
+  * debian/nova-common.postinst:
+    - Exclude mounted LXC rootfs filesystems within /var/lib/nova from 
+      user/group ownership changes (LP: #861260).
+    - Ensure that primary group for 'nova' user is 'nova' so that files
+      created by this user have the correct group ownership.
+
+  [Adam Gandelman]
+  * debian/nova-common.postinst: Restrict permissions of /var/log/nova
+    (LP: #862816)
+
+  [Ante Karamatic]
+  * Add /usr/sbin/ietadm to sudoers (LP: #861547)
+  * debian/control: Fix typo in Vcs-Bzr
+
+  [Chuck Short]
+  * debian/patches/backport-libvirt-console-pipe.patch:
+    Move console.log to a ringbuffer so that the console.log
+    keeps filling up. (LP: #832507)
+  * debian/patches/backport-lxc-container-console-fix.patch:
+    Make euca-get-console-output usable for LXC containers.
+    (LP: #832159)
+  * debian/patches/backport-snapshot-cleanup.patch:
+    Enforce snapshot cleanup. (LP: #861582).
+  * debian/patches/fix-lp863305-images-permission.patch:
+    Fix image access control. (LP: #863305)
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 30 Sep 2011 15:21:56 -0400
+
+nova (2011.3-0ubuntu3) oneiric; urgency=low
+
+  [Adam Gandelman]
+  * debian/nova-common.postinst: Create 'nova' group, add user to it
+    (LP: #856530)
+  * debian/nova.conf, debian/nova-compute.upstart.in: Move reference of
+    nova-compute.conf from nova.conf to nova-compute's argv. (LP: #839796)
+
+  [Chuck Short]
+  * debian/patches/backport-recreate-gateway-using-dhcp.patch:
+    Makes sure to recreate gateway for moved ip. (LP: #859587)
+  * debian/control: Update Vcs info.
+
+  [ Scott Moser ]
+  * debian/patches/fqdn-in-local-hostname-of-ec2-metadata.patch
+    Make the 'local-hostname' in the EC2 Metadata service contain
+    the domainname also. (LP: #854614)
+
+ -- Chuck Short <zulcss@ubuntu.com>  Tue, 27 Sep 2011 14:56:59 -0400
+
+nova (2011.3-0ubuntu2) oneiric; urgency=low
+
+  [Chuck Short]
+  * debian/rules, debian/control: Use dh_python2
+  * debian/control, debian/series, 
+    debian/patches/backport-iscsitarget-choice.patch,
+    debian/nova_sudoers:
+    + Change the default from iscsitarget to tgt.
+  * debian/control, debian/series, 
+    debian/patches/use-netcat-instead-of-socat.patch,
+    debian/nova_sudoers:
+     + Change from socat to netcat.
+  * debian/patches/block-migration-needs-copy-backingfile.patch:
+    Fix block migration by needing to copy backing_file.
+  
+  [Monty Taylor]
+  * Install a new paste config to enable deprecated auth.,
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 23 Sep 2011 13:34:51 -0400
+
+nova (2011.3-0ubuntu1) oneiric; urgency=low
+
+  [Chuck Short]
+  * New upstream release.
+  * debian/control, debian/nova_sudoers:
+    + Add iputils-arping and add /usr/bin/apring.
+  * debian/nova_sudoers: Clean up missing binaries.
+
+  [Monty Taylor]
+  * debian/control:
+    + Add vlan to nova-compute
+
+ -- Chuck Short <zulcss@ubuntu.com>  Thu, 22 Sep 2011 09:33:49 -0400
+
+nova (2011.3~rc~20110920.r1192-0ubuntu2) oneiric; urgency=low
+
+  * debian/nova_sudoers:
+    + Fix typo in nova_sudoers. 
+    + Tabs vs Spaces.
+  * debian/nova.conf:
+    + Use force_dhcp_release.
+  
+ -- Chuck Short <zulcss@ubuntu.com>  Tue, 20 Sep 2011 15:44:39 -0400
+
+nova (2011.3~rc~20110920.r1192-0ubuntu1) oneiric; urgency=low
+
+  [Chuck Short]
+  * New Upstream release.
+
+  [ Monty Taylor ]
+  * Add branching logic for building on lucid. 
+ 
+  [Vish Ishaya]
+  * Add dnsmas-utils to nova-network dependencies
+  * Add dhcp_release to sudoers.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Tue, 20 Sep 2011 10:02:04 -0400
 
 nova (2011.3~rc~20110916.r1173-0ubuntu1) oneiric; urgency=low
 

@@ -3,13 +3,29 @@ Forwarded: not-needed
 Author: Soren Hansen <soren@ubuntu.com>
 Last-Update: 2011-11-18
 diff -Naurp nova-2012.1.orig/nova/virt/libvirt/utils.py nova-2012.1/nova/virt/libvirt/utils.py
+<<<<<<< TREE
 --- nova-2012.1.orig/nova/virt/libvirt/utils.py 2011-11-15 22:42:35.000000000 -0500
 +++ nova-2012.1/nova/virt/libvirt/utils.py      2011-11-18 09:34:05.550487885 -0500
 @@ -225,8 +225,7 @@ def run_ajaxterm(cmd, token, port):
+=======
+--- nova-2012.1.orig/nova/virt/libvirt/utils.py	2011-11-25 13:38:42.000000000 -0500
++++ nova-2012.1/nova/virt/libvirt/utils.py	2011-11-25 13:48:57.794804584 -0500
+@@ -225,8 +225,8 @@ def run_ajaxterm(cmd, token, port):
+>>>>>>> MERGE-SOURCE
      :param token: Token to require for authentication
      :param port: Port to run on
      """
 -    cmd = ['%s/tools/ajaxterm/ajaxterm.py' % utils.novadir(),
 -           '--command', cmd, '-t', token, '-p', port]
+<<<<<<< TREE
 +    cmd = ['ajaxterm', '--command', cmd, '-t', token, '-p', port, '-T', '300']
+=======
++    cmd = ['ajaxterm', '--command', cmd, 
++            '-t', token, '-p', port, '-T', '300']
+>>>>>>> MERGE-SOURCE
      execute(*cmd)
+<<<<<<< TREE
+=======
+ 
+ 
+>>>>>>> MERGE-SOURCE
