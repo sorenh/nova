@@ -1,7 +1,6 @@
 nova (2012.1~e2-0ubuntu3) UNRELEASED; urgency=low
 
-  * debian/control: Pull in open-iscsi-utils rather than open-iscsi
-    so we dont pull in the daemons as well. 
+  * New upstream version.
 
  -- Chuck Short <zulcss@ubuntu.com>  Mon, 19 Dec 2011 15:48:38 -0500
 
