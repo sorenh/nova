@@ -1,4 +1,11 @@
-nova (2012.1~e2-0ubuntu3) UNRELEASED; urgency=low
+nova (2012.1~e2-0ubuntu4) UNRELEASED; urgency=low
+
+  * Removed python-nova.postinst, let dh_python2 generate instead since
+    python-support is not a dependency. (LP: #907543)
+
+ -- Adam Gandelman <adamg@canonical.com>  Wed, 21 Dec 2011 15:03:31 -0800
+
+nova (2012.1~e2-0ubuntu3) precise; urgency=low
 
   * New upstream version.
 
