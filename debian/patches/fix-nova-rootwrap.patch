@@ -1,0 +1,33 @@
+From 6273bab5c1d495f16f6a21614e4590142a7dfbf5 Mon Sep 17 00:00:00 2001
+From: Chuck Short <chuck.short@canonical.com>
+Date: Wed, 4 Jan 2012 12:13:46 -0500
+Subject: [PATCH] Fix typo in nova/rootwrap/compute.py. Fixes LP: #911880
+
+Change-Id: I675c768a0d6ad3d289a888b44e52a8f9789f4a7e
+Signed-off-by: Chuck Short <chuck.short@canonical.com>
+---
+ nova/rootwrap/compute.py |    6 +++---
+ 1 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/nova/rootwrap/compute.py b/nova/rootwrap/compute.py
+index cee4cca..2028eb6 100755
+--- a/nova/rootwrap/compute.py
++++ b/nova/rootwrap/compute.py
+@@ -46,11 +46,11 @@ filters = [
+ 
+     # nova/virt/disk/guestfs.py: 'guestmount', '--rw', '-a', image, '-i'
+     # nova/virt/disk/guestfs.py: 'guestmount', '--rw', '-a', image, '-m' dev
+-    Commandfilter("/usr/bin/guestmount", "root"),
++    CommandFilter("/usr/bin/guestmount", "root"),
+ 
+     # nova/virt/disk/guestfs.py: 'fusermount', 'u', mount_dir
+-    Commandfilter("/bin/fusermount", "root"),
+-    Commandfilter("/usr/bin/fusermount", "root"),
++    CommandFilter("/bin/fusermount", "root"),
++    CommandFilter("/usr/bin/fusermount", "root"),
+ 
+     # nova/virt/disk/api.py: 'tee', metadata_path
+     # nova/virt/disk/api.py: 'tee', '-a', keyfile
+-- 
+1.7.7.3
+

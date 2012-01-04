@@ -1,8 +1,9 @@
-nova (2012.1~e2-0ubuntu4) UNRELEASED; urgency=low
+nova (2012.1~e3~20120104.11944-0ubuntu1) UNRELEASED; urgency=low
 
   [Chuck Short]
   * New upstream version.
-  * debian/nova_sudoers, debian/nova-common.install, debian/nova.conf:
+  * debian/nova_sudoers, debian/nova-common.install, 
+    debian/patches/fix-nova-rootwrap.patch, debian/nova.conf:
     Switch out to nova-rootwrap. (LP: #681774)
 
   [Adam Gandleman]
