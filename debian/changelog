@@ -1,5 +1,11 @@
 nova (2012.1~e2-0ubuntu4) UNRELEASED; urgency=low
 
+  [Chuck Short]
+  * New upstream version.
+  * debian/nova_sudoers, debian/nova-common.install, debian/nova.conf:
+    Switch out to nova-rootwrap. (LP: #681774)
+
+  [Adam Gandleman]
   * Removed python-nova.postinst, let dh_python2 generate instead since
     python-support is not a dependency. (LP: #907543)
 
