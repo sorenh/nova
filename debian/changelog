@@ -8,6 +8,8 @@ nova (2012.1~e3~20120104.11944-0ubuntu1) UNRELEASED; urgency=low
   * Add "get-origsource-git" which allows developers to 
     generate a tarball from github, by doing:
     fakeroot debian/rules get-orig-source-git
+  * debian/debian/nova-objectstore.logrotate: Dont determine
+    if we are running Debian or Ubuntu. (LP: #91379)
 
   [Adam Gandleman]
   * Removed python-nova.postinst, let dh_python2 generate instead since
