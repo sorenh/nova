@@ -34,6 +34,19 @@ endif
 get-orig-source:
 	uscan --verbose --force-download --rename --destdir=../build-area
 
+
+UPSTREAM_GIT=git://github.com/openstack/melange.git
+DEBIAN_VERSION=$(shell dpkg-parsechangelog | sed -rne 's,^Version: ([^-]+).*,\1,p')
+DEBIAN_NAME=nova
+
+get-orig-source-git:
+	git clone $(UPSTREAM_GIT) $(DEBIAN_NAME)
+	cd $(DEBIAN_NAME) ; \
+		git archive master --format=tar.gz \
+			--output=../$(DEBIAN_NAME)_$(DEBIAN_VERSION).orig.tar.gz \
+			--prefix=$(DEBIAN_NAME)-$(DEBIAN_VERSION)/
+
+
 override_dh_install:
 	dh_install
 	chmod 440 $(CURDIR)/debian/nova-common/etc/sudoers.d/nova_sudoers

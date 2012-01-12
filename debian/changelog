@@ -5,6 +5,9 @@ nova (2012.1~e3~20120104.11944-0ubuntu1) UNRELEASED; urgency=low
   * debian/nova_sudoers, debian/nova-common.install, 
     debian/patches/fix-nova-rootwrap.patch, debian/nova.conf:
     Switch out to nova-rootwrap. (LP: #681774)
+  * Add "get-origsource-git" which allows developers to 
+    generate a tarball from github, by doing:
+    fakeroot debian/rules get-orig-source-git
 
   [Adam Gandleman]
   * Removed python-nova.postinst, let dh_python2 generate instead since
