@@ -1,4 +1,4 @@
-nova (2012.1~e3~20120104.11944-0ubuntu1) UNRELEASED; urgency=low
+nova (2012.1~e3~20120113.12049-0ubuntu1) precise; urgency=low
 
   [Chuck Short]
   * New upstream version.
@@ -15,13 +15,15 @@ nova (2012.1~e3~20120104.11944-0ubuntu1) UNRELEASED; urgency=low
   * Removed python-nova.postinst, let dh_python2 generate instead since
     python-support is not a dependency. (LP: #907543)
 
- -- Adam Gandelman <adamg@canonical.com>  Wed, 21 Dec 2011 15:03:31 -0800
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 13 Jan 2012 09:51:10 +0100
 
-nova (2012.1~e2-0ubuntu3) precise; urgency=low
+nova (2012.1~e2-0ubuntu4) precise; urgency=low
 
-  * New upstream version.
+  * SECURITY UPDATE: fix tenant bypass by authenticated users via OpenStack
+    API (LP: #904072)
+    - CVE-2012-XXXX
 
- -- Chuck Short <zulcss@ubuntu.com>  Mon, 19 Dec 2011 15:48:38 -0500
+ -- Jamie Strandboge <jamie@ubuntu.com>  Thu, 05 Jan 2012 08:58:46 -0600
 
 nova (2012.1~e2-0ubuntu2) precise; urgency=low
 
