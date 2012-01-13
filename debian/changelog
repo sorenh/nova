@@ -3,7 +3,6 @@ nova (2012.1~e3~20120113.12049-0ubuntu1) precise; urgency=low
   [Chuck Short]
   * New upstream version.
   * debian/nova_sudoers, debian/nova-common.install, 
-    debian/patches/fix-nova-rootwrap.patch, debian/nova.conf:
     Switch out to nova-rootwrap. (LP: #681774)
   * Add "get-origsource-git" which allows developers to 
     generate a tarball from github, by doing:
